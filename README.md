@@ -10,15 +10,25 @@ The goal of this project is to build a simple, private and secure way to store s
 
 ## ✨ Features
 
-* 🔑 Generate encryption keys
-* 🔐 Encrypt and decrypt sensitive data
-* 💾 Local storage
-* 🗄️ SQLite database support *(planned)*
-* 🛡️ Master password *(planned)*
-* 🔎 Search stored secrets *(planned)*
-* 🔒 Automatic vault locking *(planned)*
-* 🌐 Local API *(planned)*
-* 🖥️ Web interface *(planned)*
+### Currently available
+
+* 🔑 Generate Fernet encryption keys
+* 🔐 Encrypt passwords using Fernet
+* 💾 Store encrypted passwords locally
+* 🌐 Store the website associated with a password
+* 🖥️ Simple CLI interface
+
+### Planned
+
+* 🔓 Decrypt and retrieve passwords
+* 🗄️ SQLite database
+* 🔑 Master password
+* 🔒 Vault locking
+* 🔎 Search stored passwords
+* 🗑️ Delete passwords
+* 🌐 Local API
+* 🖥️ Web interface
+* 🧪 Complete test suite
 
 ---
 
@@ -40,32 +50,9 @@ Instead of only following tutorials, I want to build the project myself, encount
 
 ---
 
-## 🏗️ Project Structure
-
-The project is still evolving, but the goal is to have a structure similar to:
-
-```text
-PyVault/
-│
-├── pyvault/
-│   ├── crypto/
-│   ├── database/
-│   ├── core/
-│   └── cli/
-│
-├── tests/
-│
-├── docs/
-│
-├── .gitignore
-├── LICENSE
-├── README.md
-└── requirements.txt
-```
-
----
-
 ## 🏗️ Architecture
+
+The architecture below shows both the **current project** and the features planned for the future.
 
 ```mermaid
 flowchart TD
@@ -73,79 +60,131 @@ flowchart TD
 
     PyVault["🔐 PyVault"]
 
-    CLI["🖥️ CLI"]
-    Core["⚙️ Core"]
-    Crypto["🔒 Crypto"]
-    Database["🗄️ Database"]
-    API["🌐 API"]
-    Tests["🧪 Tests"]
+    CLI["🖥️ CLI<br/>CURRENT"]
 
-    Commands["Commands"]
-    Prompts["Prompts"]
+    GenerateKey["🔑 Generate Key<br/>CURRENT"]
+    AddPassword["🔐 Add Password<br/>CURRENT"]
 
-    Vault["Vault"]
-    Config["Config"]
+    Fernet["🔒 Fernet Encryption<br/>CURRENT"]
+    KeyFile["📄 key.txt<br/>CURRENT"]
+    EncryptedFile["📄 encrypted.txt<br/>CURRENT"]
 
-    Fernet["Fernet"]
-    KeyManagement["Key Management"]
+    Decrypt["🔓 Decrypt Password<br/>PLANNED"]
+    Search["🔎 Search Passwords<br/>PLANNED"]
+    Delete["🗑️ Delete Password<br/>PLANNED"]
 
-    SQLite["SQLite"]
-    Models["Models"]
+    MasterPassword["🔑 Master Password<br/>PLANNED"]
+    Vault["🔐 Vault System<br/>PLANNED"]
+    SQLite["🗄️ SQLite Database<br/>PLANNED"]
 
-    FastAPI["FastAPI"]
-    Auth["Authentication"]
+    API["🌐 Local API<br/>PLANNED"]
+    FastAPI["⚡ FastAPI<br/>PLANNED"]
 
-    UnitTests["Unit Tests"]
-    SecurityTests["Security Tests"]
+    Web["🖥️ Web Interface<br/>PLANNED"]
+
+    Tests["🧪 Tests<br/>PLANNED"]
 
     User --> PyVault
 
     PyVault --> CLI
-    PyVault --> Core
-    PyVault --> Crypto
-    PyVault --> Database
-    PyVault --> API
-    PyVault --> Tests
 
-    CLI --> Commands
-    CLI --> Prompts
+    CLI --> GenerateKey
+    CLI --> AddPassword
 
-    Core --> Vault
-    Core --> Config
+    GenerateKey --> Fernet
+    GenerateKey --> KeyFile
 
-    Crypto --> Fernet
-    Crypto --> KeyManagement
+    AddPassword --> Fernet
+    Fernet --> EncryptedFile
 
-    Database --> SQLite
-    Database --> Models
+    CLI -.-> Decrypt
+    CLI -.-> Search
+    CLI -.-> Delete
 
-    API --> FastAPI
-    API --> Auth
+    Decrypt -.-> EncryptedFile
+    Search -.-> SQLite
+    Delete -.-> SQLite
 
-    Tests --> UnitTests
-    Tests --> SecurityTests
+    MasterPassword -.-> Vault
+    Vault -.-> SQLite
 
-    Crypto --> Database
+    API -.-> FastAPI
+    FastAPI -.-> Vault
+
+    Web -.-> API
+
+    Tests -.-> PyVault
 ```
 
+**CURRENT** = already implemented
+
+**PLANNED** = planned for a future version
 
 ---
 
-## 🔐 Cryptography
+## 📁 Current Project Structure
 
-PyVault uses the [`cryptography`](https://cryptography.io/) Python library.
+```text
+PyVault/
+│
+├── commands/
+│   ├── add.py
+│   └── generate_key.py
+│
+├── system_info/
+│   └── ...
+│
+├── main.py
+├── key.txt
+├── encrypted.txt
+├── requirements.txt
+├── .gitignore
+├── LICENSE
+└── README.md
+```
 
-For the current prototype, encryption keys are generated using Fernet:
+---
+
+## 🔐 Current Encryption System
+
+PyVault currently uses **Fernet** from the `cryptography` library.
+
+A key is generated with:
 
 ```python
-from cryptography.fernet import Fernet
-
 key = Fernet.generate_key()
 ```
 
-The project does **not** attempt to implement its own cryptographic algorithm.
+The key is currently stored locally in:
 
-Using established cryptographic primitives is important because implementing cryptography incorrectly can make an application insecure.
+```text
+key.txt
+```
+
+When adding a password, PyVault encrypts it before storing it:
+
+```python
+fernet = Fernet(key.encode())
+
+encrypted = fernet.encrypt(passwd.encode())
+```
+
+The encrypted password is then stored in:
+
+```text
+encrypted.txt
+```
+
+Example:
+
+```text
+github.com
+gAAAAAB...
+```
+
+The password itself is **not stored directly** in the file.
+
+> ⚠️ This is an early prototype. The current key management system is not considered secure enough for production use.
 
 ---
 
@@ -174,7 +213,7 @@ python3 -m venv .venv
 source .venv/bin/activate
 ```
 
-Install the dependencies:
+Install dependencies:
 
 ```bash
 pip install -r requirements.txt
@@ -184,84 +223,116 @@ pip install -r requirements.txt
 
 ## ▶️ Usage
 
-The current prototype can generate an encryption key:
+Start PyVault:
 
 ```bash
 python main.py
 ```
 
-A `key.txt` file will be created locally.
-
-Example:
+You will currently see:
 
 ```text
-Your key is already in key.txt
+0. [Generate Key (Obliged)]
+1. [Add Password]
+
+Choices :
 ```
 
-### ⚠️ Never share your encryption key
+### Generate a key
 
-Your `key.txt` file should **never** be uploaded to GitHub or shared with anyone.
+Choose:
 
-Make sure it is included in `.gitignore`:
+```text
+0
+```
 
-```gitignore
+PyVault will generate a Fernet key and save it to:
+
+```text
 key.txt
-.venv/
-__pycache__/
-*.pyc
+```
+
+### Add a password
+
+Choose:
+
+```text
+1
+```
+
+PyVault will ask for:
+
+```text
+Enter your key please thanks... :
+Enter link your website Example (github.com) :
+Enter your password :
+```
+
+The password will then be encrypted and stored in:
+
+```text
+encrypted.txt
 ```
 
 ---
 
 ## 🛠️ Roadmap
 
-PyVault is being developed progressively.
-
 ### Phase 1 — Prototype
 
 * [x] Generate Fernet key
 * [x] Save key locally
-* [ ] Load existing key
-* [ ] Encrypt data
-* [ ] Decrypt data
+* [x] Encrypt passwords
+* [x] Save encrypted passwords
+* [x] Store website information
+* [x] Basic CLI
 
 ### Phase 2 — Vault
 
-* [ ] Create vault
+* [ ] Load existing key automatically
+* [ ] Decrypt passwords
+* [ ] Retrieve saved passwords
+* [ ] Search passwords
+* [ ] Delete passwords
+* [ ] Better data structure
+
+### Phase 3 — Security
+
 * [ ] Master password
-* [ ] Store credentials
-* [ ] Delete credentials
-* [ ] Search credentials
-* [ ] List credentials
-
-### Phase 3 — Database
-
-* [ ] SQLite integration
-* [ ] Encrypted database fields
-* [ ] Database migrations
-* [ ] Data validation
-
-### Phase 4 — Security
-
-* [ ] Failed login protection
+* [ ] Better key management
 * [ ] Vault locking
-* [ ] Secure key management
+* [ ] Failed attempt protection
 * [ ] Security tests
 * [ ] Threat model
 
+### Phase 4 — Database
+
+* [ ] SQLite
+* [ ] Database models
+* [ ] Encrypted database fields
+* [ ] Data validation
+* [ ] Database migrations
+
 ### Phase 5 — API
 
-* [ ] Local FastAPI server
+* [ ] Local API
+* [ ] FastAPI
 * [ ] Authentication
 * [ ] API documentation
-* [ ] Web interface
 
-### Phase 6 — Open Source
+### Phase 6 — Interface
+
+* [ ] Web interface
+* [ ] Vault dashboard
+* [ ] Password manager UI
+* [ ] API integration
+
+### Phase 7 — Open Source
 
 * [ ] Complete documentation
 * [ ] Automated tests
 * [ ] CI/CD
-* [ ] Security audit
+* [ ] Security review
 * [ ] PyPI package
 
 ---
@@ -278,6 +349,8 @@ The documentation will cover:
 Idea
   ↓
 First prototype
+  ↓
+Encryption
   ↓
 Problems
   ↓
@@ -302,7 +375,7 @@ The objective is to show what I learned, what went wrong and how the project evo
 
 PyVault is currently an experimental project.
 
-Things can change significantly during development.
+The project is actively being developed and its architecture may change significantly.
 
 ---
 
