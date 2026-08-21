@@ -22,3 +22,15 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 
 """
+from pathlib import Path
+
+def list() -> str:
+    dossier = Path("./secret")
+
+    for chemin in dossier.iterdir():
+        if chemin.is_file():
+            print(chemin.name)
+            return chemin.name
+
+if __name__ == "__main__":
+    list()

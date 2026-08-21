@@ -33,6 +33,7 @@ Import  All Commands ;-;
 
 from commands.generate_key import generate_key
 from commands.add import add_passwd
+from commands.list import list
 
 def main() -> str:
     cli = input("""
@@ -47,6 +48,7 @@ def main() -> str:
 
     0. [Generate Key (Obliged)]
     1. [Add Password]
+    2. [List Pwd]
     
     Choices : """)
 
@@ -55,6 +57,9 @@ def main() -> str:
 
     if cli == "1":
         add_passwd()
+
+    if cli == "2":
+        list()
 
 if __name__ == "__main__":
     main()

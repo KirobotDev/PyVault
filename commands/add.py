@@ -33,7 +33,7 @@ from system_info import sys
 def add_passwd() -> str: 
     key = input("Enter yout key please thanks... : ")
     sys()
-    website = input("Enter link your website Example (github.com) : ")
+    website = input("Enter name your website Example (github) : ")
     sys()
     add = input("Enter your password : ")
 
@@ -45,7 +45,7 @@ def add_passwd() -> str:
         encrypted = fernet.encrypt(passwd.encode())
         print(f"Mot de passe chiffré : {encrypted}")
 
-        with open("encrypted.txt", "a", encoding="utf-8") as f:
+        with open(f"./secret/{website}.txt", "a", encoding="utf-8") as f:
             f.write(f"{website}\n{encrypted.decode()}\n")
 
     except Exception as e:
