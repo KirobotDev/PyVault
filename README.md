@@ -13,19 +13,20 @@ The goal of this project is to build a simple, private and secure way to store s
 ### Currently available
 
 * 🔑 Generate Fernet encryption keys
-* 🔐 Encrypt passwords using Fernet
-* 💾 Store encrypted passwords locally
-* 🌐 Store the website associated with a password
+* 🔐 Encrypt and store passwords using Fernet
+* 💾 Store each password in a dedicated file per website
+* 🔓 Decrypt and retrieve stored passwords
+* 📋 List all saved entries
 * 🖥️ Simple CLI interface
 
 ### Planned
 
-* 🔓 Decrypt and retrieve passwords
+* 🔎 Search stored passwords
+* 🗑️ Delete passwords
+* 📤 Export passwords
 * 🗄️ SQLite database
 * 🔑 Master password
 * 🔒 Vault locking
-* 🔎 Search stored passwords
-* 🗑️ Delete passwords
 * 🌐 Local API
 * 🖥️ Web interface
 * 🧪 Complete test suite
@@ -64,14 +65,16 @@ flowchart TD
 
     GenerateKey["🔑 Generate Key<br/>CURRENT"]
     AddPassword["🔐 Add Password<br/>CURRENT"]
+    ListPasswords["📋 List Passwords<br/>CURRENT"]
+    DecryptPassword["🔓 Decrypt Password<br/>CURRENT"]
 
     Fernet["🔒 Fernet Encryption<br/>CURRENT"]
     KeyFile["📄 key.txt<br/>CURRENT"]
-    EncryptedFile["📄 encrypted.txt<br/>CURRENT"]
+    SecretFolder["📁 secret/<br/>CURRENT"]
 
-    Decrypt["🔓 Decrypt Password<br/>PLANNED"]
     Search["🔎 Search Passwords<br/>PLANNED"]
     Delete["🗑️ Delete Password<br/>PLANNED"]
+    Export["📤 Export Passwords<br/>PLANNED"]
 
     MasterPassword["🔑 Master Password<br/>PLANNED"]
     Vault["🔐 Vault System<br/>PLANNED"]
@@ -90,18 +93,22 @@ flowchart TD
 
     CLI --> GenerateKey
     CLI --> AddPassword
+    CLI --> ListPasswords
+    CLI --> DecryptPassword
 
     GenerateKey --> Fernet
     GenerateKey --> KeyFile
 
     AddPassword --> Fernet
-    Fernet --> EncryptedFile
+    Fernet --> SecretFolder
 
-    CLI -.-> Decrypt
+    DecryptPassword --> SecretFolder
+    ListPasswords --> SecretFolder
+
     CLI -.-> Search
     CLI -.-> Delete
+    CLI -.-> Export
 
-    Decrypt -.-> EncryptedFile
     Search -.-> SQLite
     Delete -.-> SQLite
 
@@ -129,15 +136,18 @@ PyVault/
 │
 ├── commands/
 │   ├── add.py
-│   └── generate_key.py
+│   ├── decrypt.py
+│   ├── delete.py        ← stub (planned)
+│   ├── export.py        ← stub (planned)
+│   ├── generate_key.py
+│   ├── list.py
+│   └── search.py        ← stub (planned)
 │
-├── system_info/
-│   └── ...
+├── secret/              ← stores encrypted password files
 │
 ├── main.py
+├── system_info.py
 ├── key.txt
-├── encrypted.txt
-├── requirements.txt
 ├── .gitignore
 ├── LICENSE
 └── README.md
@@ -169,16 +179,16 @@ fernet = Fernet(key.encode())
 encrypted = fernet.encrypt(passwd.encode())
 ```
 
-The encrypted password is then stored in:
+The encrypted password is then stored in a dedicated file inside the `secret/` folder, one file per website:
 
 ```text
-encrypted.txt
+secret/
+└── github.txt
 ```
 
-Example:
+Example content of `secret/github.txt`:
 
 ```text
-github.com
 gAAAAAB...
 ```
 
@@ -229,11 +239,13 @@ Start PyVault:
 python main.py
 ```
 
-You will currently see:
+You will see:
 
 ```text
-0. [Generate Key (Obliged)]
+    0. [Generate Key (Obliged)]
 1. [Add Password]
+2. [List Pswd]
+3. [Decrypt Pswd]
 
 Choices :
 ```
@@ -263,15 +275,46 @@ Choose:
 PyVault will ask for:
 
 ```text
-Enter your key please thanks... :
-Enter link your website Example (github.com) :
+Enter yout key please thanks... :
+Enter name your website Example (github) :
 Enter your password :
 ```
 
-The password will then be encrypted and stored in:
+The password will be encrypted and stored in:
 
 ```text
-encrypted.txt
+secret/<website>.txt
+```
+
+### List saved entries
+
+Choose:
+
+```text
+2
+```
+
+PyVault will display all files stored in the `secret/` folder (one per website).
+
+### Decrypt a password
+
+Choose:
+
+```text
+3
+```
+
+PyVault will ask for:
+
+```text
+Enter your key :
+Donne le nom du fichier example (github.txt) :
+```
+
+It will then display:
+
+```text
+Your Password is [ your_password_here ]
 ```
 
 ---
@@ -283,17 +326,18 @@ encrypted.txt
 * [x] Generate Fernet key
 * [x] Save key locally
 * [x] Encrypt passwords
-* [x] Save encrypted passwords
+* [x] Save encrypted passwords (one file per website in `secret/`)
 * [x] Store website information
 * [x] Basic CLI
+* [x] Decrypt passwords
+* [x] List saved entries
 
 ### Phase 2 — Vault
 
-* [ ] Load existing key automatically
-* [ ] Decrypt passwords
-* [ ] Retrieve saved passwords
 * [ ] Search passwords
 * [ ] Delete passwords
+* [ ] Export passwords
+* [ ] Load existing key automatically
 * [ ] Better data structure
 
 ### Phase 3 — Security
@@ -371,7 +415,7 @@ The objective is to show what I learned, what went wrong and how the project evo
 
 ## 🧪 Status
 
-**Current version:** `0.1.0-dev`
+**Current version:** `0.2.0-dev`
 
 PyVault is currently an experimental project.
 
