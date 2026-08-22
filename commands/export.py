@@ -21,10 +21,12 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 
---------------------------------------------------------------------------------------------------
-
-I plan to venture into exporting soon; it is a major undertaking that I am seriously considering.
-
---------------------------------------------------------------------------------------------------
-
 """
+from system_info import sys
+import shutil
+
+def export() -> zip:
+    shutil.make_archive("export", "zip", "./secret")
+
+if __name__ == "__main__":
+    export()

@@ -35,36 +35,41 @@ from commands.generate_key import generate_key
 from commands.add import add_passwd
 from commands.list import list
 from commands.decrypt import decrypt
+from commands.export import export
 
 def main() -> str:
-    cli = input("""
-        ▄▄▄▄▄▄     ▄▄▄                ▄▄     
-      █▀██▀▀▀█▄  █▀██  ██▀▀           ██ █▄ 
-        ██▄▄▄█▀    ██  ██             ██▄██▄
-        ██▀▀▀██ ██ ██  ██ ▄▀▀█▄ ██ ██ ██ ██ 
-      ▄ ██   ██▄██ ██▄ ██ ▄█▀██ ██ ██ ██ ██ 
+    while True:
+        cli = input("""
+        ▄▄▄▄▄▄     ▄▄▄                 ▄▄     
+       █▀██▀▀▀█▄  █▀██  ██▀▀           ██ █▄ 
+         ██▄▄▄█▀    ██  ██             ██▄██▄
+         ██▀▀▀██ ██ ██  ██ ▄▀▀█▄ ██ ██ ██ ██ 
+       ▄ ██   ██▄██ ██▄ ██ ▄█▀██ ██ ██ ██ ██ 
        ▀██▀  ▄▄▀██▀  ▀███▀▄▀█▄██▄▀██▀█▄██▄██ 
                 ██                           
                 ▀▀▀           
 
-            0. [Generate Key (Obliged)]
-    1. [Add Password]
-    2. [List Pswd]
-    3. [Decrypt Pswd]
+                0. [Generate Key (Obliged)]
+        1. [Add Password]   4. [Export (Zipfiles)]
+        2. [List Pswd]
+        3. [Decrypt Pswd]
 
-    Choices : """)
+        Choices : """)
 
-    if cli == "0":
-        generate_key()
+        if cli == "0":
+            generate_key()
 
-    if cli == "1":
-        add_passwd()
+        if cli == "1":
+            add_passwd()
 
-    if cli == "2":
-        list()
+        if cli == "2":
+            list()
 
-    if cli == "3":
-        decrypt()
+        if cli == "3":
+            decrypt()
+
+        if cli == "4":
+            export()
 
 if __name__ == "__main__":
     main()  
