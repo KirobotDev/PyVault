@@ -21,6 +21,7 @@ The goal of this project is to build a simple, private and secure way to store s
 * 🗑️ Delete passwords
 * 📤 Export passwords
 * 🖥️ Simple CLI interface
+* 🧪 Unit tests
 
 ### Planned
 
@@ -29,7 +30,6 @@ The goal of this project is to build a simple, private and secure way to store s
 * 🔒 Vault locking
 * 🌐 Local API
 * 🖥️ Web interface
-* 🧪 Complete test suite
 
 ---
 
@@ -75,6 +75,7 @@ flowchart TD
     Search["🔎 Search Passwords<br/>CURRENT"]
     Delete["🗑️ Delete Password<br/>CURRENT"]
     Export["📤 Export Passwords<br/>CURRENT"]
+    Tests["🧪 Unit Tests<br/>CURRENT"]
 
     MasterPassword["🔑 Master Password<br/>PLANNED"]
     Vault["🔐 Vault System<br/>PLANNED"]
@@ -84,8 +85,6 @@ flowchart TD
     FastAPI["⚡ FastAPI<br/>PLANNED"]
 
     Web["🖥️ Web Interface<br/>PLANNED"]
-
-    Tests["🧪 Tests<br/>PLANNED"]
 
     User --> PyVault
 
@@ -144,6 +143,8 @@ PyVault/
 │   └── search.py
 │
 ├── secret/              ← stores encrypted password files
+│
+├── tests/                ← unit tests
 │
 ├── main.py
 ├── system_info.py
@@ -242,7 +243,7 @@ python main.py
 You will see:
 
 ```text
-        0. [Generate Key (Obliged)]     Q. [Leave]
+S. [Stars Project]      0. [Generate Key (Obliged)]     Q. [Leave]
         
         1. [Add Password]   4. [Export (Zipfiles)]
         2. [List Pswd]      5. [Delete Passwd]
@@ -320,6 +321,16 @@ Your Password is [ your_password_here ]
 
 ---
 
+## 🧪 Running Tests
+
+Unit tests are available in the `tests/` folder.
+
+```bash
+python -m unittest discover tests
+```
+
+---
+
 ## 🛠️ Roadmap
 
 ### Phase 1 — Prototype
@@ -347,7 +358,7 @@ Your Password is [ your_password_here ]
 * [ ] Better key management
 * [ ] Vault locking
 * [ ] Failed attempt protection
-* [ ] Security tests
+* [x] Security tests
 * [ ] Threat model
 
 ### Phase 4 — Database
@@ -375,7 +386,7 @@ Your Password is [ your_password_here ]
 ### Phase 7 — Open Source
 
 * [ ] Complete documentation
-* [ ] Automated tests
+* [x] Automated tests
 * [ ] CI/CD
 * [ ] Security review
 * [ ] PyPI package

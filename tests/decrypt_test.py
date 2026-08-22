@@ -26,30 +26,33 @@ SOFTWARE.
 from cryptography.fernet import Fernet
 from system_info import sys
 
-def add_passwd() -> str:
-    key = input("Enter yout key please thanks... : ")
-    sys()
-    website = input("Enter name your website Example (github) : ")
-    sys()
-    add = input("Enter your password : ")
-    sys()
+"""
+- All information is a for test
 
+- D'ont use key & password
+
+- Thanks.
+"""
+
+
+def decrypt() -> str | int | bool:
+    sys()
+    key = "Hli06nYKVJ2jVTIfgOko9RCgpRv6h1KsJpQGKlUJ_14="
+    cipher = Fernet(key)
+    sys()
+    name = "test_unitary.txt"
+    sys()
     try:
-        passwd = add
+        with open(f"./test_unitary/{name}", "rb") as file:
+            content = file.read()
 
-        fernet = Fernet(key.encode())
-
-        encrypted = fernet.encrypt(passwd.encode())
-        print(f"Mot de passe chiffré : {encrypted}")
-
-        with open(f"./secret/{website}.txt", "a", encoding="utf-8") as f:
-            f.write(f"{encrypted.decode()}\n")
-
-        return passwd
-    
+        decrypt_passwd = cipher.decrypt(content)
+        print(f"Your Password is [ {decrypt_passwd.decode()} ]")
+        sys()
+        return decrypt_passwd.decode()
     except Exception as e:
         print(f"Error {e}")
         return ""
 
 if __name__ == "__main__":
-    add_passwd()
+    decrypt()

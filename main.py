@@ -45,7 +45,21 @@ from commands.export import export
 from commands.delete import delete
 from commands.search import search
 
+"""
+Import All test unitary
+"""
+
+from tests.add_test import add_passwd
+from tests.decrypt_test import decrypt
+
+def test_unitary() -> str:
+    add_passwd()
+    decrypt()
+
 def main() -> str | int:
+
+    test_unitary()
+
     while True:
         cli = input("""
         ▄▄▄▄▄▄     ▄▄▄                 ▄▄     
