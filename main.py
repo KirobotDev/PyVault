@@ -24,6 +24,7 @@ SOFTWARE.
 """
 
 import time
+import webbrowser
 from cryptography.fernet import Fernet
 
 """
@@ -44,7 +45,7 @@ from commands.export import export
 from commands.delete import delete
 from commands.search import search
 
-def main() -> str:
+def main() -> str | int:
     while True:
         cli = input("""
         ▄▄▄▄▄▄     ▄▄▄                 ▄▄     
@@ -56,7 +57,8 @@ def main() -> str:
                 ██                           
                 ▀▀▀           
 
-                0. [Generate Key (Obliged)]     Q. [Leave]
+S. [Stars Project]          0. [Generate Key (Obliged)]     Q. [Leave]
+        
         1. [Add Password]   4. [Export (Zipfiles)]
         2. [List Pswd]      5. [Delete Passwd]
         3. [Decrypt Pswd]   6. [Search Website]
@@ -98,6 +100,10 @@ def main() -> str:
         elif cli == "6":
             search()
             time.sleep(2)
+            sys()
+
+        elif cli.lower() == "s":
+            webbrowser.open_new_tab("https://github.com/KirobotDev/PyVault")
             sys()
 
         elif cli.lower() == "q":
