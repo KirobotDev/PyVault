@@ -23,7 +23,7 @@ SOFTWARE.
 
 """
 
-import os
+import time
 from cryptography.fernet import Fernet
 
 """
@@ -42,6 +42,7 @@ from commands.list import list
 from commands.decrypt import decrypt
 from commands.export import export
 from commands.delete import delete
+from commands.search import search
 
 def main() -> str:
     while True:
@@ -58,7 +59,7 @@ def main() -> str:
                 0. [Generate Key (Obliged)]     Q. [Leave]
         1. [Add Password]   4. [Export (Zipfiles)]
         2. [List Pswd]      5. [Delete Passwd]
-        3. [Decrypt Pswd]
+        3. [Decrypt Pswd]   6. [Search Website]
 
         Choices : """)
         sys()
@@ -66,30 +67,45 @@ def main() -> str:
 
         if cli == "0":
             generate_key()
+            time.sleep(2)
             sys()
 
         elif cli == "1":
             add_passwd()
+            time.sleep(2)
             sys()
             
         elif cli == "2":
             list()
+            time.sleep(2)
             sys()
 
         elif cli == "3":
             decrypt()
+            time.sleep(2)
             sys()
 
         elif cli == "4":
             export()
+            time.sleep(2)
             sys()
 
         elif cli == "5":
             delete()
+            time.sleep(2)
+            sys()
+
+        elif cli == "6":
+            search()
+            time.sleep(2)
             sys()
 
         elif cli.lower() == "q":
             break
 
+        else:
+            print("That choice doesn't exist. Check the code on https://github.com/KirobotDev/PyVault, or suggest a change at https://github.com/KirobotDev/PyVault/issues.")
+            time.sleep(2)
+
 if __name__ == "__main__":
-    main()  
+    main()

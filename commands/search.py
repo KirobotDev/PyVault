@@ -22,3 +22,25 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 
 """
+
+"""
+I tried to place the `return` statements and everything correctly for testing purposes; I can't guarantee it's done right, though, since I rarely use `return`.
+"""
+
+from pathlib import Path
+
+def search() -> str:
+    dossier = Path("./secret")
+    paths = input("Enter name your file : ")
+    result = list(dossier.rglob(paths))
+
+    try:
+        for chemin in result:
+            print(chemin)
+            return chemin
+    except Exception as e:
+        print(f"Error {e}")
+        return ""
+
+if __name__ == "__main__":
+    list()
