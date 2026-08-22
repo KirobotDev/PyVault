@@ -22,3 +22,16 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 
 """
+
+from system_info import sys
+import os
+
+def delete() -> None:
+    files = input("Enter your name fichier delete juste name not extention : ")
+    paths = f"./secret/{files}.txt"
+    os.remove(paths)
+    sys()
+    print("Delete Succes")
+
+if __name__ == "__main__":
+    delete()

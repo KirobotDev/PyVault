@@ -26,6 +26,11 @@ SOFTWARE.
 import os
 from cryptography.fernet import Fernet
 
+"""
+Import Système function
+"""
+
+from system_info import sys
 
 """
 Import  All Commands ;-;
@@ -36,6 +41,7 @@ from commands.add import add_passwd
 from commands.list import list
 from commands.decrypt import decrypt
 from commands.export import export
+from commands.delete import delete
 
 def main() -> str:
     while True:
@@ -49,27 +55,41 @@ def main() -> str:
                 ██                           
                 ▀▀▀           
 
-                0. [Generate Key (Obliged)]
+                0. [Generate Key (Obliged)]     Q. [Leave]
         1. [Add Password]   4. [Export (Zipfiles)]
-        2. [List Pswd]
+        2. [List Pswd]      5. [Delete Passwd]
         3. [Decrypt Pswd]
 
         Choices : """)
+        sys()
+
 
         if cli == "0":
             generate_key()
+            sys()
 
-        if cli == "1":
+        elif cli == "1":
             add_passwd()
-
-        if cli == "2":
+            sys()
+            
+        elif cli == "2":
             list()
+            sys()
 
-        if cli == "3":
+        elif cli == "3":
             decrypt()
+            sys()
 
-        if cli == "4":
+        elif cli == "4":
             export()
+            sys()
+
+        elif cli == "5":
+            delete()
+            sys()
+
+        elif cli.lower() == "q":
+            break
 
 if __name__ == "__main__":
     main()  
