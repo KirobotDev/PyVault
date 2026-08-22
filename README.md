@@ -17,13 +17,13 @@ The goal of this project is to build a simple, private and secure way to store s
 * 💾 Store each password in a dedicated file per website
 * 🔓 Decrypt and retrieve stored passwords
 * 📋 List all saved entries
+* 🔎 Search stored passwords
+* 🗑️ Delete passwords
+* 📤 Export passwords
 * 🖥️ Simple CLI interface
 
 ### Planned
 
-* 🔎 Search stored passwords
-* 🗑️ Delete passwords
-* 📤 Export passwords
 * 🗄️ SQLite database
 * 🔑 Master password
 * 🔒 Vault locking
@@ -72,9 +72,9 @@ flowchart TD
     KeyFile["📄 key.txt<br/>CURRENT"]
     SecretFolder["📁 secret/<br/>CURRENT"]
 
-    Search["🔎 Search Passwords<br/>PLANNED"]
-    Delete["🗑️ Delete Password<br/>PLANNED"]
-    Export["📤 Export Passwords<br/>PLANNED"]
+    Search["🔎 Search Passwords<br/>CURRENT"]
+    Delete["🗑️ Delete Password<br/>CURRENT"]
+    Export["📤 Export Passwords<br/>CURRENT"]
 
     MasterPassword["🔑 Master Password<br/>PLANNED"]
     Vault["🔐 Vault System<br/>PLANNED"]
@@ -105,9 +105,9 @@ flowchart TD
     DecryptPassword --> SecretFolder
     ListPasswords --> SecretFolder
 
-    CLI -.-> Search
-    CLI -.-> Delete
-    CLI -.-> Export
+    CLI --> Search
+    CLI --> Delete
+    CLI --> Export
 
     Search -.-> SQLite
     Delete -.-> SQLite
@@ -137,11 +137,11 @@ PyVault/
 ├── commands/
 │   ├── add.py
 │   ├── decrypt.py
-│   ├── delete.py        ← stub (planned)
-│   ├── export.py        ← stub (planned)
+│   ├── delete.py
+│   ├── export.py
 │   ├── generate_key.py
 │   ├── list.py
-│   └── search.py        ← stub (planned)
+│   └── search.py
 │
 ├── secret/              ← stores encrypted password files
 │
@@ -242,12 +242,13 @@ python main.py
 You will see:
 
 ```text
-    0. [Generate Key (Obliged)]
-1. [Add Password]
-2. [List Pswd]
-3. [Decrypt Pswd]
+        0. [Generate Key (Obliged)]     Q. [Leave]
+        
+        1. [Add Password]   4. [Export (Zipfiles)]
+        2. [List Pswd]      5. [Delete Passwd]
+        3. [Decrypt Pswd]   6. [Search Website]
 
-Choices :
+        Choices :
 ```
 
 ### Generate a key
@@ -334,9 +335,9 @@ Your Password is [ your_password_here ]
 
 ### Phase 2 — Vault
 
-* [ ] Search passwords
-* [ ] Delete passwords
-* [ ] Export passwords
+* [x] Search passwords
+* [x] Delete passwords
+* [x] Export passwords
 * [ ] Load existing key automatically
 * [ ] Better data structure
 
