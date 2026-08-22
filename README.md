@@ -4,7 +4,7 @@
 
 The goal of this project is to build a simple, private and secure way to store sensitive information locally while learning how encryption, databases and application architecture work.
 
-> ⚠️ **PyVault is currently under development. Do not use it to store real passwords or sensitive information yet.**
+> ⚠️ **PyVault is currently under development.**
 
 ---
 
