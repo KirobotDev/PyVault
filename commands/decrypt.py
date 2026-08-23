@@ -31,7 +31,7 @@ def decrypt() -> str | int | bool:
     key = input("Enter your key : ")
     cipher = Fernet(key)
     sys()
-    name = input("Donne le nom du fichier example (github.txt) : ")
+    name = input("Enter the name of the file (e.g. github.txt) : ")
     sys()
     with open(f"./secret/{name}", "rb") as file:
         content = file.read()

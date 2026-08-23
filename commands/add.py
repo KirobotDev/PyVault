@@ -27,9 +27,9 @@ from cryptography.fernet import Fernet
 from system_info import sys
 
 def add_passwd() -> str:
-    key = input("Enter yout key please thanks... : ")
+    key = input("Enter your key please thanks... : ")
     sys()
-    website = input("Enter name your website Example (github) : ")
+    website = input("Enter the name of your website (e.g. github) : ")
     sys()
     add = input("Enter your password : ")
     sys()
@@ -40,7 +40,7 @@ def add_passwd() -> str:
         fernet = Fernet(key.encode())
 
         encrypted = fernet.encrypt(passwd.encode())
-        print(f"Mot de passe chiffré : {encrypted}")
+        print(f"Encrypted password : {encrypted}")
 
         with open(f"./secret/{website}.txt", "a", encoding="utf-8") as f:
             f.write(f"{encrypted.decode()}\n")
