@@ -310,7 +310,7 @@ PyVault will ask for:
 
 ```text
 Enter your key :
-Donne le nom du fichier example (github.txt) :
+Enter the file name example (github.txt) :
 ```
 
 It will then display:
