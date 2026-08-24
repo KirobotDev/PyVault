@@ -22,6 +22,7 @@ The goal of this project is to build a simple, private and secure way to store s
 * 📤 Export passwords
 * 🖥️ Simple CLI interface
 * 🧪 Unit tests
+* 📊 Encryption / decryption benchmark
 
 ### Planned
 
@@ -46,6 +47,7 @@ PyVault is also a way for me to learn how different parts of a real application 
 * Authentication
 * Security
 * Software architecture
+* Performance testing
 
 Instead of only following tutorials, I want to build the project myself, encounter problems, research solutions and document the entire process.
 
@@ -57,6 +59,7 @@ The architecture below shows both the **current project** and the features plann
 
 ```mermaid
 flowchart TD
+
     User["👤 User"]
 
     PyVault["🔐 PyVault"]
@@ -64,24 +67,37 @@ flowchart TD
     CLI["🖥️ CLI<br/>CURRENT"]
 
     GenerateKey["🔑 Generate Key<br/>CURRENT"]
+
     AddPassword["🔐 Add Password<br/>CURRENT"]
+
     ListPasswords["📋 List Passwords<br/>CURRENT"]
+
     DecryptPassword["🔓 Decrypt Password<br/>CURRENT"]
 
     Fernet["🔒 Fernet Encryption<br/>CURRENT"]
+
     KeyFile["📄 key.txt<br/>CURRENT"]
+
     SecretFolder["📁 secret/<br/>CURRENT"]
 
     Search["🔎 Search Passwords<br/>CURRENT"]
+
     Delete["🗑️ Delete Password<br/>CURRENT"]
+
     Export["📤 Export Passwords<br/>CURRENT"]
+
     Tests["🧪 Unit Tests<br/>CURRENT"]
 
+    Benchmark["📊 Benchmark<br/>CURRENT"]
+
     MasterPassword["🔑 Master Password<br/>PLANNED"]
+
     Vault["🔐 Vault System<br/>PLANNED"]
+
     SQLite["🗄️ SQLite Database<br/>PLANNED"]
 
     API["🌐 Local API<br/>PLANNED"]
+
     FastAPI["⚡ FastAPI<br/>PLANNED"]
 
     Web["🖥️ Web Interface<br/>PLANNED"]
@@ -116,10 +132,10 @@ flowchart TD
 
     API -.-> FastAPI
     FastAPI -.-> Vault
-
     Web -.-> API
 
     Tests -.-> PyVault
+    Benchmark -.-> Fernet
 ```
 
 **CURRENT** = already implemented
@@ -132,6 +148,7 @@ flowchart TD
 
 ```text
 PyVault/
+
 │
 ├── commands/
 │   ├── add.py
@@ -142,9 +159,15 @@ PyVault/
 │   ├── list.py
 │   └── search.py
 │
-├── secret/              ← stores encrypted password files
+├── secret/               ← stores encrypted password files
 │
 ├── tests/                ← unit tests
+│
+├── images/
+│   └── benchmark.png     ← encryption/decryption benchmark
+│
+├── notebooks/
+│   └── benchmark.ipynb   ← Jupyter benchmark
 │
 ├── main.py
 ├── system_info.py
@@ -184,6 +207,7 @@ The encrypted password is then stored in a dedicated file inside the `secret/` f
 
 ```text
 secret/
+
 └── github.txt
 ```
 
@@ -199,12 +223,35 @@ The password itself is **not stored directly** in the file.
 
 ---
 
+## 📊 Benchmark
+
+PyVault includes a benchmark using **Jupyter Notebook** to measure the performance of Fernet encryption and decryption.
+
+The benchmark tests multiple data sizes, from a few bytes up to 1 MB, and performs multiple iterations for each size.
+
+The results are visualized in the following graph:
+
+![PyVault Encryption / Decryption Benchmark](images/benchmark.png)
+
+The benchmark helps measure how encryption and decryption performance changes as the amount of data increases.
+
+The benchmark notebook is located at:
+
+```text
+notebooks/benchmark.ipynb
+```
+
+It can be used to experiment with PyVault's encryption system and compare future implementations.
+
+---
+
 ## 🚀 Installation
 
 Clone the repository:
 
 ```bash
 git clone https://github.com/KirobotDev/PyVault.git
+
 cd PyVault
 ```
 
@@ -214,6 +261,7 @@ Create a virtual environment:
 
 ```bash
 python -m venv .venv
+
 .venv\Scripts\activate
 ```
 
@@ -221,6 +269,7 @@ python -m venv .venv
 
 ```bash
 python3 -m venv .venv
+
 source .venv/bin/activate
 ```
 
@@ -243,8 +292,8 @@ python main.py
 You will see:
 
 ```text
-S. [Stars Project]      0. [Generate Key (Obliged)]     Q. [Leave]
-        
+S. [Stars Project]      0. [Generate Key (Obliged)] Q. [Leave]
+
         1. [Add Password]   4. [Export (Zipfiles)]
         2. [List Pswd]      5. [Delete Passwd]
         3. [Decrypt Pswd]   6. [Search Website]
@@ -277,8 +326,10 @@ Choose:
 PyVault will ask for:
 
 ```text
-Enter yout key please thanks... :
+Enter your key please thanks... :
+
 Enter name your website Example (github) :
+
 Enter your password :
 ```
 
@@ -296,7 +347,7 @@ Choose:
 2
 ```
 
-PyVault will display all files stored in the `secret/` folder (one per website).
+PyVault will display all files stored in the `secret/` folder, one per website.
 
 ### Decrypt a password
 
@@ -310,6 +361,7 @@ PyVault will ask for:
 
 ```text
 Enter your key :
+
 Donne le nom du fichier example (github.txt) :
 ```
 
@@ -325,9 +377,43 @@ Your Password is [ your_password_here ]
 
 Unit tests are available in the `tests/` folder.
 
+Run them with:
+
 ```bash
 python -m unittest discover tests
 ```
+
+---
+
+## 📊 Running the Benchmark
+
+The benchmark is available as a Jupyter Notebook.
+
+Install Jupyter if necessary:
+
+```bash
+pip install jupyter
+```
+
+Start Jupyter:
+
+```bash
+jupyter notebook
+```
+
+Then open:
+
+```text
+notebooks/benchmark.ipynb
+```
+
+The benchmark measures:
+
+* Encryption speed
+* Decryption speed
+* Different data sizes
+* Average execution time
+* Performance scaling
 
 ---
 
@@ -403,21 +489,41 @@ The documentation will cover:
 
 ```text
 Idea
+
   ↓
+
 First prototype
+
   ↓
+
 Encryption
+
   ↓
+
 Problems
+
   ↓
+
 Research
+
   ↓
+
 Solutions
+
   ↓
+
 Security
+
   ↓
+
 Testing
+
   ↓
+
+Benchmarking
+
+  ↓
+
 Final application
 ```
 
