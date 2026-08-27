@@ -28,17 +28,16 @@ from system_info import sys
 import os 
 file_path= "key.txt"
 def decrypt() -> str | int | bool:
-    if os.path.exists(file_path) :
-        with open("key.txt" , 'r') as file : 
-            content = file.read() 
-            key = content.strip()
-            cipher = Fernet(key)
-    else : 
+    if os.path.exists(file_path):
+        with open(file_path, "r", encoding="utf-8") as file:
+            key = file.read().strip()
+    else:
         print("No key found")
         sys()
-        key = input("Enter your key : ")
-        cipher = Fernet(key)
+        key = input("Enter your key : ").strip()
         sys()
+
+    cipher = Fernet(key.encode())
     name = input("Enter the name of the file (e.g. github.txt) : ")
     sys()
     with open(f"./secret/{name}", "rb") as file:
