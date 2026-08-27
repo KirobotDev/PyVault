@@ -25,12 +25,19 @@ SOFTWARE.
 
 from cryptography.fernet import Fernet
 from system_info import sys
-
+import os 
+file_path= "key.txt"
 def decrypt() -> str | int | bool:
-    sys()
-    key = input("Enter your key : ")
-    cipher = Fernet(key)
-    sys()
+    if os.path.exists(file_path):
+        with open(file_path, "r", encoding="utf-8") as file:
+            key = file.read().strip()
+    else:
+        print("No key found")
+        sys()
+        key = input("Enter your key : ").strip()
+        sys()
+
+    cipher = Fernet(key.encode())
     name = input("Enter the name of the file (e.g. github.txt) : ")
     sys()
     with open(f"./secret/{name}", "rb") as file:

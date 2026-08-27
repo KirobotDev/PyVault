@@ -25,9 +25,18 @@ SOFTWARE.
 
 from cryptography.fernet import Fernet
 from system_info import sys
-
+import os 
+file_path = "key.txt"
 def add_passwd() -> str:
-    key = input("Enter your key please thanks... : ")
+    if os.path.exists(file_path) :
+        with open("key.txt" , 'r') as file : 
+            content = file.read() 
+            key = content.strip()
+
+    else :
+        key = input("Enter your key please thanks... : ")
+        with open("key.txt" , 'w') as file : 
+            file.write(key) 
     sys()
     website = input("Enter the name of your website (e.g. github) : ")
     sys()
