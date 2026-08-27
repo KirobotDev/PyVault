@@ -220,6 +220,7 @@ __marimo__/
 # Secret
 key.txt
 encrypted.txt
+/secret
 
 # test
 /test_unitary.md

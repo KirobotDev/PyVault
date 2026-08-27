@@ -49,12 +49,12 @@ from commands.search import search
 Import All test unitary
 """
 
-from tests.add_test import add_passwd
-from tests.decrypt_test import decrypt
+from tests.add_test import add_passwd as test_add_passwd
+from tests.decrypt_test import decrypt as test_decrypt
 
 def test_unitary() -> str:
-    add_passwd()
-    decrypt()
+    test_add_passwd()
+    test_decrypt()
 
 def main() -> str | int:
 
