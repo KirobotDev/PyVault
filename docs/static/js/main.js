@@ -29,6 +29,43 @@ document.addEventListener("DOMContentLoaded", function () {
     var h = window.location.hash.replace("#", "");
     show(known.indexOf(h) !== -1 ? h : "accueil");
 
+    applyI18n();
+
+    var langSwitch = document.getElementById("lang-switch");
+    if (langSwitch) {
+        langSwitch.addEventListener("click", function (e) {
+            var b = e.target && e.target.closest ? e.target.closest("[data-lang]") : null;
+            if (!b) return;
+            var lang = b.getAttribute("data-lang");
+            if (lang && lang !== i18nGetLang()) {
+                i18nSetLang(lang);
+                applyI18n();
+                renderMermaid(lang);
+            }
+        });
+    }
+
+    var mermaidEls = document.querySelectorAll("[data-mermaid]");
+    for (var mi = 0; mi < mermaidEls.length; mi++) {
+        mermaidEls[mi].setAttribute("data-mermaid-src", mermaidEls[mi].textContent);
+    }
+
+    function renderMermaid(lang) {
+        if (!window.mermaid) return;
+        for (var i = 0; i < mermaidEls.length; i++) {
+            var el = mermaidEls[i];
+            el.innerHTML = "";
+            var src = el.getAttribute("data-mermaid-src");
+            if (src) el.textContent = src;
+            el.hidden = el.getAttribute("data-mermaid") !== lang;
+        }
+        try {
+            mermaid.run({ querySelector: ".mermaid:not([hidden])" });
+        } catch (e) {
+            return;
+        }
+    }
+
     if (window.mermaid) {
         mermaid.initialize({
             startOnLoad: false,
@@ -45,7 +82,7 @@ document.addEventListener("DOMContentLoaded", function () {
             },
             fontFamily: "Source Sans 3, sans-serif"
         });
-        mermaid.run({ querySelector: ".mermaid" });
+        renderMermaid(i18nGetLang());
     }
 
 });

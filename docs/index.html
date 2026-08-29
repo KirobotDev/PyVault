@@ -74,12 +74,17 @@
             </a>
 
             <nav class="topnav" aria-label="Navigation principale">
-                <a href="#accueil" data-goto="accueil" class="active">Accueil</a>
-                <a href="#readme" data-goto="readme">README</a>
-                <a href="#test" data-goto="test">Test</a>
-                <a href="#idees" data-goto="idees">Idées</a>
-                <a href="#a-propos" data-goto="a-propos">À propos</a>
+                <a href="#accueil" data-goto="accueil" class="active" data-i18n="nav.accueil">Accueil</a>
+                <a href="#readme" data-goto="readme" data-i18n="nav.readme">README</a>
+                <a href="#test" data-goto="test" data-i18n="nav.test">Test</a>
+                <a href="#idees" data-goto="idees" data-i18n="nav.idees">Idées</a>
+                <a href="#a-propos" data-goto="a-propos" data-i18n="nav.apropos">À propos</a>
             </nav>
+
+            <div class="lang-switch" id="lang-switch" role="group" aria-label="Langue / 言語">
+                <button type="button" class="lang-btn" data-lang="fr">Français</button>
+                <button type="button" class="lang-btn" data-lang="ja">日本語</button>
+            </div>
 
             <a class="github-link" href="https://github.com/KirobotDev/PyVault" target="_blank" rel="noopener">
                 GitHub
@@ -95,7 +100,7 @@
 
             <div class="hero">
                 <div class="wrap">
-                    <p class="hero-eyebrow"><span class="dot"></span> Projet en cours de développement &nbsp;·&nbsp; v0.2.0-dev</p>
+                    <p class="hero-eyebrow" data-i18n="hero.badge"><span class="dot"></span> Projet en cours de développement &nbsp;·&nbsp; v0.2.0-dev</p>
 
                     <pre class="hero-ascii">▄▄▄▄▄▄     ▄▄▄                 ▄▄     
 █▀██▀▀▀█▄  █▀██  ██▀▀           ██ █▄ 
@@ -106,9 +111,9 @@
         ██                           
         ▀▀▀</pre>
 
-                    <h1>Un gestionnaire de mots de passe qui tourne en local, écrit en Python.</h1>
+                    <h1 data-i18n="hero.title">Un gestionnaire de mots de passe qui tourne en local, écrit en Python.</h1>
 
-                    <p class="hero-text">
+                    <p class="hero-text" data-i18n="hero.text">
                         PyVault vient d'abord d'une envie toute simple : arrêter de me tromper
                         sur les mêmes mots de passe partout. Au lieu de prendre un outil tout fait,
                         je me suis dit que ce serait plus intéressant d'en construire un — et d'apprendre
@@ -116,41 +121,41 @@
                     </p>
 
                     <div class="hero-actions">
-                        <a class="btn btn-solid" href="#readme" data-goto="readme">Lire le README</a>
-                        <a class="btn btn-outline" href="#idees" data-goto="idees">Voir les idées</a>
-                        <a class="btn btn-ghost" href="https://github.com/KirobotDev/PyVault" target="_blank" rel="noopener">Voir sur GitHub</a>
+                        <a class="btn btn-solid" href="#readme" data-goto="readme" data-i18n="hero.btn_readme">Lire le README</a>
+                        <a class="btn btn-outline" href="#idees" data-goto="idees" data-i18n="hero.btn_ideas">Voir les idées</a>
+                        <a class="btn btn-ghost" href="https://github.com/KirobotDev/PyVault" target="_blank" rel="noopener" data-i18n="hero.btn_github">Voir sur GitHub</a>
                     </div>
                 </div>
             </div>
 
             <div class="wrap">
-                <h2 class="section-title">Ce qu'il sait faire aujourd'hui</h2>
-                <p class="section-intro">La base est là. Chaque fonction correspond à un vrai menu dans la CLI, donc tout ce qui est listé ici se teste en deux minutes.</p>
+                <h2 class="section-title" data-i18n="feat.title">Ce qu'il sait faire aujourd'hui</h2>
+                <p class="section-intro" data-i18n="feat.intro">La base est là. Chaque fonction correspond à un vrai menu dans la CLI, donc tout ce qui est listé ici se teste en deux minutes.</p>
 
                 <div class="cards">
                     <article class="card">
-                        <h3>🔑 Générer une clé</h3>
-                        <p>Une clé Fernet est créée et écrite dans <code>key.txt</code>. C'est elle qui chiffre et déchiffre tout le reste.</p>
+                        <h3 data-i18n="card.1.title">🔑 Générer une clé</h3>
+                        <p data-i18n="card.1.text">Une clé Fernet est créée et écrite dans <code>key.txt</code>. C'est elle qui chiffre et déchiffre tout le reste.</p>
                     </article>
                     <article class="card">
-                        <h3>🔐 Ajouter un mot de passe</h3>
-                        <p>Le mot de passe est chiffré puis rangé dans son propre fichier, par exemple <code>secret/github.txt</code>.</p>
+                        <h3 data-i18n="card.2.title">🔐 Ajouter un mot de passe</h3>
+                        <p data-i18n="card.2.text">Le mot de passe est chiffré puis rangé dans son propre fichier, par exemple <code>secret/github.txt</code>.</p>
                     </article>
                     <article class="card">
-                        <h3>🔓 Déchiffrer</h3>
-                        <p>En donnant la clé et le nom du fichier, PyVault renvoie le mot de passe en clair.</p>
+                        <h3 data-i18n="card.3.title">🔓 Déchiffrer</h3>
+                        <p data-i18n="card.3.text">En donnant la clé et le nom du fichier, PyVault renvoie le mot de passe en clair.</p>
                     </article>
                     <article class="card">
-                        <h3>📋 Lister &amp; rechercher</h3>
-                        <p>Une liste de tous les fichiers enregistrés, et une recherche par nom quand on en a beaucoup.</p>
+                        <h3 data-i18n="card.4.title">📋 Lister &amp; rechercher</h3>
+                        <p data-i18n="card.4.text">Une liste de tous les fichiers enregistrés, et une recherche par nom quand on en a beaucoup.</p>
                     </article>
                     <article class="card">
-                        <h3>🗑️ Supprimer &amp; exporter</h3>
-                        <p>Supprimer une entrée, ou tout exporter dans une archive zip d'un coup.</p>
+                        <h3 data-i18n="card.5.title">🗑️ Supprimer &amp; exporter</h3>
+                        <p data-i18n="card.5.text">Supprimer une entrée, ou tout exporter dans une archive zip d'un coup.</p>
                     </article>
                     <article class="card">
-                        <h3>📊 Benchmark</h3>
-                        <p>Un notebook Jupyter mesure le temps de chiffrement / déchiffrement selon la taille des données.</p>
+                        <h3 data-i18n="card.6.title">📊 Benchmark</h3>
+                        <p data-i18n="card.6.text">Un notebook Jupyter mesure le temps de chiffrement / déchiffrement selon la taille des données.</p>
                     </article>
                 </div>
 
@@ -159,7 +164,7 @@
                         <span></span><span></span><span></span>
                         <code>python main.py</code>
                     </div>
-                    <pre class="cli-demo-body">S. [Stars Project]      0. [Generate Key (Obliged)]     Q. [Leave]
+                    <pre class="cli-demo-body" data-i18n="cli.demo">S. [Stars Project]      0. [Generate Key (Obliged)]     Q. [Leave]
 
         1. [Add Password]   4. [Export (Zipfiles)]
         2. [List Pswd]      5. [Delete Passwd]
@@ -168,25 +173,25 @@
         Choices : <span class="blink">▌</span></pre>
                 </div>
 
-                <h2 class="section-title" id="pourquoi">Pourquoi je l'ai fait</h2>
-                <p class="section-intro">Je n'aime pas suivre des tutos sans rien retenir. Construire PyVault, c'est une façon de m'obliger à répondre moi-même à des questions du genre :</p>
+                <h2 class="section-title" id="pourquoi" data-i18n="why.title">Pourquoi je l'ai fait</h2>
+                <p class="section-intro" data-i18n="why.intro">Je n'aime pas suivre des tutos sans rien retenir. Construire PyVault, c'est une façon de m'obliger à répondre moi-même à des questions du genre :</p>
 
                 <div class="why-grid">
                     <div class="why-item">
                         <span class="why-num">01</span>
-                        <p>Comment on stocke un secret sans le laisser en clair sur le disque ?</p>
+                        <p data-i18n="why.1">Comment on stocke un secret sans le laisser en clair sur le disque ?</p>
                     </div>
                     <div class="why-item">
                         <span class="why-num">02</span>
-                        <p>Pourquoi une clé d'abord, puis un mot de passe maître ensuite ?</p>
+                        <p data-i18n="why.2">Pourquoi une clé d'abord, puis un mot de passe maître ensuite ?</p>
                     </div>
                     <div class="why-item">
                         <span class="why-num">03</span>
-                        <p>Comment passer d'une pile de fichiers à une vraie base de données ?</p>
+                        <p data-i18n="why.3">Comment passer d'une pile de fichiers à une vraie base de données ?</p>
                     </div>
                     <div class="why-item">
                         <span class="why-num">04</span>
-                        <p>Et si un jour ça devient une interface web, par où on commence ?</p>
+                        <p data-i18n="why.4">Et si un jour ça devient une interface web, par où on commence ?</p>
                     </div>
                 </div>
 
@@ -198,77 +203,77 @@
             <div class="wrap narrow">
 
                 <div class="page-head">
-                    <p class="page-kicker">Documentation du dépôt</p>
+                    <p class="page-kicker" data-i18n="readme.kicker">Documentation du dépôt</p>
                     <h2>README.md</h2>
-                    <p class="page-desc">Le contenu du fichier README, tel qu'il apparaît sur la page GitHub du projet.</p>
+                    <p class="page-desc" data-i18n="readme.desc">Le contenu du fichier README, tel qu'il apparaît sur la page GitHub du projet.</p>
                 </div>
 
                 <article class="markdown">
 
                     <p class="md-title">🔐 PyVault</p>
 
-                    <p><strong>PyVault</strong> is a local password and secrets manager written in Python.</p>
+                    <p data-i18n="r.lead1"><strong>PyVault</strong> is a local password and secrets manager written in Python.</p>
 
-                    <p>The goal of this project is to build a simple, private and secure way to store sensitive information locally while learning how encryption, databases and application architecture work.</p>
+                    <p data-i18n="r.lead2">The goal of this project is to build a simple, private and secure way to store sensitive information locally while learning how encryption, databases and application architecture work.</p>
 
-                    <blockquote>⚠️ <strong>PyVault is currently under development.</strong></blockquote>
-
-                    <hr>
-
-                    <h3>✨ Features</h3>
-
-                    <h4>Currently available</h4>
-                    <ul>
-                        <li>🔑 Generate Fernet encryption keys</li>
-                        <li>🔐 Encrypt and store passwords using Fernet</li>
-                        <li>💾 Store each password in a dedicated file per website</li>
-                        <li>🔓 Decrypt and retrieve stored passwords</li>
-                        <li>📋 List all saved entries</li>
-                        <li>🔎 Search stored passwords</li>
-                        <li>🗑️ Delete passwords</li>
-                        <li>📤 Export passwords</li>
-                        <li>🖥️ Simple CLI interface</li>
-                        <li>🧪 Unit tests</li>
-                        <li>📊 Encryption / decryption benchmark</li>
-                    </ul>
-
-                    <h4>Planned</h4>
-                    <ul>
-                        <li>🗄️ SQLite database</li>
-                        <li>🔑 Master password</li>
-                        <li>🔒 Vault locking</li>
-                        <li>🌐 Local API</li>
-                        <li>🖥️ Web interface</li>
-                    </ul>
+                    <blockquote data-i18n="r.note">⚠️ <strong>PyVault is currently under development.</strong></blockquote>
 
                     <hr>
 
-                    <h3>🧠 Why PyVault?</h3>
+                    <h3 data-i18n="r.features">✨ Features</h3>
 
-                    <p>I wanted to create a project that was more than a simple Python script.</p>
-
-                    <p>PyVault is also a way for me to learn how different parts of a real application work together:</p>
-
+                    <h4 data-i18n="r.features.avail">Currently available</h4>
                     <ul>
-                        <li>Python</li>
-                        <li>Cryptography</li>
-                        <li>Databases</li>
-                        <li>APIs</li>
-                        <li>Authentication</li>
-                        <li>Security</li>
-                        <li>Software architecture</li>
-                        <li>Performance testing</li>
+                        <li data-i18n="r.feats.1">🔑 Generate Fernet encryption keys</li>
+                        <li data-i18n="r.feats.2">🔐 Encrypt and store passwords using Fernet</li>
+                        <li data-i18n="r.feats.3">💾 Store each password in a dedicated file per website</li>
+                        <li data-i18n="r.feats.4">🔓 Decrypt and retrieve stored passwords</li>
+                        <li data-i18n="r.feats.5">📋 List all saved entries</li>
+                        <li data-i18n="r.feats.6">🔎 Search stored passwords</li>
+                        <li data-i18n="r.feats.7">🗑️ Delete passwords</li>
+                        <li data-i18n="r.feats.8">📤 Export passwords</li>
+                        <li data-i18n="r.feats.9">🖥️ Simple CLI interface</li>
+                        <li data-i18n="r.feats.10">🧪 Unit tests</li>
+                        <li data-i18n="r.feats.11">📊 Encryption / decryption benchmark</li>
                     </ul>
 
-                    <p>Instead of only following tutorials, I want to build the project myself, encounter problems, research solutions and document the entire process.</p>
+                    <h4 data-i18n="r.features.planned">Planned</h4>
+                    <ul>
+                        <li data-i18n="r.planned.1">🗄️ SQLite database</li>
+                        <li data-i18n="r.planned.2">🔑 Master password</li>
+                        <li data-i18n="r.planned.3">🔒 Vault locking</li>
+                        <li data-i18n="r.planned.4">🌐 Local API</li>
+                        <li data-i18n="r.planned.5">🖥️ Web interface</li>
+                    </ul>
 
                     <hr>
 
-                    <h3>🏗️ Architecture</h3>
+                    <h3 data-i18n="r.why">🧠 Why PyVault?</h3>
 
-                    <p>The architecture below shows both the <strong>current project</strong> and the features planned for the future.</p>
+                    <p data-i18n="r.why.1">I wanted to create a project that was more than a simple Python script.</p>
 
-                    <pre class="mermaid">
+                    <p data-i18n="r.why.2">PyVault is also a way for me to learn how different parts of a real application work together:</p>
+
+                    <ul>
+                        <li data-i18n="r.learn.1">Python</li>
+                        <li data-i18n="r.learn.2">Cryptography</li>
+                        <li data-i18n="r.learn.3">Databases</li>
+                        <li data-i18n="r.learn.4">APIs</li>
+                        <li data-i18n="r.learn.5">Authentication</li>
+                        <li data-i18n="r.learn.6">Security</li>
+                        <li data-i18n="r.learn.7">Software architecture</li>
+                        <li data-i18n="r.learn.8">Performance testing</li>
+                    </ul>
+
+                    <p data-i18n="r.why.3">Instead of only following tutorials, I want to build the project myself, encounter problems, research solutions and document the entire process.</p>
+
+                    <hr>
+
+                    <h3 data-i18n="r.arch">🏗️ Architecture</h3>
+
+                    <p data-i18n="r.arch.desc">The architecture below shows both the <strong>current project</strong> and the features planned for the future.</p>
+
+<pre class="mermaid" data-mermaid="fr">
 flowchart TD
 
     User["👤 User"]
@@ -349,13 +354,94 @@ flowchart TD
     Benchmark -.-> Fernet
                     </pre>
 
-                    <p><strong>CURRENT</strong> = already implemented<br><strong>PLANNED</strong> = planned for a future version</p>
+<pre class="mermaid" data-mermaid="ja" hidden>
+flowchart TD
+
+    User["👤 ユーザー"]
+
+    PyVault["🔐 PyVault"]
+
+    CLI["🖥️ CLI<br/>現在"]
+
+    GenerateKey["🔑 鍵生成<br/>現在"]
+
+    AddPassword["🔐 パスワード追加<br/>現在"]
+
+    ListPasswords["📋 パスワード一覧<br/>現在"]
+
+    DecryptPassword["🔓 パスワード復号<br/>現在"]
+
+    Fernet["🔒 Fernet 暗号化<br/>現在"]
+
+    KeyFile["📄 key.txt<br/>現在"]
+
+    SecretFolder["📁 secret/<br/>現在"]
+
+    Search["🔎 パスワード検索<br/>現在"]
+
+    Delete["🗑️ パスワード削除<br/>現在"]
+
+    Export["📤 パスワードエクスポート<br/>現在"]
+
+    Tests["🧪 単体テスト<br/>現在"]
+
+    Benchmark["📊 ベンチマーク<br/>現在"]
+
+    MasterPassword["🔑 マスターパスワード<br/>予定"]
+
+    Vault["🔐 ボールトシステム<br/>予定"]
+
+    SQLite["🗄️ SQLite データベース<br/>予定"]
+
+    API["🌐 ローカル API<br/>予定"]
+
+    FastAPI["⚡ FastAPI<br/>予定"]
+
+    Web["🖥️ ウェブインターフェース<br/>予定"]
+
+    User --> PyVault
+
+    PyVault --> CLI
+
+    CLI --> GenerateKey
+    CLI --> AddPassword
+    CLI --> ListPasswords
+    CLI --> DecryptPassword
+
+    GenerateKey --> Fernet
+    GenerateKey --> KeyFile
+
+    AddPassword --> Fernet
+    Fernet --> SecretFolder
+
+    DecryptPassword --> SecretFolder
+    ListPasswords --> SecretFolder
+
+    CLI --> Search
+    CLI --> Delete
+    CLI --> Export
+
+    Search -.-> SQLite
+    Delete -.-> SQLite
+
+    MasterPassword -.-> Vault
+    Vault -.-> SQLite
+
+    API -.-> FastAPI
+    FastAPI -.-> Vault
+    Web -.-> API
+
+    Tests -.-> PyVault
+    Benchmark -.-> Fernet
+                    </pre>
+
+                    <p data-i18n="r.arch.key"><strong>CURRENT</strong> = already implemented<br><strong>PLANNED</strong> = planned for a future version</p>
 
                     <hr>
 
-                    <h3>📁 Current Project Structure</h3>
+                    <h3 data-i18n="r.structure">📁 Current Project Structure</h3>
 
-<pre><code>PyVault/
+<pre><code data-i18n="r.structure.pre">PyVault/
 
 │
 ├── commands/
@@ -387,79 +473,79 @@ flowchart TD
 
                     <hr>
 
-                    <h3>🔐 Current Encryption System</h3>
+                    <h3 data-i18n="r.encryption">🔐 Current Encryption System</h3>
 
-                    <p>PyVault currently uses <strong>Fernet</strong> from the <code>cryptography</code> library.</p>
+                    <p data-i18n="r.encryption.text">PyVault currently uses <strong>Fernet</strong> from the <code>cryptography</code> library.</p>
 
-                    <p>A key is generated with:</p>
+                    <p data-i18n="r.encryption.gen">A key is generated with:</p>
 
-<pre><code class="language-python">key = Fernet.generate_key()
+<pre><code class="language-python" data-i18n="r.encryption.snip1">key = Fernet.generate_key()
                     </code></pre>
 
-                    <p>The key is currently stored locally in:</p>
+                    <p data-i18n="r.encryption.stored">The key is currently stored locally in:</p>
 
 <pre><code>key.txt
                     </code></pre>
 
-                    <p>When adding a password, PyVault encrypts it before storing it:</p>
+                    <p data-i18n="r.encryption.when">When adding a password, PyVault encrypts it before storing it:</p>
 
-<pre><code class="language-python">fernet = Fernet(key.encode())
+<pre><code class="language-python" data-i18n="r.encryption.snip2">fernet = Fernet(key.encode())
 
 encrypted = fernet.encrypt(passwd.encode())
                     </code></pre>
 
-                    <p>The encrypted password is then stored in a dedicated file inside the <code>secret/</code> folder, one file per website:</p>
+                    <p data-i18n="r.encryption.then">The encrypted password is then stored in a dedicated file inside the <code>secret/</code> folder, one file per website:</p>
 
 <pre><code>secret/
 
 └── github.txt
                     </code></pre>
 
-                    <p>Example content of <code>secret/github.txt</code>:</p>
+                    <p data-i18n="r.encryption.example">Example content of <code>secret/github.txt</code>:</p>
 
 <pre><code>gAAAAAB...
                     </code></pre>
 
-                    <p>The password itself is <strong>not stored directly</strong> in the file.</p>
+                    <p data-i18n="r.encryption.notdirect">The password itself is <strong>not stored directly</strong> in the file.</p>
 
-                    <blockquote>⚠️ This is an early prototype. The current key management system is not considered secure enough for production use.</blockquote>
+                    <blockquote data-i18n="r.encryption.warn">⚠️ This is an early prototype. The current key management system is not considered secure enough for production use.</blockquote>
 
                     <hr>
 
-                    <h3>📊 Benchmark</h3>
+                    <h3 data-i18n="r.benchmark">📊 Benchmark</h3>
 
-                    <p>PyVault includes a benchmark using <strong>Jupyter Notebook</strong> to measure the performance of Fernet encryption and decryption.</p>
+                    <p data-i18n="r.benchmark.1">PyVault includes a benchmark using <strong>Jupyter Notebook</strong> to measure the performance of Fernet encryption and decryption.</p>
 
-                    <p>The benchmark tests multiple data sizes, from a few bytes up to 1 MB, and performs multiple iterations for each size.</p>
+                    <p data-i18n="r.benchmark.2">The benchmark tests multiple data sizes, from a few bytes up to 1 MB, and performs multiple iterations for each size.</p>
 
-                    <p>The results are visualized in the following graph:</p>
+                    <p data-i18n="r.benchmark.3">The results are visualized in the following graph:</p>
 
                     <figure>
                         <img src="../images/benchmark.png" alt="Graphique du benchmark de chiffrement et déchiffrement PyVault">
-                        <figcaption>PyVault Encryption / Decryption Benchmark</figcaption>
+                        <figcaption data-i18n="r.benchmark.fig">PyVault Encryption / Decryption Benchmark</figcaption>
                     </figure>
 
-                    <p>The benchmark helps measure how encryption and decryption performance changes as the amount of data increases.</p>
+                    <p data-i18n="r.benchmark.4">The benchmark helps measure how encryption and decryption performance changes as the amount of data increases.</p>
 
-                    <p>The benchmark notebook is located at:</p>
+                    <p data-i18n="r.benchmark.5">The benchmark notebook is located at:</p>
 
                     <pre><code>notebooks/benchmark.ipynb
                     </code></pre>
 
-                    <p>It can be used to experiment with PyVault's encryption system and compare future implementations.</p>
+                    <p data-i18n="r.benchmark.6">It can be used to experiment with PyVault's encryption system and compare future implementations.</p>
 
                     <hr>
 
-                    <h3>🚀 Installation</h3>
+                    <h3 data-i18n="r.install">🚀 Installation</h3>
 
-                    <p>Clone the repository:</p>
+                    <p data-i18n="r.install.1">Clone the repository:</p>
 
 <pre><code class="language-bash">git clone https://github.com/KirobotDev/PyVault.git
 
 cd PyVault
                     </code></pre>
 
-                    <p>Create a virtual environment:</p>
+                    <p data-i18n="r.install.2">Create a virtual environment:</p>
 
                     <h4>Windows</h4>
 
@@ -475,23 +561,23 @@ cd PyVault
 source .venv/bin/activate
                     </code></pre>
 
-                    <p>Install dependencies:</p>
+                    <p data-i18n="r.install.deps">Install dependencies:</p>
 
 <pre><code class="language-bash">pip install -r requirements.txt
                     </code></pre>
 
                     <hr>
 
-                    <h3>▶️ Usage</h3>
+                    <h3 data-i18n="r.usage">▶️ Usage</h3>
 
-                    <p>Start PyVault:</p>
+                    <p data-i18n="r.usage.1">Start PyVault:</p>
 
 <pre><code class="language-bash">python main.py
                     </code></pre>
 
-                    <p>You will see:</p>
+                    <p data-i18n="r.usage.2">You will see:</p>
 
-<pre><code>S. [Stars Project]      0. [Generate Key (Obliged)] Q. [Leave]
+<pre><code data-i18n="r.usage.menu">S. [Stars Project]      0. [Generate Key (Obliged)] Q. [Leave]
 
         1. [Add Password]   4. [Export (Zipfiles)]
         2. [List Pswd]      5. [Delete Passwd]
@@ -500,195 +586,185 @@ source .venv/bin/activate
         Choices :
                     </code></pre>
 
-                    <h4>Generate a key</h4>
+                    <h4 data-i18n="r.usage.genkey">Generate a key</h4>
 
-                    <p>Choose:</p>
+                    <p data-i18n="r.usage.choose">Choose:</p>
 
 <pre><code>0
                     </code></pre>
 
-                    <p>PyVault will generate a Fernet key and save it to:</p>
+                    <p data-i18n="r.usage.genkey.1">PyVault will generate a Fernet key and save it to:</p>
 
 <pre><code>key.txt
                     </code></pre>
 
-                    <h4>Add a password</h4>
+                    <h4 data-i18n="r.usage.add">Add a password</h4>
 
-                    <p>Choose:</p>
+                    <p data-i18n="r.usage.add.1">PyVault will ask for:</p>
 
-<pre><code>1
-                    </code></pre>
-
-                    <p>PyVault will ask for:</p>
-
-<pre><code>Enter your key please thanks... :
+<pre><code data-i18n="r.usage.add.prompts">Enter your key please thanks... :
 
 Enter name your website Example (github) :
 
 Enter your password :
                     </code></pre>
 
-                    <p>The password will be encrypted and stored in:</p>
+                    <p data-i18n="r.usage.add.2">The password will be encrypted and stored in:</p>
 
 <pre><code>secret/&lt;website&gt;.txt
                     </code></pre>
 
-                    <h4>List saved entries</h4>
+                    <h4 data-i18n="r.usage.list">List saved entries</h4>
 
-                    <p>Choose:</p>
+                    <p data-i18n="r.usage.choose">Choose:</p>
 
 <pre><code>2
                     </code></pre>
 
-                    <p>PyVault will display all files stored in the <code>secret/</code> folder, one per website.</p>
+                    <p data-i18n="r.usage.list.1">PyVault will display all files stored in the <code>secret/</code> folder, one per website.</p>
 
-                    <h4>Decrypt a password</h4>
+                    <h4 data-i18n="r.usage.decrypt">Decrypt a password</h4>
 
-                    <p>Choose:</p>
+                    <p data-i18n="r.usage.decrypt.1">PyVault will ask for:</p>
 
-<pre><code>3
-                    </code></pre>
-
-                    <p>PyVault will ask for:</p>
-
-<pre><code>Enter your key :
+<pre><code data-i18n="r.usage.decrypt.prompts">Enter your key :
 Enter the file name example (github.txt) :
                     </code></pre>
 
-                    <p>It will then display:</p>
+                    <p data-i18n="r.usage.decrypt.2">It will then display:</p>
 
-<pre><code>Your Password is [ your_password_here ]
+<pre><code data-i18n="r.usage.decrypt.out">Your Password is [ your_password_here ]
                     </code></pre>
 
                     <hr>
 
-                    <h3>🧪 Running Tests</h3>
+                    <h3 data-i18n="r.tests">🧪 Running Tests</h3>
 
-                    <p>Unit tests are available in the <code>tests/</code> folder.</p>
+                    <p data-i18n="r.tests.1">Unit tests are available in the <code>tests/</code> folder.</p>
 
-                    <p>Run them with:</p>
+                    <p data-i18n="r.tests.2">Run them with:</p>
 
 <pre><code class="language-bash">python -m unittest discover tests
                     </code></pre>
 
                     <hr>
 
-                    <h3>📊 Running the Benchmark</h3>
+                    <h3 data-i18n="r.benchrun">📊 Running the Benchmark</h3>
 
-                    <p>The benchmark is available as a Jupyter Notebook.</p>
+                    <p data-i18n="r.benchrun.1">The benchmark is available as a Jupyter Notebook.</p>
 
-                    <p>Install Jupyter if necessary:</p>
+                    <p data-i18n="r.benchrun.2">Install Jupyter if necessary:</p>
 
 <pre><code class="language-bash">pip install jupyter
                     </code></pre>
 
-                    <p>Start Jupyter:</p>
+                    <p data-i18n="r.benchrun.3">Start Jupyter:</p>
 
 <pre><code class="language-bash">jupyter notebook
                     </code></pre>
 
-                    <p>Then open:</p>
+                    <p data-i18n="r.benchrun.4">Then open:</p>
 
 <pre><code>notebooks/benchmark.ipynb
                     </code></pre>
 
-                    <p>The benchmark measures:</p>
+                    <p data-i18n="r.benchrun.5">The benchmark measures:</p>
 
                     <ul>
-                        <li>Encryption speed</li>
-                        <li>Decryption speed</li>
-                        <li>Different data sizes</li>
-                        <li>Average execution time</li>
-                        <li>Performance scaling</li>
+                        <li data-i18n="r.benchrun.li.1">Encryption speed</li>
+                        <li data-i18n="r.benchrun.li.2">Decryption speed</li>
+                        <li data-i18n="r.benchrun.li.3">Different data sizes</li>
+                        <li data-i18n="r.benchrun.li.4">Average execution time</li>
+                        <li data-i18n="r.benchrun.li.5">Performance scaling</li>
                     </ul>
 
                     <hr>
 
-                    <h3>🛠️ Roadmap</h3>
+                    <h3 data-i18n="r.roadmap">🛠️ Roadmap</h3>
 
-                    <h4>Phase 1 — Prototype</h4>
+                    <h4 data-i18n="r.roadmap.p1">Phase 1 — Prototype</h4>
 
                     <ul class="task">
-                        <li><input type="checkbox" checked disabled> Generate Fernet key</li>
-                        <li><input type="checkbox" checked disabled> Save key locally</li>
-                        <li><input type="checkbox" checked disabled> Encrypt passwords</li>
-                        <li><input type="checkbox" checked disabled> Save encrypted passwords (one file per website in <code>secret/</code>)</li>
-                        <li><input type="checkbox" checked disabled> Store website information</li>
-                        <li><input type="checkbox" checked disabled> Basic CLI</li>
-                        <li><input type="checkbox" checked disabled> Decrypt passwords</li>
-                        <li><input type="checkbox" checked disabled> List saved entries</li>
+                        <li><input type="checkbox" checked disabled> <span data-i18n="r.rm.p1t1">Generate Fernet key</span></li>
+                        <li><input type="checkbox" checked disabled> <span data-i18n="r.rm.p1t2">Save key locally</span></li>
+                        <li><input type="checkbox" checked disabled> <span data-i18n="r.rm.p1t3">Encrypt passwords</span></li>
+                        <li><input type="checkbox" checked disabled> <span data-i18n="r.rm.p1t4">Save encrypted passwords (one file per website in <code>secret/</code>)</span></li>
+                        <li><input type="checkbox" checked disabled> <span data-i18n="r.rm.p1t5">Store website information</span></li>
+                        <li><input type="checkbox" checked disabled> <span data-i18n="r.rm.p1t6">Basic CLI</span></li>
+                        <li><input type="checkbox" checked disabled> <span data-i18n="r.rm.p1t7">Decrypt passwords</span></li>
+                        <li><input type="checkbox" checked disabled> <span data-i18n="r.rm.p1t8">List saved entries</span></li>
                     </ul>
 
-                    <h4>Phase 2 — Vault</h4>
+                    <h4 data-i18n="r.roadmap.p2">Phase 2 — Vault</h4>
 
                     <ul class="task">
-                        <li><input type="checkbox" checked disabled> Search passwords</li>
-                        <li><input type="checkbox" checked disabled> Delete passwords</li>
-                        <li><input type="checkbox" checked disabled> Export passwords</li>
-                        <li><input type="checkbox" disabled> Load existing key automatically</li>
-                        <li><input type="checkbox" disabled> Better data structure</li>
+                        <li><input type="checkbox" checked disabled> <span data-i18n="r.rm.p2t1">Search passwords</span></li>
+                        <li><input type="checkbox" checked disabled> <span data-i18n="r.rm.p2t2">Delete passwords</span></li>
+                        <li><input type="checkbox" checked disabled> <span data-i18n="r.rm.p2t3">Export passwords</span></li>
+                        <li><input type="checkbox" disabled> <span data-i18n="r.rm.p2t4">Load existing key automatically</span></li>
+                        <li><input type="checkbox" disabled> <span data-i18n="r.rm.p2t5">Better data structure</span></li>
                     </ul>
 
-                    <h4>Phase 3 — Security</h4>
+                    <h4 data-i18n="r.roadmap.p3">Phase 3 — Security</h4>
 
                     <ul class="task">
-                        <li><input type="checkbox" disabled> Master password</li>
-                        <li><input type="checkbox" disabled> Better key management</li>
-                        <li><input type="checkbox" disabled> Vault locking</li>
-                        <li><input type="checkbox" disabled> Failed attempt protection</li>
-                        <li><input type="checkbox" checked disabled> Security tests</li>
-                        <li><input type="checkbox" disabled> Threat model</li>
+                        <li><input type="checkbox" disabled> <span data-i18n="r.rm.p3t1">Master password</span></li>
+                        <li><input type="checkbox" disabled> <span data-i18n="r.rm.p3t2">Better key management</span></li>
+                        <li><input type="checkbox" disabled> <span data-i18n="r.rm.p3t3">Vault locking</span></li>
+                        <li><input type="checkbox" disabled> <span data-i18n="r.rm.p3t4">Failed attempt protection</span></li>
+                        <li><input type="checkbox" checked disabled> <span data-i18n="r.rm.p3t5">Security tests</span></li>
+                        <li><input type="checkbox" disabled> <span data-i18n="r.rm.p3t6">Threat model</span></li>
                     </ul>
 
-                    <h4>Phase 4 — Database</h4>
+                    <h4 data-i18n="r.roadmap.p4">Phase 4 — Database</h4>
 
                     <ul class="task">
-                        <li><input type="checkbox" disabled> SQLite</li>
-                        <li><input type="checkbox" disabled> Database models</li>
-                        <li><input type="checkbox" disabled> Encrypted database fields</li>
-                        <li><input type="checkbox" disabled> Data validation</li>
-                        <li><input type="checkbox" disabled> Database migrations</li>
+                        <li><input type="checkbox" disabled> <span data-i18n="r.rm.p4t1">SQLite</span></li>
+                        <li><input type="checkbox" disabled> <span data-i18n="r.rm.p4t2">Database models</span></li>
+                        <li><input type="checkbox" disabled> <span data-i18n="r.rm.p4t3">Encrypted database fields</span></li>
+                        <li><input type="checkbox" disabled> <span data-i18n="r.rm.p4t4">Data validation</span></li>
+                        <li><input type="checkbox" disabled> <span data-i18n="r.rm.p4t5">Database migrations</span></li>
                     </ul>
 
-                    <h4>Phase 5 — API</h4>
+                    <h4 data-i18n="r.roadmap.p5">Phase 5 — API</h4>
 
                     <ul class="task">
-                        <li><input type="checkbox" disabled> Local API</li>
-                        <li><input type="checkbox" disabled> FastAPI</li>
-                        <li><input type="checkbox" disabled> Authentication</li>
-                        <li><input type="checkbox" disabled> API documentation</li>
+                        <li><input type="checkbox" disabled> <span data-i18n="r.rm.p5t1">Local API</span></li>
+                        <li><input type="checkbox" disabled> <span data-i18n="r.rm.p5t2">FastAPI</span></li>
+                        <li><input type="checkbox" disabled> <span data-i18n="r.rm.p5t3">Authentication</span></li>
+                        <li><input type="checkbox" disabled> <span data-i18n="r.rm.p5t4">API documentation</span></li>
                     </ul>
 
-                    <h4>Phase 6 — Interface</h4>
+                    <h4 data-i18n="r.roadmap.p6">Phase 6 — Interface</h4>
 
                     <ul class="task">
-                        <li><input type="checkbox" disabled> Web interface</li>
-                        <li><input type="checkbox" disabled> Vault dashboard</li>
-                        <li><input type="checkbox" disabled> Password manager UI</li>
-                        <li><input type="checkbox" disabled> API integration</li>
+                        <li><input type="checkbox" disabled> <span data-i18n="r.rm.p6t1">Web interface</span></li>
+                        <li><input type="checkbox" disabled> <span data-i18n="r.rm.p6t2">Vault dashboard</span></li>
+                        <li><input type="checkbox" disabled> <span data-i18n="r.rm.p6t3">Password manager UI</span></li>
+                        <li><input type="checkbox" disabled> <span data-i18n="r.rm.p6t4">API integration</span></li>
                     </ul>
 
-                    <h4>Phase 7 — Open Source</h4>
+                    <h4 data-i18n="r.roadmap.p7">Phase 7 — Open Source</h4>
 
                     <ul class="task">
-                        <li><input type="checkbox" disabled> Complete documentation</li>
-                        <li><input type="checkbox" checked disabled> Automated tests</li>
-                        <li><input type="checkbox" disabled> CI/CD</li>
-                        <li><input type="checkbox" disabled> Security review</li>
-                        <li><input type="checkbox" disabled> PyPI package</li>
+                        <li><input type="checkbox" disabled> <span data-i18n="r.rm.p7t1">Complete documentation</span></li>
+                        <li><input type="checkbox" checked disabled> <span data-i18n="r.rm.p7t2">Automated tests</span></li>
+                        <li><input type="checkbox" disabled> <span data-i18n="r.rm.p7t3">CI/CD</span></li>
+                        <li><input type="checkbox" disabled> <span data-i18n="r.rm.p7t4">Security review</span></li>
+                        <li><input type="checkbox" disabled> <span data-i18n="r.rm.p7t5">PyPI package</span></li>
                     </ul>
 
                     <hr>
 
-                    <h3>📚 Development Story</h3>
+                    <h3 data-i18n="r.story">📚 Development Story</h3>
 
-                    <p>PyVault isn't only a software project.</p>
+                    <p data-i18n="r.story.1">PyVault isn't only a software project.</p>
 
-                    <p>I also want to document the process of building it.</p>
+                    <p data-i18n="r.story.2">I also want to document the process of building it.</p>
 
-                    <p>The documentation will cover:</p>
+                    <p data-i18n="r.story.3">The documentation will cover:</p>
 
-<pre><code>Idea
+<pre><code data-i18n="r.story.pre">Idea
 
   ↓
 
@@ -727,39 +803,39 @@ Benchmarking
 Final application
                     </code></pre>
 
-                    <p>The objective is to show what I learned, what went wrong and how the project evolved over time.</p>
+                    <p data-i18n="r.story.4">The objective is to show what I learned, what went wrong and how the project evolved over time.</p>
 
                     <hr>
 
-                    <h3>🧪 Status</h3>
+                    <h3 data-i18n="r.status">🧪 Status</h3>
 
-                    <p><strong>Current version:</strong> <code>0.2.0-dev</code></p>
+                    <p data-i18n="r.status.1"><strong>Current version:</strong> <code>0.2.0-dev</code></p>
 
-                    <p>PyVault is currently an experimental project.</p>
+                    <p data-i18n="r.status.2">PyVault is currently an experimental project.</p>
 
-                    <p>The project is actively being developed and its architecture may change significantly.</p>
-
-                    <hr>
-
-                    <h3>🤝 Contributing</h3>
-
-                    <p>Contributions, suggestions and bug reports are welcome.</p>
-
-                    <p>If you find a problem, feel free to open an issue.</p>
-
-                    <p>For larger changes, please open an issue first to discuss the idea.</p>
+                    <p data-i18n="r.status.3">The project is actively being developed and its architecture may change significantly.</p>
 
                     <hr>
 
-                    <h3>📄 License</h3>
+                    <h3 data-i18n="r.contrib">🤝 Contributing</h3>
 
-                    <p>PyVault is released under the <strong>MIT License</strong>.</p>
+                    <p data-i18n="r.contrib.1">Contributions, suggestions and bug reports are welcome.</p>
 
-                    <p>See <a href="../LICENSE"><code>LICENSE</code></a> for more information.</p>
+                    <p data-i18n="r.contrib.2">If you find a problem, feel free to open an issue.</p>
+
+                    <p data-i18n="r.contrib.3">For larger changes, please open an issue first to discuss the idea.</p>
 
                     <hr>
 
-                    <h3>👤 Author</h3>
+                    <h3 data-i18n="r.license">📄 License</h3>
+
+                    <p data-i18n="r.license.1">PyVault is released under the <strong>MIT License</strong>.</p>
+
+                    <p data-i18n="r.license.2">See <a href="../LICENSE"><code>LICENSE</code></a> for more information.</p>
+
+                    <hr>
+
+                    <h3 data-i18n="r.author">👤 Author</h3>
 
                     <p><strong>xql</strong></p>
 
@@ -767,7 +843,7 @@ Final application
 
                     <hr>
 
-                    <blockquote>Built with Python 🐍<br>Learning by building.</blockquote>
+                    <blockquote data-i18n="r.closing">Built with Python 🐍<br>Learning by building.</blockquote>
 
                 </article>
             </div>
@@ -778,9 +854,9 @@ Final application
             <div class="wrap narrow">
 
                 <div class="page-head">
-                    <p class="page-kicker">Bac à sable interactif</p>
-                    <h2>PyVault en CLI — en direct</h2>
-                    <p class="page-desc">Une vraie console, comme <code>python main.py</code>, qui tourne dans ton navigateur.
+                    <p class="page-kicker" data-i18n="test.kicker">Bac à sable interactif</p>
+                    <h2 data-i18n="test.title">PyVault en CLI — en direct</h2>
+                    <p class="page-desc" data-i18n="test.desc">Une vraie console, comme <code>python main.py</code>, qui tourne dans ton navigateur.
                     Tape les mêmes commandes. Le chiffrement est le vrai Fernet — ce que tu produis ici peut être déchiffré
                     par le PyVault en Python, et l'inverse. Les entrées sont enregistrées dans ce navigateur, comme le dossier
                     <code>secret/</code>.</p>
@@ -793,24 +869,24 @@ Final application
                     </div>
                     <div class="term-body" id="term-out" aria-live="polite"></div>
                     <div class="term-input-row">
-                        <span class="term-prompt">Choices :</span>
-                        <input id="term-in" type="text" autocomplete="off" spellcheck="false" autocapitalize="off" aria-label="Commande PyVault">
+                        <span class="term-prompt" data-i18n="test.prompt">Choices :</span>
+                        <input id="term-in" type="text" autocomplete="off" spellcheck="false" autocapitalize="off" data-i18n-aria="test.aria" aria-label="Commande PyVault" data-i18n-placeholder="test.placeholder" placeholder="Tape une commande (0, 1, 2… ou help)">
                     </div>
                 </div>
 
                 <div class="term-help">
-                    <h3>Commandes</h3>
+                    <h3 data-i18n="test.cmds.title">Commandes</h3>
                     <ul class="term-cmds">
-                        <li><code>0</code> Générer une clé</li>
-                        <li><code>1</code> Ajouter un mot de passe</li>
-                        <li><code>2</code> Lister les entrées</li>
-                        <li><code>3</code> Déchiffrer un mot de passe</li>
-                        <li><code>4</code> Exporter (zip)</li>
-                        <li><code>5</code> Supprimer une entrée</li>
-                        <li><code>6</code> Rechercher un site</li>
-                        <li><code>s</code> Ouvrir le dépôt GitHub</li>
-                        <li><code>q</code> Quitter</li>
-                        <li><code>help</code> Aide · <code>clear</code> Nettoyer</li>
+                        <li><code>0</code> <span data-i18n="test.cmd.0">Générer une clé</span></li>
+                        <li><code>1</code> <span data-i18n="test.cmd.1">Ajouter un mot de passe</span></li>
+                        <li><code>2</code> <span data-i18n="test.cmd.2">Lister les entrées</span></li>
+                        <li><code>3</code> <span data-i18n="test.cmd.3">Déchiffrer un mot de passe</span></li>
+                        <li><code>4</code> <span data-i18n="test.cmd.4">Exporter (zip)</span></li>
+                        <li><code>5</code> <span data-i18n="test.cmd.5">Supprimer une entrée</span></li>
+                        <li><code>6</code> <span data-i18n="test.cmd.6">Rechercher un site</span></li>
+                        <li><code>s</code> <span data-i18n="test.cmd.s">Ouvrir le dépôt GitHub</span></li>
+                        <li><code>q</code> <span data-i18n="test.cmd.q">Quitter</span></li>
+                        <li><code>help</code> <span data-i18n="test.cmd.help">help Aide · clear Nettoyer</span></li>
                     </ul>
                 </div>
 
@@ -822,91 +898,91 @@ Final application
             <div class="wrap narrow">
 
                 <div class="page-head">
-                    <p class="page-kicker">La suite pour PyVault</p>
-                    <h2>Idées &amp; choses à ajouter</h2>
-                    <p class="page-desc">Tout ce qui traîne dans ma tête ou dans le cahier d'idées du dépôt, classé par ordre à peu près chronologique. Rien n'est garanti, c'est une liste vivante.</p>
+                    <p class="page-kicker" data-i18n="ideas.kicker">La suite pour PyVault</p>
+                    <h2 data-i18n="ideas.title">Idées &amp; choses à ajouter</h2>
+                    <p class="page-desc" data-i18n="ideas.desc">Tout ce qui traîne dans ma tête ou dans le cahier d'idées du dépôt, classé par ordre à peu près chronologique. Rien n'est garanti, c'est une liste vivante.</p>
                 </div>
 
                 <div class="idea-columns">
 
                     <article class="idea">
-                        <div class="idea-top"><span class="pill">Phase 2</span><span class="idea-state">en attente</span></div>
-                        <h3>Charger la clé automatiquement</h3>
-                        <p>Aujourd'hui il faut taper la clé à chaque commande. Ce serait mieux que le programme retrouve tout seul <code>key.txt</code> au démarrage.</p>
+                        <div class="idea-top"><span class="pill">Phase 2</span><span class="idea-state" data-i18n="idea.state.wait">en attente</span></div>
+                        <h3 data-i18n="idea.a1.t">Charger la clé automatiquement</h3>
+                        <p data-i18n="idea.a1.d">Aujourd'hui il faut taper la clé à chaque commande. Ce serait mieux que le programme retrouve tout seul <code>key.txt</code> au démarrage.</p>
                     </article>
 
                     <article class="idea">
-                        <div class="idea-top"><span class="pill">Phase 2</span><span class="idea-state">en attente</span></div>
-                        <h3>Une vraie structure de données</h3>
-                        <p>Les fichiers par site, ça marche, mais ça ne tient pas la route longtemps. Il faut penser à un format plus propre avec des métadonnées.</p>
+                        <div class="idea-top"><span class="pill">Phase 2</span><span class="idea-state" data-i18n="idea.state.wait">en attente</span></div>
+                        <h3 data-i18n="idea.a2.t">Une vraie structure de données</h3>
+                        <p data-i18n="idea.a2.d">Les fichiers par site, ça marche, mais ça ne tient pas la route longtemps. Il faut penser à un format plus propre avec des métadonnées.</p>
                     </article>
 
                     <article class="idea">
-                        <div class="idea-top"><span class="pill">Phase 3</span><span class="idea-state">à réfléchir</span></div>
-                        <h3>Le mot de passe maître</h3>
-                        <p>Le gros morceau : protéger le coffre avec un mot de passe maître, au lieu d'une clé posée en clair sur le disque.</p>
+                        <div class="idea-top"><span class="pill">Phase 3</span><span class="idea-state" data-i18n="idea.state.think">à réfléchir</span></div>
+                        <h3 data-i18n="idea.a3.t">Le mot de passe maître</h3>
+                        <p data-i18n="idea.a3.d">Le gros morceau : protéger le coffre avec un mot de passe maître, au lieu d'une clé posée en clair sur le disque.</p>
                     </article>
 
                     <article class="idea">
-                        <div class="idea-top"><span class="pill">Phase 3</span><span class="idea-state">à réfléchir</span></div>
-                        <h3>Verrouiller le coffre</h3>
-                        <p>Un verrouillage après inactivité, et une protection contre les tentatives de mot de passe échouées.</p>
+                        <div class="idea-top"><span class="pill">Phase 3</span><span class="idea-state" data-i18n="idea.state.think">à réfléchir</span></div>
+                        <h3 data-i18n="idea.a4.t">Verrouiller le coffre</h3>
+                        <p data-i18n="idea.a4.d">Un verrouillage après inactivité, et une protection contre les tentatives de mot de passe échouées.</p>
                     </article>
 
                     <article class="idea">
-                        <div class="idea-top"><span class="pill">Phase 3</span><span class="idea-state">à réfléchir</span></div>
-                        <h3>Mieux gérer la clé</h3>
-                        <p>Utiliser un vrai dérivé de clé (KDF) au lieu du simple <code>key.txt</code> qui traîne en clair.</p>
+                        <div class="idea-top"><span class="pill">Phase 3</span><span class="idea-state" data-i18n="idea.state.think">à réfléchir</span></div>
+                        <h3 data-i18n="idea.a5.t">Mieux gérer la clé</h3>
+                        <p data-i18n="idea.a5.d">Utiliser un vrai dérivé de clé (KDF) au lieu du simple <code>key.txt</code> qui traîne en clair.</p>
                     </article>
 
                     <article class="idea">
-                        <div class="idea-top"><span class="pill">Phase 3</span><span class="idea-state">à réfléchir</span></div>
-                        <h3>Modèle de menaces</h3>
-                        <p>Poser noir sur blanc contre quoi on protège, et comment. Ça m'aidera à faire les bons choix pour la suite.</p>
+                        <div class="idea-top"><span class="pill">Phase 3</span><span class="idea-state" data-i18n="idea.state.think">à réfléchir</span></div>
+                        <h3 data-i18n="idea.a6.t">Modèle de menaces</h3>
+                        <p data-i18n="idea.a6.d">Poser noir sur blanc contre quoi on protège, et comment. Ça m'aidera à faire les bons choix pour la suite.</p>
                     </article>
 
                     <article class="idea">
-                        <div class="idea-top"><span class="pill">Phase 4</span><span class="idea-state">en attente</span></div>
-                        <h3>Passer à SQLite</h3>
-                        <p>Une vraie base pour remplacer le système de fichiers : modèles, champs chiffrés, validation et migrations.</p>
+                        <div class="idea-top"><span class="pill">Phase 4</span><span class="idea-state" data-i18n="idea.state.wait">en attente</span></div>
+                        <h3 data-i18n="idea.a7.t">Passer à SQLite</h3>
+                        <p data-i18n="idea.a7.d">Une vraie base pour remplacer le système de fichiers : modèles, champs chiffrés, validation et migrations.</p>
                     </article>
 
                     <article class="idea">
-                        <div class="idea-top"><span class="pill">Phase 5</span><span class="idea-state">en attente</span></div>
-                        <h3>Une petite API locale</h3>
-                        <p>Exposer PyVault via une API locale en FastAPI, avec authentification, histoire de pouvoir l'utiliser depuis d'autres outils.</p>
+                        <div class="idea-top"><span class="pill">Phase 5</span><span class="idea-state" data-i18n="idea.state.wait">en attente</span></div>
+                        <h3 data-i18n="idea.a8.t">Une petite API locale</h3>
+                        <p data-i18n="idea.a8.d">Exposer PyVault via une API locale en FastAPI, avec authentification, histoire de pouvoir l'utiliser depuis d'autres outils.</p>
                     </article>
 
                     <article class="idea">
-                        <div class="idea-top"><span class="pill">Phase 6</span><span class="idea-state">en attente</span></div>
-                        <h3>Une interface web</h3>
-                        <p>Un tableau de bord pour tout gérer au lieu de la ligne de commande. Le grand projet à la fin.</p>
+                        <div class="idea-top"><span class="pill">Phase 6</span><span class="idea-state" data-i18n="idea.state.wait">en attente</span></div>
+                        <h3 data-i18n="idea.a9.t">Une interface web</h3>
+                        <p data-i18n="idea.a9.d">Un tableau de bord pour tout gérer au lieu de la ligne de commande. Le grand projet à la fin.</p>
                     </article>
 
                     <article class="idea">
-                        <div class="idea-top"><span class="pill">Phase 7</span><span class="idea-state">en attente</span></div>
-                        <h3>Rendre ça solide</h3>
-                        <p>CI/CD, revue de sécurité, documentation complète, et pourquoi pas un package sur le PyPI un jour.</p>
+                        <div class="idea-top"><span class="pill">Phase 7</span><span class="idea-state" data-i18n="idea.state.wait">en attente</span></div>
+                        <h3 data-i18n="idea.a10.t">Rendre ça solide</h3>
+                        <p data-i18n="idea.a10.d">CI/CD, revue de sécurité, documentation complète, et pourquoi pas un package sur le PyPI un jour.</p>
                     </article>
 
                 </div>
 
                 <div class="idea-board">
 
-                    <h3>Carnet d'idées — <code>idea/idea.md</code></h3>
-                    <p class="idea-board-note">Le vrai fichier d'idées du dépôt ne contient pour l'instant que trois lignes. Je les garde ici telles quelles :</p>
+                    <h3 data-i18n="ideas.board.title">Carnet d'idées — <code>idea/idea.md</code></h3>
+                    <p class="idea-board-note" data-i18n="ideas.board.note">Le vrai fichier d'idées du dépôt ne contient pour l'instant que trois lignes. Je les garde ici telles quelles :</p>
 
                     <ul>
-                        <li>Ajouter une version japonaise du code dans un dossier <code>japanese</code>.</li>
-                        <li>Ajouter le support de macOS.</li>
-                        <li>Créer son propre algorithme de chiffrement.</li>
+                        <li data-i18n="ideas.board.li.1">Ajouter une version japonaise du code dans un dossier <code>japanese</code>.</li>
+                        <li data-i18n="ideas.board.li.2">Ajouter le support de macOS.</li>
+                        <li data-i18n="ideas.board.li.3">Créer son propre algorithme de chiffrement.</li>
                     </ul>
                 </div>
 
                 <div class="cta">
-                    <h3>Une idée qui traîne ?</h3>
-                    <p>Les suggestions et les bug reports sont les bienvenus. La meilleure façon de m'en parler, c'est d'ouvrir une issue sur le dépôt.</p>
-                    <a class="btn btn-solid" href="https://github.com/KirobotDev/PyVault/issues" target="_blank" rel="noopener">Ouvrir une issue</a>
+                    <h3 data-i18n="ideas.cta.title">Une idée qui traîne ?</h3>
+                    <p data-i18n="ideas.cta.text">Les suggestions et les bug reports sont les bienvenus. La meilleure façon de m'en parler, c'est d'ouvrir une issue sur le dépôt.</p>
+                    <a class="btn btn-solid" href="https://github.com/KirobotDev/PyVault/issues" target="_blank" rel="noopener" data-i18n="ideas.cta.btn">Ouvrir une issue</a>
                 </div>
             </div>
         </section>
@@ -916,21 +992,21 @@ Final application
             <div class="wrap narrow">
 
                 <div class="page-head">
-                    <p class="page-kicker">Derrière le projet</p>
-                    <h2>À propos</h2>
+                    <p class="page-kicker" data-i18n="about.kicker">Derrière le projet</p>
+                    <h2 data-i18n="about.title">À propos</h2>
                 </div>
 
                 <div class="about">
-                    <p>
+                    <p data-i18n="about.p.1">
                         PyVault, c'est mon projet d'apprentissage. Je m'appelle <strong>xql</strong> et je vois ce dépôt
                         comme un terrain de jeu où je peux me planter sans conséquence — et justement, apprendre de mes erreurs.
                     </p>
-                    <p>
+                    <p data-i18n="about.p.2">
                         L'idée de départ est bête : je voulais un endroit pour ranger mes mots de passe qui ne soit pas chez quelqu'un
                         d'autre. Le chemin pour y arriver me fait toucher à pas mal de sujets (chiffrement, stockage, API, sécurité)
                         que je n'aurais jamais abordés avec un simple tuto.
                     </p>
-                    <p>
+                    <p data-i18n="about.p.3">
                         Le projet est en développement actif et l'architecture peut encore beaucoup bouger. Si ça t'intéresse,
                         le mieux c'est de suivre la <a href="#readme" data-goto="readme">roadmap</a> dans le README, ou de
                         jeter un œil aux <a href="#idees" data-goto="idees">idées</a> pour voir où je vais.
@@ -938,19 +1014,19 @@ Final application
 
                     <dl class="facts">
                         <div>
-                            <dt>Version actuelle</dt>
+                            <dt data-i18n="about.fact.version">Version actuelle</dt>
                             <dd>0.2.0-dev</dd>
                         </div>
                         <div>
-                            <dt>Licence</dt>
+                            <dt data-i18n="about.fact.license">Licence</dt>
                             <dd>MIT</dd>
                         </div>
                         <div>
-                            <dt>Écrit en</dt>
+                            <dt data-i18n="about.fact.lang">Écrit en</dt>
                             <dd>Python</dd>
                         </div>
                         <div>
-                            <dt>Chiffrement</dt>
+                            <dt data-i18n="about.fact.crypto">Chiffrement</dt>
                             <dd>Fernet</dd>
                         </div>
                     </dl>
@@ -962,18 +1038,19 @@ Final application
 
     <footer class="footer">
         <div class="wrap footer-inner">
-            <p>PyVault — un projet d'apprentissage en Python. Fait à la main, café compris.</p>
+            <p data-i18n="footer.text">PyVault — un projet d'apprentissage en Python. Fait à la main, café compris.</p>
             <p class="footer-links">
                 <a href="https://github.com/KirobotDev/PyVault" target="_blank" rel="noopener">GitHub</a>
                 ·
                 <a href="https://github.com/KirobotDev/PyVault/issues" target="_blank" rel="noopener">Issues</a>
                 ·
-                <a href="../LICENSE" rel="license">Licence MIT</a>
+                <a href="../LICENSE" rel="license" data-i18n="footer.license">Licence MIT</a>
             </p>
         </div>
     </footer>
 
     <script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
+    <script src="./static/js/i18n.js" defer></script>
     <script src="./static/js/main.js" defer></script>
     <script src="./static/js/fernet.js" defer></script>
     <script src="./static/js/tool.js" defer></script>

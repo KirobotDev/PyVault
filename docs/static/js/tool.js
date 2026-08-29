@@ -10,7 +10,8 @@ document.addEventListener("DOMContentLoaded", function () {
     var busy = false;
     var pending = null;
 
-    var BANNER = [
+    function makeBanner() {
+        return [
         "▄▄▄▄▄▄     ▄▄▄                 ▄▄     ",
         "█▀██▀▀▀█▄  █▀██  ██▀▀           ██ █▄ ",
         "  ██▄▄▄█▀    ██  ██             ██▄██▄",
@@ -20,13 +21,14 @@ document.addEventListener("DOMContentLoaded", function () {
         "        ██                           ",
         "        ▀▀▀                           ",
         "",
-        "S. [Stars Project]          0. [Generate Key (Obliged)]     Q. [Leave]",
+        t("term.banner.menu"),
         "",
-        "        1. [Add Password]   4. [Export (Zipfiles)]",
-        "        2. [List Pswd]      5. [Delete Passwd]",
-        "        3. [Decrypt Pswd]   6. [Search Website]",
+        t("term.banner.menu1"),
+        t("term.banner.menu2"),
+        t("term.banner.menu3"),
         ""
-    ];
+        ];
+    }
 
     function getVault() {
         try {
@@ -63,7 +65,7 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
     function showBanner() {
-        BANNER.forEach(function (l) {
+        makeBanner().forEach(function (l) {
             if (l.indexOf("▄") !== -1 || l.indexOf("█") !== -1 || l.indexOf("▀") !== -1) {
                 print('<span class="t-orange">' + esc(l) + "</span>");
             } else {
@@ -72,10 +74,10 @@ document.addEventListener("DOMContentLoaded", function () {
         });
         var saved = getVault();
         if (saved.length > 0) {
-            printText(saved.length + " entrée(s) enregistrée(s). Tape 2 pour lister. (" +
-                (currentKey ? "clé chargée" : "aucune clé — tape 0") + ")");
+            printText(tArgs("term.banner.saved", saved.length,
+                (currentKey ? t("term.banner.key") : t("term.banner.nokey"))));
         } else {
-            printText("Démarrage : aucun mot de passe enregistré. Tape 0 pour générer une clé.");
+            printText(t("term.banner.empty"));
         }
     }
 
@@ -93,7 +95,7 @@ document.addEventListener("DOMContentLoaded", function () {
         }
 
         if (cmd.toLowerCase() === "help" || cmd.toLowerCase() === "h") {
-            printText("0 générer une clé · 1 ajouter · 2 lister · 3 déchiffrer · 4 exporter · 5 supprimer · 6 rechercher · s stars · q quitter · clear nettoyer");
+            printText(t("term.help"));
             return;
         }
         if (cmd.toLowerCase() === "clear" || cmd.toLowerCase() === "cls") {
@@ -106,17 +108,17 @@ document.addEventListener("DOMContentLoaded", function () {
             case "0":
                 currentKey = generateKeyCmd();
                 localStorage.setItem(STORE_KEY, currentKey);
-                printText("Clé Fernet générée et enregistrée dans key.txt", "t-ok");
+                printText(t("term.keygen.done"), "t-ok");
                 printText("key.txt → " + currentKey, "t-dim");
                 break;
 
             case "1":
                 if (!currentKey) {
-                    printText("Tape 0 d'abord pour générer une clé.", "t-err");
+                    printText(t("term.needkey"), "t-err");
                     break;
                 }
-                ask("Enter the name of your website (e.g. github) :", function (site) {
-                    ask("Enter your password :", async function (pass) {
+                ask(t("term.prompt.site"), function (site) {
+                    ask(t("term.prompt.pass"), async function (pass) {
                         try {
                             var token = await PyVault.encrypt(currentKey, pass);
                             var vault = getVault();
@@ -124,10 +126,10 @@ document.addEventListener("DOMContentLoaded", function () {
                             if (idx !== -1) vault[idx].token = token;
                             else vault.push({ site: site.trim(), token: token });
                             setVault(vault);
-                            printText("Encrypted password : " + token, "t-dim");
-                            printText("Enregistré dans secret/" + site.trim() + ".txt", "t-ok");
+                            printText(t("term.encrypted") + token, "t-dim");
+                            printText(tArgs("term.saved", site.trim() + ".txt"), "t-ok");
                         } catch (e) {
-                            printText("Erreur : " + e.message, "t-err");
+                            printText(t("term.err") + e.message, "t-err");
                         }
                     });
                 });
@@ -139,10 +141,10 @@ document.addEventListener("DOMContentLoaded", function () {
 
             case "3":
                 if (!currentKey) {
-                    printText("Tape 0 d'abord pour générer (ou récupérer) une clé.", "t-err");
+                    printText(t("term.needkey2"), "t-err");
                     break;
                 }
-                ask("Enter the file name example (github.txt) :", function (name) {
+                ask(t("term.prompt.file"), function (name) {
                     decryptEntry(name);
                 });
                 break;
@@ -152,13 +154,13 @@ document.addEventListener("DOMContentLoaded", function () {
                 break;
 
             case "5":
-                ask("Enter the name of the file to delete (just the name, no extension) :", function (name) {
+                ask(t("term.prompt.delfile"), function (name) {
                     deleteEntry(name);
                 });
                 break;
 
             case "6":
-                ask("Enter the name of your file :", function (term) {
+                ask(t("term.prompt.search"), function (term) {
                     searchEntries(term);
                 });
                 break;
@@ -166,17 +168,17 @@ document.addEventListener("DOMContentLoaded", function () {
             case "s":
             case "S":
                 window.open("https://github.com/KirobotDev/PyVault", "_blank");
-                printText("Ouverture du dépôt… ⭐", "t-ok");
+                printText(t("term.open"), "t-ok");
                 break;
 
             case "q":
             case "Q":
-                printText("À bientôt ! Recharge la page pour relancer une session CLI.", "t-dim");
+                printText(t("term.bye"), "t-dim");
                 termIn.disabled = true;
                 break;
 
             default:
-                printText("That choice doesn't exist. Tape help pour voir les commandes.", "t-err");
+                printText(t("term.unknown"), "t-err");
         }
     }
 
@@ -187,14 +189,14 @@ document.addEventListener("DOMContentLoaded", function () {
     function listEntries() {
         var vault = getVault();
         if (vault.length === 0) {
-            printText("secret/ est vide. Tape 1 pour ajouter un mot de passe.", "t-dim");
+            printText(t("term.vault.empty"), "t-dim");
             return;
         }
-        printText("Contenu de secret/ :", "t-ok");
+        printText(t("term.vault.content"), "t-ok");
         vault.forEach(function (e) {
             printText("• " + e.site + ".txt", "t-acc");
         });
-        printText("(" + vault.length + " entrée(s))");
+        printText(tArgs("term.vault.count", vault.length));
     }
 
     async function decryptEntry(name) {
@@ -202,14 +204,14 @@ document.addEventListener("DOMContentLoaded", function () {
             return e.site === name.trim() || (e.site + ".txt") === name.trim();
         })[0];
         if (!entry) {
-            printText("Fichier introuvable : " + name, "t-err");
+            printText(tArgs("term.notfound", name), "t-err");
             return;
         }
         try {
             var plain = await PyVault.decrypt(currentKey, entry.token);
-            printText("Your Password is [ " + plain + " ]", "t-green");
+            printText(tArgs("term.passwordis", plain), "t-green");
         } catch (e) {
-            printText("Échec du déchiffrement : " + e.message, "t-err");
+            printText(t("term.decryptfail") + e.message, "t-err");
         }
     }
 
@@ -217,7 +219,7 @@ document.addEventListener("DOMContentLoaded", function () {
         var q = term.trim().toLowerCase();
         var found = getVault().filter(function (e) { return e.site.toLowerCase().indexOf(q) !== -1; });
         if (found.length === 0) {
-            printText("Aucun résultat pour « " + term + " »", "t-dim");
+            printText(tArgs("term.noresult", term), "t-dim");
             return;
         }
         found.forEach(function (e) { printText("• secret/" + e.site + ".txt", "t-acc"); });
@@ -234,16 +236,16 @@ document.addEventListener("DOMContentLoaded", function () {
         });
         setVault(next);
         if (next.length === before) {
-            printText("Introuvable : " + name, "t-err");
+            printText(tArgs("term.delete.notfound", name), "t-err");
         } else {
-            printText("Delete Success — suppression de " + target + ".txt", "t-ok");
+            printText(tArgs("term.delete.ok", target + ".txt"), "t-ok");
         }
     }
 
     function exportFiles() {
         var vault = getVault();
         if (vault.length === 0) {
-            printText("Rien à exporter. Ajoute un mot de passe d'abord.", "t-err");
+            printText(t("term.export.empty"), "t-err");
             return;
         }
         var files = vault.map(function (e) { return { name: e.site + ".txt", data: e.token + "\n" }; });
@@ -256,14 +258,14 @@ document.addEventListener("DOMContentLoaded", function () {
         a.click();
         document.body.removeChild(a);
         setTimeout(function () { URL.revokeObjectURL(url); }, 1200);
-        printText("export.zip téléchargé (" + vault.length + " fichier(s)).", "t-ok");
+        printText(tArgs("term.export.done", vault.length), "t-ok");
     }
 
     termIn.addEventListener("keydown", function (e) {
         if (e.key !== "Enter") return;
         var val = termIn.value;
         termIn.value = "";
-        printText("Choices : " + val, "t-cmd");
+        printText(t("term.choices") + val, "t-cmd");
 
         if (pending) {
             var p = pending;
@@ -285,6 +287,11 @@ document.addEventListener("DOMContentLoaded", function () {
 
     showBanner();
     termIn.focus();
+
+    document.addEventListener("pyvault:lang", function () {
+        termOut.innerHTML = "";
+        showBanner();
+    });
 
     function buildZip(files) {
         var enc = new TextEncoder();
