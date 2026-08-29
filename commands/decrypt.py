@@ -32,19 +32,19 @@ def decrypt() -> str | int | bool:
         with open(file_path, "r", encoding="utf-8") as file:
             key = file.read().strip()
     else:
-        print("No key found")
+        print("No key found.")
         sys()
-        key = input("Enter your key : ").strip()
+        key = input("Enter your key: ").strip()
         sys()
 
     cipher = Fernet(key.encode())
-    name = input("Enter the name of the file (e.g. github.txt) : ")
+    name = input("Enter the name of the file (e.g. github.txt): ")
     sys()
     with open(f"./secret/{name}", "rb") as file:
         content = file.read()
 
     decrypt_passwd = cipher.decrypt(content)
-    print(f"Your Password is [ {decrypt_passwd.decode()} ]")
+    print(f"Your password is: {decrypt_passwd.decode()}")
     return decrypt_passwd.decode()
 
 if __name__ == "__main__":

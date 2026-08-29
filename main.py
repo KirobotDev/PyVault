@@ -71,13 +71,13 @@ def main() -> str | int:
                 ██                           
                 ▀▀▀           
 
-S. [Stars Project]          0. [Generate Key (Obliged)]     Q. [Leave]
+S. [Stars Project]          0. [Generate Key (Required)]     Q. [Leave]
         
         1. [Add Password]   4. [Export (Zipfiles)]
-        2. [List Pswd]      5. [Delete Passwd]
-        3. [Decrypt Pswd]   6. [Search Website]
+        2. [List Password]      5. [Delete Password]
+        3. [Decrypt Password]   6. [Search Website]
 
-        Choices : """)
+        Choice: """)
         sys()
 
 
@@ -124,7 +124,7 @@ S. [Stars Project]          0. [Generate Key (Obliged)]     Q. [Leave]
             break
 
         else:
-            print("That choice doesn't exist. Check the code on https://github.com/KirobotDev/PyVault, or suggest a change at https://github.com/KirobotDev/PyVault/issues.")
+            print("Invalid choice. Check the code on https://github.com/KirobotDev/PyVault, or suggest a change at https://github.com/KirobotDev/PyVault/issues.")
             time.sleep(2)
 
 if __name__ == "__main__":
