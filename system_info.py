@@ -1,15 +1,17 @@
 import os
 import platform
 
-def sys() -> str:
-    if platform.system() == "Darwin" or "Linux":
-        os.system("clear")
+def sys() -> int:
+    current_platform = platform.system()
 
-    elif platform.system() == "Windows":
-        os.system("cls")
+    if current_platform in {"Darwin", "Linux"}:
+        return os.system("clear")
 
-    else:
-        print("Sorry, your platform is not supported")
+    if current_platform == "Windows":
+        return os.system("cls")
+
+    print("Sorry, your platform is not supported")
+    return 1
 
 if __name__ == "__main__":
     sys()

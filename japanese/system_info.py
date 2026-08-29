@@ -33,15 +33,17 @@ try:
 except Exception:
     pass
 
-def 画面クリア() -> str:
-    if platform.system() == "Darwin" or "Linux":
-        os.system("clear")
+def 画面クリア() -> int:
+    current_platform = platform.system()
 
-    elif platform.system() == "Windows":
-        os.system("cls")
+    if current_platform in {"Darwin", "Linux"}:
+        return os.system("clear")
 
-    else:
-        print("申し訳ありませんが、このプラットフォームには対応していません")
+    if current_platform == "Windows":
+        return os.system("cls")
+
+    print("申し訳ありませんが、このプラットフォームには対応していません")
+    return 1
 
 if __name__ == "__main__":
     画面クリア()
