@@ -235,6 +235,10 @@
                         <li data-i18n="r.feats.9">🖥️ Simple CLI interface</li>
                         <li data-i18n="r.feats.10">🧪 Unit tests</li>
                         <li data-i18n="r.feats.11">📊 Encryption / decryption benchmark</li>
+                        <li data-i18n="r.feats.12">🖥️ Static website in <code>docs/</code> (GitHub Pages)</li>
+                        <li data-i18n="r.feats.13">🔐 Interactive browser terminal reproducing the CLI</li>
+                        <li data-i18n="r.feats.14">🔒 Fernet re-implemented in JavaScript (Web Crypto API)</li>
+                        <li data-i18n="r.feats.15">🌍 Bilingual FR / JA website (i18n)</li>
                     </ul>
 
                     <h4 data-i18n="r.features.planned">Planned</h4>
@@ -508,6 +512,8 @@ encrypted = fernet.encrypt(passwd.encode())
 
                     <p data-i18n="r.encryption.notdirect">The password itself is <strong>not stored directly</strong> in the file.</p>
 
+                    <p data-i18n="r.encryption.js">The browser-side terminal re-implements the same Fernet scheme in JavaScript (<code>docs/static/js/fernet.js</code>) using the <strong>Web Crypto API</strong> (AES-CBC + HMAC-SHA256). Because it follows the Fernet token format, tokens created in the browser are compatible with the Python CLI and the other way around.</p>
+
                     <blockquote data-i18n="r.encryption.warn">⚠️ This is an early prototype. The current key management system is not considered secure enough for production use.</blockquote>
 
                     <hr>
@@ -533,6 +539,20 @@ encrypted = fernet.encrypt(passwd.encode())
                     </code></pre>
 
                     <p data-i18n="r.benchmark.6">It can be used to experiment with PyVault's encryption system and compare future implementations.</p>
+
+                    <hr>
+
+                    <h3 data-i18n="r.website">🌍 Website</h3>
+
+                    <p data-i18n="r.website.1">PyVault has a static website in the <code>docs/</code> folder, automatically deployed to <strong>GitHub Pages</strong> on every push to <code>main</code>.</p>
+
+                    <p data-i18n="r.website.2">It includes:</p>
+
+                    <ul>
+                        <li data-i18n="r.website.li.1">An <strong>interactive browser terminal</strong> reproducing the CLI</li>
+                        <li data-i18n="r.website.li.2">The <strong>README</strong>, ideas, tests and about pages</li>
+                        <li data-i18n="r.website.li.3">A <strong>Français / 日本語</strong> language switch</li>
+                    </ul>
 
                     <hr>
 
@@ -633,8 +653,26 @@ Enter the file name example (github.txt) :
 
                     <p data-i18n="r.usage.decrypt.2">It will then display:</p>
 
-<pre><code data-i18n="r.usage.decrypt.out">Your Password is [ your_password_here ]
+                    <pre><code data-i18n="r.usage.decrypt.out">Your Password is [ your_password_here ]
                     </code></pre>
+
+                    <h4 data-i18n="r.usage.web">Web tool (browser)</h4>
+
+                    <p data-i18n="r.usage.web.1">An interactive terminal is available on the site's <strong>Test</strong> page (or by opening <code>docs/index.html</code> locally). It behaves exactly like the CLI but runs entirely in the browser:</p>
+
+                    <pre><code>0  Generate a key
+1  Add a password
+2  List entries
+3  Decrypt a password
+4  Export (zip)
+5  Delete an entry
+6  Search a site
+s  Open the GitHub repo
+q  Quit
+help / clear
+                    </code></pre>
+
+                    <p data-i18n="r.usage.web.2">Entries are saved in the browser's <code>localStorage</code>. Toggle the interface between <strong>Français</strong> and <strong>日本語</strong> with the language button.</p>
 
                     <hr>
 
@@ -701,6 +739,9 @@ Enter the file name example (github.txt) :
                         <li><input type="checkbox" checked disabled> <span data-i18n="r.rm.p2t1">Search passwords</span></li>
                         <li><input type="checkbox" checked disabled> <span data-i18n="r.rm.p2t2">Delete passwords</span></li>
                         <li><input type="checkbox" checked disabled> <span data-i18n="r.rm.p2t3">Export passwords</span></li>
+                        <li><input type="checkbox" checked disabled> <span data-i18n="r.rm.p2w">Web tool in the browser (<code>docs/</code>)</span></li>
+                        <li><input type="checkbox" checked disabled> <span data-i18n="r.rm.p2js">Fernet re-implemented in JavaScript (Web Crypto)</span></li>
+                        <li><input type="checkbox" checked disabled> <span data-i18n="r.rm.p2i18n">Bilingual FR / JA website (i18n)</span></li>
                         <li><input type="checkbox" disabled> <span data-i18n="r.rm.p2t4">Load existing key automatically</span></li>
                         <li><input type="checkbox" disabled> <span data-i18n="r.rm.p2t5">Better data structure</span></li>
                     </ul>
@@ -713,6 +754,7 @@ Enter the file name example (github.txt) :
                         <li><input type="checkbox" disabled> <span data-i18n="r.rm.p3t3">Vault locking</span></li>
                         <li><input type="checkbox" disabled> <span data-i18n="r.rm.p3t4">Failed attempt protection</span></li>
                         <li><input type="checkbox" checked disabled> <span data-i18n="r.rm.p3t5">Security tests</span></li>
+                        <li><input type="checkbox" checked disabled> <span data-i18n="r.rm.p3secpol">Security policy (<code>SECURITY.md</code>)</span></li>
                         <li><input type="checkbox" disabled> <span data-i18n="r.rm.p3t6">Threat model</span></li>
                     </ul>
 
@@ -749,10 +791,18 @@ Enter the file name example (github.txt) :
                     <ul class="task">
                         <li><input type="checkbox" disabled> <span data-i18n="r.rm.p7t1">Complete documentation</span></li>
                         <li><input type="checkbox" checked disabled> <span data-i18n="r.rm.p7t2">Automated tests</span></li>
-                        <li><input type="checkbox" disabled> <span data-i18n="r.rm.p7t3">CI/CD</span></li>
+                        <li><input type="checkbox" checked disabled> <span data-i18n="r.rm.p7pages">GitHub Pages deployment (CI/CD)</span></li>
                         <li><input type="checkbox" disabled> <span data-i18n="r.rm.p7t4">Security review</span></li>
                         <li><input type="checkbox" disabled> <span data-i18n="r.rm.p7t5">PyPI package</span></li>
                     </ul>
+
+                    <hr>
+
+                    <h3 data-i18n="r.security">🔒 Security</h3>
+
+                    <p data-i18n="r.security.1">PyVault is an <strong>experimental learning project</strong> and is <strong>not intended for production use</strong>.</p>
+
+                    <p data-i18n="r.security.2">See <a href="../SECURITY.md"><code>SECURITY.md</code></a> for the supported versions and how to responsibly report a vulnerability.</p>
 
                     <hr>
 

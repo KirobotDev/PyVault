@@ -136,6 +136,10 @@ var I18N = {
     "r.feats.9": { "fr": "🖥️ Simple CLI interface", "ja": "🖥️ シンプルな CLI インターフェース" },
     "r.feats.10": { "fr": "🧪 Unit tests", "ja": "🧪 単体テスト" },
     "r.feats.11": { "fr": "📊 Encryption / decryption benchmark", "ja": "📊 暗号化／復号化ベンチマーク" },
+    "r.feats.12": { "fr": "🖥️ Static website in <code>docs/</code> (GitHub Pages)", "ja": "🖥️ <code>docs/</code> の静的ウェブサイト（GitHub Pages）" },
+    "r.feats.13": { "fr": "🔐 Interactive browser terminal reproducing the CLI", "ja": "🔐 CLI を再現するブラウザ内インタラクティブターミナル" },
+    "r.feats.14": { "fr": "🔒 Fernet re-implemented in JavaScript (Web Crypto API)", "ja": "🔒 JavaScript で再実装された Fernet（Web Crypto API）" },
+    "r.feats.15": { "fr": "🌍 Bilingual FR / JA website (i18n)", "ja": "🌍 フランス語／日本語のバイリンガルサイト（i18n）" },
     "r.features.planned": { "fr": "Planned", "ja": "予定" },
     "r.planned.1": { "fr": "🗄️ SQLite database", "ja": "🗄️ SQLite データベース" },
     "r.planned.2": { "fr": "🔑 Master password", "ja": "🔑 マスターパスワード" },
@@ -177,8 +181,8 @@ var I18N = {
 
     "r.structure": { "fr": "📁 Current Project Structure", "ja": "📁 現在のプロジェクト構成" },
     "r.structure.pre": {
-        "fr": "PyVault/\n\n│\n├── commands/\n│   ├── add.py\n│   ├── decrypt.py\n│   ├── delete.py\n│   ├── export.py\n│   ├── generate_key.py\n│   ├── list.py\n│   └── search.py\n│\n├── secret/               ← stores encrypted password files\n│\n├── tests/                ← unit tests\n│\n├── images/\n│   └── benchmark.png     ← encryption/decryption benchmark\n│\n├── notebooks/\n│   └── benchmark.ipynb   ← Jupyter benchmark\n│\n├── main.py\n├── system_info.py\n├── key.txt\n├── .gitignore\n├── LICENSE\n└── README.md",
-        "ja": "PyVault/\n\n│\n├── commands/\n│   ├── add.py\n│   ├── decrypt.py\n│   ├── delete.py\n│   ├── export.py\n│   ├── generate_key.py\n│   ├── list.py\n│   └── search.py\n│\n├── secret/               ← 暗号化されたパスワードファイルの保存先\n│\n├── tests/                ← 単体テスト\n│\n├── images/\n│   └── benchmark.png     ← 暗号化／復号化ベンチマーク\n│\n├── notebooks/\n│   └── benchmark.ipynb   ← Jupyter ベンチマーク\n│\n├── main.py\n├── system_info.py\n├── key.txt\n├── .gitignore\n├── LICENSE\n└── README.md"
+        "fr": "PyVault/\n\n│\n├── commands/             ← CLI commands\n│   ├── add.py\n│   ├── decrypt.py\n│   ├── delete.py\n│   ├── export.py\n│   ├── generate_key.py\n│   ├── list.py\n│   └── search.py\n│\n├── docs/                 ← static website (GitHub Pages)\n│   ├── index.html        ← single-page site (FR / JA)\n│   └── static/js/\n│       ├── fernet.js     ← Fernet in JS (Web Crypto)\n│       ├── tool.js       ← interactive browser terminal\n│       ├── main.js       ← page routing & mermaid\n│       └── i18n.js       ← FR / JA translations\n│\n├── secret/               ← stores encrypted password files\n│\n├── tests/                ← unit tests\n│\n├── images/\n│   └── benchmark.png     ← encryption/decryption benchmark\n│\n├── notebooks/\n│   └── benchmark.ipynb   ← Jupyter benchmark\n│\n├── .github/workflows/    ← GitHub Pages deploy (static.yml)\n│\n├── idea/\n│   └── idea.md           ← ideas file\n│\n├── main.py\n├── system_info.py\n├── key.txt\n├── SECURITY.md\n├── .gitignore\n├── LICENSE\n└── README.md",
+        "ja": "PyVault/\n\n│\n├── commands/             ← CLI コマンド\n│   ├── add.py\n│   ├── decrypt.py\n│   ├── delete.py\n│   ├── export.py\n│   ├── generate_key.py\n│   ├── list.py\n│   └── search.py\n│\n├── docs/                 ← 静的ウェブサイト（GitHub Pages）\n│   ├── index.html        ← シングルページサイト（FR / JA）\n│   └── static/js/\n│       ├── fernet.js     ← JavaScript 版 Fernet（Web Crypto）\n│       ├── tool.js       ← ブラウザ内インタラクティブターミナル\n│       ├── main.js       ← ページルーティング＆mermaid\n│       └── i18n.js       ← FR / JA 翻訳\n│\n├── secret/               ← 暗号化されたパスワードファイルの保存先\n│\n├── tests/                ← 単体テスト\n│\n├── images/\n│   └── benchmark.png     ← 暗号化／復号化ベンチマーク\n│\n├── notebooks/\n│   └── benchmark.ipynb   ← Jupyter ベンチマーク\n│\n├── .github/workflows/    ← GitHub Pages デプロイ（static.yml）\n│\n├── idea/\n│   └── idea.md           ← アイデアファイル\n│\n├── main.py\n├── system_info.py\n├── key.txt\n├── SECURITY.md\n├── .gitignore\n├── LICENSE\n└── README.md"
     },
 
     "r.encryption": { "fr": "🔐 Current Encryption System", "ja": "🔐 現在の暗号化システム" },
@@ -209,6 +213,10 @@ var I18N = {
         "fr": "The password itself is <strong>not stored directly</strong> in the file.",
         "ja": "パスワード自体はファイルに<strong>直接保存されません</strong>。"
     },
+    "r.encryption.js": {
+        "fr": "The browser-side terminal re-implements the same Fernet scheme in JavaScript (<code>docs/static/js/fernet.js</code>) using the <strong>Web Crypto API</strong> (AES-CBC + HMAC-SHA256). Because it follows the Fernet token format, tokens created in the browser are compatible with the Python CLI and the other way around.",
+        "ja": "ブラウザ側のターミナルは、同じ Fernet スキームを JavaScript（<code>docs/static/js/fernet.js</code>）で再実装し、<strong>Web Crypto API</strong>（AES-CBC + HMAC-SHA256）を使用します。Fernet のトークン形式に従うため、ブラウザで生成したトークンは Python CLI と互換性があり、その逆も同様です。"
+    },
     "r.encryption.warn": {
         "fr": "⚠️ This is an early prototype. The current key management system is not considered secure enough for production use.",
         "ja": "⚠️ これは初期プロトタイプです。現在のキー管理システムは、本番利用には十分に安全とは見なされていません。"
@@ -234,6 +242,19 @@ var I18N = {
         "fr": "It can be used to experiment with PyVault's encryption system and compare future implementations.",
         "ja": "PyVault の暗号化システムの実験や、将来の実装との比較に使用できます。"
     },
+
+    "r.website": { "fr": "🌍 Website", "ja": "🌍 ウェブサイト" },
+    "r.website.1": {
+        "fr": "PyVault has a static website in the <code>docs/</code> folder, automatically deployed to <strong>GitHub Pages</strong> on every push to <code>main</code>.",
+        "ja": "PyVault は <code>docs/</code> フォルダに静的ウェブサイトを持ち、<code>main</code> へプッシュするたびに <strong>GitHub Pages</strong> へ自動デプロイされます。"
+    },
+    "r.website.2": { "fr": "It includes:", "ja": "含まれる内容：" },
+    "r.website.li.1": {
+        "fr": "An <strong>interactive browser terminal</strong> reproducing the CLI",
+        "ja": "CLI を再現する<strong>ブラウザ内インタラクティブターミナル</strong>"
+    },
+    "r.website.li.2": { "fr": "The <strong>README</strong>, ideas, tests and about pages", "ja": "<strong>README</strong>、アイデア、テスト、概要ページ" },
+    "r.website.li.3": { "fr": "A <strong>Français / 日本語</strong> language switch", "ja": "<strong>フランス語／日本語</strong>の言語切り替え" },
 
     "r.install": { "fr": "🚀 Installation", "ja": "🚀 インストール" },
     "r.install.1": { "fr": "Clone the repository:", "ja": "リポジトリをクローンします。" },
@@ -278,6 +299,15 @@ var I18N = {
     "r.usage.decrypt.out": {
         "fr": "Your Password is [ your_password_here ]",
         "ja": "あなたのパスワードは [ あなたのパスワード ] です"
+    },
+    "r.usage.web": { "fr": "Web tool (browser)", "ja": "ウェブツール（ブラウザ）" },
+    "r.usage.web.1": {
+        "fr": "An interactive terminal is available on the site's <strong>Test</strong> page (or by opening <code>docs/index.html</code> locally). It behaves exactly like the CLI but runs entirely in the browser:",
+        "ja": "サイトの<strong>[テスト]</strong>ページ（または <code>docs/index.html</code> をローカルで開く）で利用できるインタラクティブターミナルです。CLI とまったく同じ動作を、ブラウザ内だけで実行します。"
+    },
+    "r.usage.web.2": {
+        "fr": "Entries are saved in the browser's <code>localStorage</code>. Toggle the interface between <strong>Français</strong> and <strong>日本語</strong> with the language button.",
+        "ja": "エントリはブラウザの <code>localStorage</code> に保存されます。<strong>フランス語</strong>と<strong>日本語</strong>の切り替えは言語ボタンで行います。"
     },
 
     "r.tests": { "fr": "🧪 Running Tests", "ja": "🧪 テストの実行" },
@@ -344,6 +374,21 @@ var I18N = {
     "r.rm.p7t3": { "fr": "CI/CD", "ja": "CI/CD" },
     "r.rm.p7t4": { "fr": "Security review", "ja": "セキュリティレビュー" },
     "r.rm.p7t5": { "fr": "PyPI package", "ja": "PyPI パッケージ" },
+    "r.rm.p2w": { "fr": "Web tool in the browser (<code>docs/</code>)", "ja": "ブラウザ内ウェブツール（<code>docs/</code>）" },
+    "r.rm.p2js": { "fr": "Fernet re-implemented in JavaScript (Web Crypto)", "ja": "JavaScript で再実装された Fernet（Web Crypto）" },
+    "r.rm.p2i18n": { "fr": "Bilingual FR / JA website (i18n)", "ja": "フランス語／日本語のバイリンガルサイト（i18n）" },
+    "r.rm.p3secpol": { "fr": "Security policy (<code>SECURITY.md</code>)", "ja": "セキュリティポリシー（<code>SECURITY.md</code>）" },
+    "r.rm.p7pages": { "fr": "GitHub Pages deployment (CI/CD)", "ja": "GitHub Pages デプロイ（CI/CD）" },
+
+    "r.security": { "fr": "🔒 Security", "ja": "🔒 セキュリティ" },
+    "r.security.1": {
+        "fr": "PyVault is an <strong>experimental learning project</strong> and is <strong>not intended for production use</strong>.",
+        "ja": "PyVault は<strong>実験的な学習プロジェクト</strong>であり、<strong>本番利用は想定していません</strong>。"
+    },
+    "r.security.2": {
+        "fr": "See <a href=\"../SECURITY.md\"><code>SECURITY.md</code></a> for the supported versions and how to responsibly report a vulnerability.",
+        "ja": "サポート対象バージョンと脆弱性の責任ある報告方法については、<a href=\"../SECURITY.md\"><code>SECURITY.md</code></a> を参照してください。"
+    },
 
     "r.story": { "fr": "📚 Development Story", "ja": "📚 開発ストーリー" },
     "r.story.1": { "fr": "PyVault isn't only a software project.", "ja": "PyVault は単なるソフトウェアプロジェクトではありません。" },
