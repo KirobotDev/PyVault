@@ -34,13 +34,13 @@ def add_passwd() -> str:
             key = content.strip()
 
     else :
-        key = input("Enter your key please thanks... : ")
+        key = input("Enter your key: ")
         with open("key.txt" , 'w') as file : 
             file.write(key) 
     sys()
-    website = input("Enter the name of your website (e.g. github) : ")
+    website = input("Enter the name of your website (e.g. github): ")
     sys()
-    add = input("Enter your password : ")
+    add = input("Enter your password: ")
     sys()
 
     try:
@@ -49,7 +49,7 @@ def add_passwd() -> str:
         fernet = Fernet(key.encode())
 
         encrypted = fernet.encrypt(passwd.encode())
-        print(f"Encrypted password : {encrypted}")
+        print(f"Encrypted password: {encrypted}")
 
         with open(f"./secret/{website}.txt", "a", encoding="utf-8") as f:
             f.write(f"{encrypted.decode()}\n")
@@ -57,7 +57,7 @@ def add_passwd() -> str:
         return passwd
     
     except Exception as e:
-        print(f"Error {e}")
+        print(f"Error: {e}")
         return ""
 
 if __name__ == "__main__":

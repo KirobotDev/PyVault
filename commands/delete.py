@@ -27,11 +27,11 @@ from system_info import sys
 import os
 
 def delete() -> None:
-    files = input("Enter the name of the file to delete (just the name, no extension) : ")
+    files = input("Enter the name of the file to delete (just the name, no extension): ")
     paths = f"./secret/{files}.txt"
     os.remove(paths)
     sys()
-    print("Delete Success")
+    print("File deleted successfully.")
 
 if __name__ == "__main__":
     delete()

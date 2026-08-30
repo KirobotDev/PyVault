@@ -31,7 +31,7 @@ from pathlib import Path
 
 def search() -> str:
     dossier = Path("./secret")
-    paths = input("Enter the name of your file : ")
+    paths = input("Enter the name of your file: ")
     result = list(dossier.rglob(paths))
 
     try:
@@ -39,7 +39,7 @@ def search() -> str:
             print(chemin)
             return chemin
     except Exception as e:
-        print(f"Error {e}")
+        print(f"Error: {e}")
         return ""
 
 if __name__ == "__main__":

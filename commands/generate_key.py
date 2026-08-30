@@ -39,10 +39,10 @@ def generate_key() -> str:
         key = Fernet.generate_key()
         with open("key.txt", "w", encoding='utf-8') as f:
             f.write(key.decode())
-        print("Your key is already in key.txt")
+        print("Your key has been saved to key.txt.")
 
     except Exception as e:
-        print(f"Error {e}")
+        print(f"Error: {e}")
         return ""
 if __name__ == "__main__":
     generate_key()
