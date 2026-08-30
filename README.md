@@ -504,8 +504,7 @@ The benchmark measures:
 * [x] Web tool in the browser (`docs/`)
 * [x] Fernet re-implemented in JavaScript (Web Crypto)
 * [x] Bilingual FR / JA website (i18n)
-* [ ] Load existing key automatically
-* [ ] Better data structure
+* [x] Load existing key automatically
 
 ### Phase 3 — Security
 

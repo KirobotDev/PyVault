@@ -61,6 +61,7 @@ def main() -> str | int:
     test_unitary()
 
     while True:
+        generate_key()
         cli = input("""
         ▄▄▄▄▄▄     ▄▄▄                 ▄▄     
        █▀██▀▀▀█▄  █▀██  ██▀▀           ██ █▄ 
@@ -71,7 +72,7 @@ def main() -> str | int:
                 ██                           
                 ▀▀▀           
 
-S. [Stars Project]          0. [Generate Key (Required)]     Q. [Leave]
+S. [Stars Project]                                   Q. [Leave]
         
         1. [Add Password]   4. [Export (Zipfiles)]
         2. [List Password]      5. [Delete Password]
@@ -81,12 +82,7 @@ S. [Stars Project]          0. [Generate Key (Required)]     Q. [Leave]
         sys()
 
 
-        if cli == "0":
-            generate_key()
-            time.sleep(2)
-            sys()
-
-        elif cli == "1":
+        if cli == "1":
             add_passwd()
             time.sleep(2)
             sys()

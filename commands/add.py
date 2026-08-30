@@ -25,13 +25,17 @@ SOFTWARE.
 
 from cryptography.fernet import Fernet
 from system_info import sys
-import os 
+import os
+import sys as _sys
+from dpapi_utils import unprotect
 file_path = "key.txt"
 def add_passwd() -> str:
     if os.path.exists(file_path) :
         with open("key.txt" , 'r') as file : 
             content = file.read() 
             key = content.strip()
+        if _sys.platform == "win32":
+            key = unprotect(key)
 
     else :
         key = input("Enter your key: ")

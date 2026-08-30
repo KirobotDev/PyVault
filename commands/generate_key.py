@@ -27,18 +27,16 @@ from cryptography.fernet import Fernet
 import json
 import os
 import time
-
-"""
-Return -> String = Return Your key in version string :)
-
-Using Fernet for generate key and crypt & decrypt & key
-"""
+import sys
+from dpapi_utils import protect
 
 def generate_key() -> str:
     try:
-        key = Fernet.generate_key()
+        key = Fernet.generate_key().decode()
+        if sys.platform == "win32":
+            key = protect(key)
         with open("key.txt", "w", encoding='utf-8') as f:
-            f.write(key.decode())
+            f.write(key)
         print("Your key has been saved to key.txt.")
 
     except Exception as e:

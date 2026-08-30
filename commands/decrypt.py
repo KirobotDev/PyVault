@@ -25,12 +25,16 @@ SOFTWARE.
 
 from cryptography.fernet import Fernet
 from system_info import sys
-import os 
+import os
+import sys as _sys
+from dpapi_utils import unprotect
 file_path= "key.txt"
 def decrypt() -> str | int | bool:
     if os.path.exists(file_path):
         with open(file_path, "r", encoding="utf-8") as file:
             key = file.read().strip()
+        if _sys.platform == "win32":
+            key = unprotect(key)
     else:
         print("No key found.")
         sys()
