@@ -24,6 +24,12 @@ The goal of this project is to build a simple, private and secure way to store s
 * 🧪 Unit tests
 * 📊 Encryption / decryption benchmark
 
+### Platform support
+
+* 🖥️ macOS support is available for the terminal clear screen helper used by the CLI
+* 🪟 Windows and Linux are supported by the same helper logic
+* 🧪 Run the test suite with `python3 -m unittest discover -s tests -p '*_test.py'`
+
 ### Planned
 
 * 🗄️ SQLite database
