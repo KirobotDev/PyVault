@@ -27,7 +27,7 @@ from cryptography.fernet import Fernet
 from system_info import sys
 import os
 import sys as _sys
-from dpapi_utils import unprotect
+from dpapi_utils import unprotect, protect
 file_path = "key.txt"
 def add_passwd() -> str:
     if os.path.exists(file_path) :
@@ -39,6 +39,8 @@ def add_passwd() -> str:
 
     else :
         key = input("Enter your key: ")
+        if _sys.platform == "win32":
+            key = protect(key)
         with open("key.txt" , 'w') as file : 
             file.write(key) 
     sys()

@@ -31,6 +31,8 @@ import sys
 from dpapi_utils import protect
 
 def generate_key() -> str:
+    if os.path.exists("key.txt"):
+        return "Key already exists."
     try:
         key = Fernet.generate_key().decode()
         if sys.platform == "win32":

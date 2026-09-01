@@ -60,8 +60,9 @@ def main() -> str | int:
 
     test_unitary()
 
+    generate_key()
+
     while True:
-        generate_key()
         cli = input("""
         ▄▄▄▄▄▄     ▄▄▄                 ▄▄     
        █▀██▀▀▀█▄  █▀██  ██▀▀           ██ █▄ 

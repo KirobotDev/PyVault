@@ -508,13 +508,9 @@ The benchmark measures:
 
 ### Phase 3 — Security
 
-* [ ] Master password
-* [ ] Better key management (KDF)
-* [ ] Vault locking
-* [ ] Failed attempt protection
+* [x] Better key management (KDF)
 * [x] Security tests
 * [x] Security policy (`SECURITY.md`)
-* [ ] Threat model
 
 ### Phase 4 — Database
 
