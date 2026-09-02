@@ -536,10 +536,10 @@ The benchmark measures:
 
 ### Phase 7 — Open Source
 
-* [ ] Complete documentation
+* [x] Complete documentation
 * [x] Automated tests
 * [x] GitHub Pages deployment (CI/CD)
-* [ ] Security review
+* [x] Security review
 * [ ] PyPI package
 
 ---

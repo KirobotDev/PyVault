@@ -22,15 +22,18 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 
 """
-from pathlib import Path
+import sqlite3
+db_path = "./secret/passwords.db"
 
 def list() -> str:
-    dossier = Path("./secret")
-
-    for chemin in dossier.iterdir():
-        if chemin.is_file():
-            print(chemin.name)
-            return chemin.name
+    conn = sqlite3.connect(db_path)
+    cursor = conn.cursor()
+    cursor.execute("SELECT website FROM passwords")
+    websites = cursor.fetchall()
+    conn.close()
+    for website in websites:
+        print(website[0])
+    return ""
 
 if __name__ == "__main__":
     list()
