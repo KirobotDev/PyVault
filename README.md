@@ -13,9 +13,9 @@ The goal of this project is to build a simple, private and secure way to store s
 ### CLI — `python main.py`
 
 * 🔑 Generate Fernet encryption keys
-* 🔐 Encrypt and store passwords using Fernet
-* 💾 Store each password in a dedicated file per website in `secret/`
-* 🔓 Decrypt and retrieve stored passwords
+* 🛡️ On Windows, protect the key on-disk with **DPAPI** (`dpapi_utils.py`) instead of storing it in plain text
+* 🔐 Encrypt passwords using Fernet, then store them in a **SQLite database** (`secret/passwords.db`)
+* 🔓 Decrypt and retrieve stored passwords (handles duplicate website entries)
 * 📋 List all saved entries
 * 🔎 Search stored passwords
 * 🗑️ Delete passwords
@@ -30,15 +30,15 @@ A static site deployed on **GitHub Pages** that mirrors PyVault's features in th
 
 * 🖥️ An **interactive terminal** reproducing the CLI (`python main.py`) directly in the browser
 * 🔐 The **real Fernet algorithm re-implemented in JavaScript** (`fernet.js`) using the Web Crypto API — data produced in the browser can be decrypted by the Python CLI and vice-versa
-* 💾 Vault entries stored in the browser's `localStorage` (like the `secret/` folder)
+* 💾 Vault entries stored in the browser's `localStorage`
 * 📤 Zip export built directly in the browser
 * 🌍 Bilingual **Français / 日本語** interface with an i18n system
 * 📄 README, ideas, tests and "about" pages rendered as a single-page site
 
 ### Platform support
 
-* 🖥️ macOS support is available for the terminal clear screen helper used by the CLI
-* 🪟 Windows and Linux are supported by the same helper logic
+* 🪟 Windows benefits from **DPAPI key protection**
+* 🖥️ macOS and Linux are supported by the same clear-screen helper logic
 
 ---
 
@@ -89,9 +89,11 @@ flowchart TD
 
     JsFernet["🔒 Fernet in JS (fernet.js)<br/>CURRENT"]
 
-    KeyFile["📄 key.txt<br/>CURRENT"]
+    KeyFile["📄 key.txt (DPAPI on Windows)<br/>CURRENT"]
 
-    SecretFolder["📁 secret/<br/>CURRENT"]
+    Database["🗄️ SQLite (secret/passwords.db)<br/>CURRENT"]
+
+    DPAPI["🛡️ DPAPI Key Protection (win32)<br/>CURRENT"]
 
     Search["🔎 Search Passwords<br/>CURRENT"]
 
@@ -108,8 +110,6 @@ flowchart TD
     MasterPassword["🔑 Master Password<br/>PLANNED"]
 
     Vault["🔐 Vault System<br/>PLANNED"]
-
-    SQLite["🗄️ SQLite Database<br/>PLANNED"]
 
     API["🌐 Local API<br/>PLANNED"]
 
@@ -129,12 +129,13 @@ flowchart TD
 
     GenerateKey --> Fernet
     GenerateKey --> KeyFile
+    GenerateKey --> DPAPI
 
     AddPassword --> Fernet
-    Fernet --> SecretFolder
+    Fernet --> Database
 
-    DecryptPassword --> SecretFolder
-    ListPasswords --> SecretFolder
+    DecryptPassword --> Database
+    ListPasswords --> Database
 
     CLI --> Search
     CLI --> Delete
@@ -147,9 +148,6 @@ flowchart TD
 
     WebTool --> JsFernet
     JsFernet --> I18n
-
-    Search -.-> SQLite
-    Delete -.-> SQLite
 
     MasterPassword -.-> Vault
     Vault -.-> SQLite
@@ -183,6 +181,13 @@ PyVault/
 │   ├── list.py
 │   └── search.py
 │
+├── tests/                ← unit tests
+│   ├── add_test.py
+│   ├── benchmark.ipynb   ← Jupyter benchmark
+│   ├── decrypt_test.py
+│   ├── test_system_info.py
+│   └── test_unitary/
+│
 ├── docs/                 ← static website (GitHub Pages)
 │   ├── index.html        ← single-page site (FR / JA)
 │   ├── robots.txt
@@ -195,37 +200,39 @@ PyVault/
 │           ├── main.js   ← page routing & mermaid
 │           └── i18n.js   ← FR / JA translations
 │
-├── secret/               ← stores encrypted password files
-│
-├── tests/                ← unit tests
+├── secret/               ← password storage (DB + legacy files)
+│   ├── passwords.db      ← SQLite database
+│   └── github.txt
 │
 ├── images/
-│   └── benchmark.png     ← encryption/decryption benchmark
+│   └── new_benchmark.png ← encryption/decryption benchmark
 │
-├── notebooks/
-│   └── benchmark.ipynb   ← Jupyter benchmark
+├── examples/
 │
 ├── .github/workflows/    ← GitHub Pages deploy (`static.yml`)
 │
 ├── idea/
 │   └── idea.md           ← ideas file
 │
-├── japanese/             ← (planned) Japanese version of the code
+├── japanese/             ← Japanese version of the code
 │
+├── dpapi_utils.py        ← DPAPI protect / unprotect helper (Windows)
 ├── main.py
 ├── system_info.py
-├── key.txt
+├── key.txt               ← protected Fernet key
 ├── SECURITY.md
 ├── .gitignore
 ├── LICENSE
 └── README.md
 ```
 
+> 📌 **Note:** `add.py`, `list.py` and `decrypt.py` now store passwords in a SQLite database (`secret/passwords.db`). The `search.py` and `delete.py` commands still operate on the legacy per-website files in `secret/`.
+
 ---
 
 ## 🔐 Current Encryption System
 
-PyVault currently uses **Fernet** from the `cryptography` library.
+PyVault uses **Fernet** from the `cryptography` library.
 
 A key is generated with:
 
@@ -233,39 +240,27 @@ A key is generated with:
 key = Fernet.generate_key()
 ```
 
-The key is currently stored locally in:
-
-```text
-key.txt
-```
+The key is stored locally in `key.txt`. On **Windows**, the raw key is wrapped with the **DPAPI** functions in `dpapi_utils.py` (`protect()` / `unprotect()`) so it is not stored in plain text on disk. On other platforms the key is stored as-is.
 
 When adding a password, PyVault encrypts it before storing it:
 
 ```python
-fernet = Fernet(key.encode())
+cipher = Fernet(key.encode())
 
-encrypted = fernet.encrypt(passwd.encode())
+encrypted = cipher.encrypt(passwd.encode())
 ```
 
-The encrypted password is then stored in a dedicated file inside the `secret/` folder, one file per website:
+The encrypted password is then inserted into the `passwords` table of the SQLite database:
 
 ```text
-secret/
-
-└── github.txt
+secret/passwords.db
 ```
 
-Example content of `secret/github.txt`:
-
-```text
-gAAAAAB...
-```
-
-The password itself is **not stored directly** in the file.
+The password itself is **not stored in plain text**.
 
 The browser-side terminal re-implements the same Fernet scheme in JavaScript (`docs/static/js/fernet.js`) using the **Web Crypto API** (AES-CBC + HMAC-SHA256). Because it follows the Fernet token format, tokens created in the browser are compatible with the Python CLI and the other way around.
 
-> ⚠️ This is an early prototype. The current key management system is not considered secure enough for production use.
+> ⚠️ This is an early prototype. Even with DPAPI key protection on Windows, the system is not considered secure enough for production use (no master password yet).
 
 ---
 
@@ -284,7 +279,7 @@ The benchmark helps measure how encryption and decryption performance changes as
 The benchmark notebook is located at:
 
 ```text
-notebooks/benchmark.ipynb
+tests/benchmark.ipynb
 ```
 
 It can be used to experiment with PyVault's encryption system and compare future implementations.
@@ -340,13 +335,13 @@ python main.py
 You will see:
 
 ```text
-S. [Stars Project]      0. [Generate Key (Obliged)] Q. [Leave]
+S. [Stars Project]      0. [Generate Key (Obliged)]     Q. [Leave]
 
         1. [Add Password]   4. [Export (Zipfiles)]
         2. [List Pswd]      5. [Delete Passwd]
         3. [Decrypt Pswd]   6. [Search Website]
 
-        Choices :
+        Choice: 
 ```
 
 #### Generate a key
@@ -357,11 +352,7 @@ Choose:
 0
 ```
 
-PyVault will generate a Fernet key and save it to:
-
-```text
-key.txt
-```
+PyVault will generate a Fernet key and save it to `key.txt` (protected with DPAPI on Windows).
 
 #### Add a password
 
@@ -374,18 +365,11 @@ Choose:
 PyVault will ask for:
 
 ```text
-Enter your key please thanks... :
-
-Enter name your website Example (github) :
-
-Enter your password :
+Enter the name of your website (e.g. github):
+Enter your password:
 ```
 
-The password will be encrypted and stored in:
-
-```text
-secret/<website>.txt
-```
+The password will be encrypted and stored in the SQLite database (`secret/passwords.db`).
 
 #### List saved entries
 
@@ -395,7 +379,7 @@ Choose:
 2
 ```
 
-PyVault will display all files stored in the `secret/` folder, one per website.
+PyVault will display every website stored in the database.
 
 #### Decrypt a password
 
@@ -408,14 +392,14 @@ Choose:
 PyVault will ask for:
 
 ```text
-Enter your key :
-Enter the file name example (github.txt) :
+Enter the name of the website:
 ```
 
-It will then display:
+If several passwords exist for the same website, you will be asked to pick one. It will then display:
 
 ```text
-Your Password is [ your_password_here ]
+Website: github
+Your password is: your_password_here
 ```
 
 ### Web tool (browser)
@@ -446,8 +430,10 @@ Unit tests are available in the `tests/` folder.
 Run them with:
 
 ```bash
-python -m unittest discover tests
+python -m unittest tests.test_system_info
 ```
+
+You can also inspect the manual sanity tests in `tests/add_test.py` and `tests/decrypt_test.py` which encrypt and decrypt a fixed password with a hardcoded key.
 
 ---
 
@@ -470,14 +456,14 @@ jupyter notebook
 Then open:
 
 ```text
-notebooks/benchmark.ipynb
+tests/benchmark.ipynb
 ```
 
 The benchmark measures:
 
 * Encryption speed
 * Decryption speed
-* Different data sizes
+* Different data sizes (1 B → 1 MB)
 * Average execution time
 * Performance scaling
 
@@ -490,7 +476,7 @@ The benchmark measures:
 * [x] Generate Fernet key
 * [x] Save key locally
 * [x] Encrypt passwords
-* [x] Save encrypted passwords (one file per website in `secret/`)
+* [x] Store encrypted data
 * [x] Store website information
 * [x] Basic CLI
 * [x] Decrypt passwords
@@ -508,7 +494,11 @@ The benchmark measures:
 
 ### Phase 3 — Security
 
-* [x] Better key management (KDF)
+* [x] DPAPI key protection on Windows
+* [ ] Master password
+* [ ] KDF-based key derivation
+* [ ] Vault locking
+* [ ] Failed-attempt protection
 * [x] Security tests
 * [x] Security policy (`SECURITY.md`)
 
@@ -518,7 +508,8 @@ The benchmark measures:
 * [x] Database models
 * [x] Encrypted database fields
 * [x] Data validation
-* [x] Database migrations
+* [ ] Database migrations
+* [ ] Migrate `search` and `delete` to the database
 
 ### Phase 5 — API
 
@@ -539,7 +530,7 @@ The benchmark measures:
 * [x] Complete documentation
 * [x] Automated tests
 * [x] GitHub Pages deployment (CI/CD)
-* [x] Security review
+* [ ] Security review
 * [ ] PyPI package
 
 ---
@@ -548,7 +539,7 @@ The benchmark measures:
 
 PyVault is an **experimental learning project** and is **not intended for production use**.
 
-The current key management (a plain `key.txt` sitting on disk, no master password) is not secure enough for storing real secrets.
+On Windows, the Fernet key stored in `key.txt` is wrapped with the **DPAPI** functions in `dpapi_utils.py`, which binds access to the Windows user account. Without a master password, however, anyone with access to the user session and files could still recover the data.
 
 See [`SECURITY.md`](SECURITY.md) for the supported versions and how to responsibly report a vulnerability.
 
@@ -635,6 +626,8 @@ Contributions, suggestions and bug reports are welcome.
 If you find a problem, feel free to open an issue.
 
 For larger changes, please open an issue first to discuss the idea.
+
+Good first issues are listed in [`main.md`](main.md), including adding a Japanese codebase, testing macOS, and creating a custom encryption algorithm.
 
 ---
 
