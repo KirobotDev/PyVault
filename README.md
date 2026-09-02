@@ -514,11 +514,11 @@ The benchmark measures:
 
 ### Phase 4 — Database
 
-* [ ] SQLite
-* [ ] Database models
-* [ ] Encrypted database fields
-* [ ] Data validation
-* [ ] Database migrations
+* [x] SQLite
+* [x] Database models
+* [x] Encrypted database fields
+* [x] Data validation
+* [x] Database migrations
 
 ### Phase 5 — API
 
