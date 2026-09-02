@@ -277,7 +277,7 @@ The benchmark tests multiple data sizes, from a few bytes up to 1 MB, and perfor
 
 The results are visualized in the following graph:
 
-![PyVault Encryption / Decryption Benchmark](images/benchmark.png)
+![PyVault Encryption / Decryption Benchmark](images/new_benchmark.png)
 
 The benchmark helps measure how encryption and decryption performance changes as the amount of data increases.
 
