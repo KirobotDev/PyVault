@@ -52,6 +52,9 @@ Import All test unitary
 from tests.add_test import add_passwd as test_add_passwd
 from tests.decrypt_test import decrypt as test_decrypt
 
+def enter_for_ecape() -> str:
+    input("Appuyer sur entré pour continuer...")
+
 def test_unitary() -> str:
     test_add_passwd()
     test_decrypt()
@@ -73,9 +76,9 @@ def main() -> str | int:
                 ██                           
                 ▀▀▀           
 
-S. [Stars Project]                                   Q. [Leave]
+S. [Stars Project]                              Q. [Leave]
         
-        1. [Add Password]   4. [Export (Zipfiles)]
+        1. [Add Password]       4. [Export (Zipfiles)]
         2. [List Password]      5. [Delete Password]
         3. [Decrypt Password]   6. [Search Website]
 
@@ -85,32 +88,32 @@ S. [Stars Project]                                   Q. [Leave]
 
         if cli == "1":
             add_passwd()
-            time.sleep(2)
+            enter_for_ecape()
             sys()
             
         elif cli == "2":
             list()
-            time.sleep(2)
+            enter_for_ecape()
             sys()
 
         elif cli == "3":
             decrypt()
-            time.sleep(2)
+            enter_for_ecape()
             sys()
 
         elif cli == "4":
             export()
-            time.sleep(2)
+            enter_for_ecape()
             sys()
 
         elif cli == "5":
             delete()
-            time.sleep(2)
+            enter_for_ecape()
             sys()
 
         elif cli == "6":
             search()
-            time.sleep(2)
+            enter_for_ecape()
             sys()
 
         elif cli.lower() == "s":
@@ -122,7 +125,7 @@ S. [Stars Project]                                   Q. [Leave]
 
         else:
             print("Invalid choice. Check the code on https://github.com/KirobotDev/PyVault, or suggest a change at https://github.com/KirobotDev/PyVault/issues.")
-            time.sleep(2)
+            enter_for_ecape()
 
 if __name__ == "__main__":
     main()

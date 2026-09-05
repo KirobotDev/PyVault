@@ -22,15 +22,19 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 
 """
-from pathlib import Path
+
+import sqlite3
+db_path = "./secret/passwords.db"
 
 def 一覧表示() -> str:
-    ディレクトリ = Path("./secret")
-
-    for パス in ディレクトリ.iterdir():
-        if パス.is_file():
-            print(パス.name)
-            return パス.name
+    conn = sqlite3.connect(db_path)
+    cursor = conn.cursor()
+    cursor.execute("SELECT website FROM passwords")
+    ウェブサイト一覧 = cursor.fetchall()
+    conn.close()
+    for ウェブサイト in ウェブサイト一覧:
+        print(ウェブサイト[0])
+    return ""
 
 if __name__ == "__main__":
     一覧表示()

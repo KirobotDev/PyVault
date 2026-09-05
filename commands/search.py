@@ -23,24 +23,42 @@ SOFTWARE.
 
 """
 
-"""
-I tried to place the `return` statements and everything correctly for testing purposes; I can't guarantee it's done right, though, since I rarely use `return`.
-"""
+import os
+import sqlite3
+from system_info import sys
 
-from pathlib import Path
+db_path = "./secret/passwords.db"
+
 
 def search() -> str:
-    dossier = Path("./secret")
-    paths = input("Enter the name of your file: ")
-    result = list(dossier.rglob(paths))
+    sys()
+    query = input("Enter the name of the website to search: ").strip()
+    sys()
+
+    if not os.path.exists(db_path):
+        print("No password database found.")
+        return ""
 
     try:
-        for chemin in result:
-            print(chemin)
-            return chemin
+        with sqlite3.connect(db_path) as conn:
+            cursor = conn.cursor()
+            cursor.execute(
+                "SELECT id, website FROM passwords WHERE website LIKE ?",
+                (f"%{query}%",)
+            )
+            results = cursor.fetchall()
     except Exception as e:
         print(f"Error: {e}")
         return ""
 
+    if not results:
+        print("No website found.")
+        return ""
+
+    for row in results:
+        print(f"[{row[0]}] {row[1]}")
+    return ""
+
+
 if __name__ == "__main__":
-    list()
+    search()

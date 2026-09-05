@@ -126,8 +126,8 @@ document.addEventListener("DOMContentLoaded", function () {
                             if (idx !== -1) vault[idx].token = token;
                             else vault.push({ site: site.trim(), token: token });
                             setVault(vault);
-                            printText(t("term.encrypted") + token, "t-dim");
-                            printText(tArgs("term.saved", site.trim() + ".txt"), "t-ok");
+printText(t("term.encrypted") + token, "t-dim");
+                    printText(tArgs("term.saved", site.trim()), "t-ok");
                         } catch (e) {
                             printText(t("term.err") + e.message, "t-err");
                         }
@@ -144,7 +144,7 @@ document.addEventListener("DOMContentLoaded", function () {
                     printText(t("term.needkey2"), "t-err");
                     break;
                 }
-                ask(t("term.prompt.file"), function (name) {
+                ask(t("term.prompt.site"), function (name) {
                     decryptEntry(name);
                 });
                 break;
@@ -194,7 +194,7 @@ document.addEventListener("DOMContentLoaded", function () {
         }
         printText(t("term.vault.content"), "t-ok");
         vault.forEach(function (e) {
-            printText("• " + e.site + ".txt", "t-acc");
+            printText("• " + e.site, "t-acc");
         });
         printText(tArgs("term.vault.count", vault.length));
     }
@@ -222,7 +222,7 @@ document.addEventListener("DOMContentLoaded", function () {
             printText(tArgs("term.noresult", term), "t-dim");
             return;
         }
-        found.forEach(function (e) { printText("• secret/" + e.site + ".txt", "t-acc"); });
+        found.forEach(function (e) { printText("• " + e.site, "t-acc"); });
     }
 
     function deleteEntry(name) {
@@ -238,7 +238,7 @@ document.addEventListener("DOMContentLoaded", function () {
         if (next.length === before) {
             printText(tArgs("term.delete.notfound", name), "t-err");
         } else {
-            printText(tArgs("term.delete.ok", target + ".txt"), "t-ok");
+            printText(tArgs("term.delete.ok", target), "t-ok");
         }
     }
 

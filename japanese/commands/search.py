@@ -23,24 +23,42 @@ SOFTWARE.
 
 """
 
-"""
-`return` 文などをテスト用に正しく配置しようとしました。ただし、私は `return` をあまり使わないので、正しくできているかは保証できません。
-"""
+import os
+import sqlite3
+from system_info import 画面クリア
 
-from pathlib import Path
+db_path = "./secret/passwords.db"
+
 
 def 検索() -> str:
-    ディレクトリ = Path("./secret")
-    ファイル名 = input("ファイル名を入力してください : ")
-    結果 = list(ディレクトリ.rglob(ファイル名))
+    画面クリア()
+    クエリ = input("検索するウェブサイトの名前を入力してください : ").strip()
+    画面クリア()
+
+    if not os.path.exists(db_path):
+        print("パスワードデータベースが見つかりません。")
+        return ""
 
     try:
-        for パス in 結果:
-            print(パス)
-            return パス
+        with sqlite3.connect(db_path) as conn:
+            cursor = conn.cursor()
+            cursor.execute(
+                "SELECT id, website FROM passwords WHERE website LIKE ?",
+                (f"%{クエリ}%",)
+            )
+            結果 = cursor.fetchall()
     except Exception as 例外:
         print(f"エラー {例外}")
         return ""
 
+    if not 結果:
+        print("ウェブサイトが見つかりません。")
+        return ""
+
+    for 行 in 結果:
+        print(f"[{行[0]}] {行[1]}")
+    return ""
+
+
 if __name__ == "__main__":
-    list()
+    検索()
