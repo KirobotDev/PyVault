@@ -58,7 +58,8 @@ def add_passwd() -> str:
 
         encrypted = fernet.encrypt(passwd.encode())
         print(f"Encrypted password: {encrypted}")
-        
+
+        os.makedirs("./secret", exist_ok=True)
         conn = sqlite3.connect("./secret/passwords.db")
         cursor = conn.cursor()
 
