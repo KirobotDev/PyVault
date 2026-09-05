@@ -50,8 +50,8 @@ var I18N = {
     },
     "card.2.title": { "fr": "🔐 Ajouter un mot de passe", "ja": "🔐 パスワードの追加" },
     "card.2.text": {
-        "fr": "Le mot de passe est chiffré puis rangé dans son propre fichier, par exemple <code>secret/github.txt</code>.",
-        "ja": "パスワードは暗号化されて、専用ファイル（例：<code>secret/github.txt</code>）に保存されます。"
+        "fr": "Le mot de passe est chiffré puis rangé dans la base SQLite (<code>secret/passwords.db</code>), associé à son site.",
+        "ja": "パスワードは暗号化され、サイト名と共に SQLite データベース（<code>secret/passwords.db</code>）に保存されます。"
     },
     "card.3.title": { "fr": "🔓 Déchiffrer", "ja": "🔓 復号化" },
     "card.3.text": {
@@ -60,8 +60,8 @@ var I18N = {
     },
     "card.4.title": { "fr": "📋 Lister &amp; rechercher", "ja": "📋 一覧表示＆検索" },
     "card.4.text": {
-        "fr": "Une liste de tous les fichiers enregistrés, et une recherche par nom quand on en a beaucoup.",
-        "ja": "保存済みの全ファイルを一覧表示し、数が多いときは名前で検索できます。"
+        "fr": "Une liste de toutes les entrées enregistrées, et une recherche par nom de site quand on en a beaucoup.",
+        "ja": "保存済みの全エントリを一覧表示し、数が多いときはサイト名で検索できます。"
     },
     "card.5.title": { "fr": "🗑️ Supprimer &amp; exporter", "ja": "🗑️ 削除＆エクスポート" },
     "card.5.text": {
@@ -485,11 +485,11 @@ var I18N = {
     "term.needkey2": { "fr": "Tape 0 d'abord pour générer (ou récupérer) une clé.", "ja": "先に「0」で鍵を生成（または読み込み）してください。" },
     "term.prompt.site": { "fr": "Enter the name of your website (e.g. github) :", "ja": "ウェブサイトの名前を入力してください（例：github） :" },
     "term.prompt.pass": { "fr": "Enter your password :", "ja": "パスワードを入力してください :" },
-    "term.prompt.file": { "fr": "Enter the file name example (github.txt) :", "ja": "ファイル名を入力してください（例：github.txt） :" },
-    "term.prompt.delfile": { "fr": "Enter the name of the file to delete (just the name, no extension) :", "ja": "削除するファイル名を入力してください（拡張子なし） :" },
-    "term.prompt.search": { "fr": "Enter the name of your file :", "ja": "ファイル名を入力してください :" },
+    "term.prompt.file": { "fr": "Enter the name of the website :", "ja": "ウェブサイトの名前を入力してください :" },
+    "term.prompt.delfile": { "fr": "Enter the name of the website to delete :", "ja": "削除するウェブサイトの名前を入力してください :" },
+    "term.prompt.search": { "fr": "Enter the name of the website to search :", "ja": "検索するウェブサイトの名前を入力してください :" },
     "term.encrypted": { "fr": "Encrypted password : ", "ja": "暗号化されたパスワード : " },
-    "term.saved": { "fr": "Enregistré dans secret/%s", "ja": "secret/%s に保存しました" },
+    "term.saved": { "fr": "Saved in the vault (passwords.db) : %s", "ja": "ボールト（passwords.db）に保存しました : %s" },
     "term.err": { "fr": "Erreur : ", "ja": "エラー : " },
     "term.open": { "fr": "Ouverture du dépôt… ⭐", "ja": "リポジトリを開いています… ⭐" },
     "term.bye": {
@@ -500,14 +500,14 @@ var I18N = {
         "fr": "That choice doesn't exist. Tape help pour voir les commandes.",
         "ja": "その選択肢は存在しません。help でコマンド一覧を確認できます。"
     },
-    "term.vault.empty": { "fr": "secret/ est vide. Tape 1 pour ajouter un mot de passe.", "ja": "secret/ は空です。「1」でパスワードを追加してください。" },
-    "term.vault.content": { "fr": "Contenu de secret/ :", "ja": "secret/ の内容 :" },
+    "term.vault.empty": { "fr": "Aucune entrée enregistrée. Tape 1 pour ajouter un mot de passe.", "ja": "保存されたエントリはありません。「1」でパスワードを追加してください。" },
+    "term.vault.content": { "fr": "Entrées enregistrées :", "ja": "保存されたエントリ :" },
     "term.vault.count": { "fr": "(%s entrée(s))", "ja": "（%s エントリ）" },
-    "term.notfound": { "fr": "Fichier introuvable : ", "ja": "ファイルが見つかりません : " },
+    "term.notfound": { "fr": "Site introuvable : ", "ja": "ウェブサイトが見つかりません : " },
     "term.passwordis": { "fr": "Your Password is [ %s ]", "ja": "あなたのパスワードは [ %s ] です" },
     "term.decryptfail": { "fr": "Échec du déchiffrement : ", "ja": "復号に失敗しました : " },
     "term.noresult": { "fr": "Aucun résultat pour « %s »", "ja": "「 %s 」の結果はありません" },
-    "term.delete.notfound": { "fr": "Introuvable : ", "ja": "見つかりません : " },
+    "term.delete.notfound": { "fr": "Site introuvable : ", "ja": "ウェブサイトが見つかりません : " },
     "term.delete.ok": { "fr": "Delete Success — suppression de %s", "ja": "削除に成功しました — %s を削除" },
     "term.export.empty": { "fr": "Rien à exporter. Ajoute un mot de passe d'abord.", "ja": "エクスポートするものはありません。先にパスワードを追加してください。" },
     "term.export.done": { "fr": "export.zip téléchargé (%s fichier(s)).", "ja": "export.zip をダウンロードしました（%s ファイル）。" },

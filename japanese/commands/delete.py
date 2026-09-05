@@ -23,15 +23,83 @@ SOFTWARE.
 
 """
 
-from system_info import 画面クリア
 import os
+import sqlite3
+from system_info import 画面クリア
+
+db_path = "./secret/passwords.db"
+
 
 def 削除() -> None:
-    ファイル名 = input("削除するファイル名を入力してください（拡張子なし） : ")
-    パス = f"./secret/{ファイル名}.txt"
-    os.remove(パス)
     画面クリア()
-    print("削除に成功しました")
+    名前 = input("削除するウェブサイトの名前を入力してください : ").strip()
+
+    if not os.path.exists(db_path):
+        print("パスワードデータベースが見つかりません。")
+        return
+
+    try:
+        with sqlite3.connect(db_path) as conn:
+            cursor = conn.cursor()
+
+            cursor.execute(
+                "SELECT id, website FROM passwords WHERE website = ?",
+                (名前,)
+            )
+            結果 = cursor.fetchall()
+
+            if not 結果:
+                print("ウェブサイトが見つかりません。")
+                return
+
+            削除ID = None
+
+            if len(結果) > 1:
+                print(f"\n{名前} のパスワードが {len(結果)} 件見つかりました:")
+
+                for i, 行 in enumerate(結果):
+                    print(f"[{i + 1}] {行[1]}")
+
+                選択 = input(
+                    "削除するパスワードを選択してください。\n"
+                    "全て削除する場合は「all」、キャンセルする場合は「0」 : "
+                ).strip().lower()
+
+                if 選択 == "all":
+                    cursor.execute(
+                        "DELETE FROM passwords WHERE website = ?",
+                        (名前,)
+                    )
+                    conn.commit()
+                    画面クリア()
+                    print("削除に成功しました。")
+                    return
+
+                if not 選択.isdigit():
+                    print("無効な選択です。")
+                    return
+
+                選択 = int(選択)
+
+                if 選択 < 1 or 選択 > len(結果):
+                    print("無効な選択です。")
+                    return
+
+                削除ID = 結果[選択 - 1][0]
+
+            else:
+                削除ID = 結果[0][0]
+
+            cursor.execute("DELETE FROM passwords WHERE id = ?", (削除ID,))
+            conn.commit()
+
+    except Exception as 例外:
+        print(f"エラー {例外}")
+        return
+
+    画面クリア()
+    print("削除に成功しました。")
+
 
 if __name__ == "__main__":
     削除()

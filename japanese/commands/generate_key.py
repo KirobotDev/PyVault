@@ -24,22 +24,20 @@ SOFTWARE.
 """
 
 from cryptography.fernet import Fernet
-import json
 import os
-import time
-
-"""
-返り値 -> 文字列 = 鍵を文字列の形で返します :)
-
-Fernet を使って鍵の生成・暗号化・復号化を行います
-"""
+import sys
+from dpapi_utils import protect
 
 def 鍵生成() -> str:
+    if os.path.exists("key.txt"):
+        return "鍵は既に存在します。"
     try:
-        鍵 = Fernet.generate_key()
-        with open("key.txt", "w", encoding='utf-8') as ファイル:
-            ファイル.write(鍵.decode())
-        print("鍵は既に key.txt に保存されています")
+        鍵 = Fernet.generate_key().decode()
+        if sys.platform == "win32":
+            鍵 = protect(鍵)
+        with open("key.txt", "w", encoding="utf-8") as ファイル:
+            ファイル.write(鍵)
+        print("鍵は key.txt に保存されました。")
 
     except Exception as 例外:
         print(f"エラー {例外}")

@@ -27,6 +27,11 @@ import os
 import platform
 import sys
 
+# dpapi_utils など、プロジェクトルートのモジュールを使えるようにパスを追加します
+_親ディレクトリ = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+if _親ディレクトリ not in sys.path:
+    sys.path.append(_親ディレクトリ)
+
 # 日本語の出力が Windows のコンソールでも正しく表示されるように UTF-8 を有効化します
 try:
     sys.stdout.reconfigure(encoding="utf-8")

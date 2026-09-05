@@ -226,7 +226,7 @@ PyVault/
 └── README.md
 ```
 
-> 📌 **Note:** `add.py`, `list.py` and `decrypt.py` now store passwords in a SQLite database (`secret/passwords.db`). The `search.py` and `delete.py` commands still operate on the legacy per-website files in `secret/`.
+> 📌 **Note:** every CLI command (`add`, `list`, `decrypt`, `search`, `delete`) now operates on the SQLite database `secret/passwords.db`.
 
 ---
 
@@ -509,7 +509,7 @@ The benchmark measures:
 * [x] Encrypted database fields
 * [x] Data validation
 * [ ] Database migrations
-* [ ] Migrate `search` and `delete` to the database
+* [x] Migrate `search` and `delete` to the database
 
 ### Phase 5 — API
 

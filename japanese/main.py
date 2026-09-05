@@ -52,6 +52,9 @@ from commands.search import 検索
 from tests.add_test import パスワード追加 as テスト用パスワード追加
 from tests.decrypt_test import 復号化 as テスト用復号化
 
+def 続行のための入力待ち() -> str:
+    input("続行するには Enter キーを押してください...")
+
 def 単体テスト実行() -> str:
     テスト用パスワード追加()
     テスト用復号化()
@@ -59,6 +62,8 @@ def 単体テスト実行() -> str:
 def メイン() -> str | int:
 
     単体テスト実行()
+
+    鍵生成()
 
     while True:
         入力 = input("""
@@ -71,7 +76,7 @@ def メイン() -> str | int:
                 ██                           
                 ▀▀▀           
 
-S. [プロジェクトにスターを付ける]    0. [鍵の生成（必須）]     Q. [終了]
+S. [プロジェクトにスターを付ける]                              Q. [終了]
         
         1. [パスワード追加]    4. [エクスポート（Zip）]
         2. [一覧表示]          5. [パスワード削除]
@@ -81,39 +86,34 @@ S. [プロジェクトにスターを付ける]    0. [鍵の生成（必須）]
         画面クリア()
 
 
-        if 入力 == "0":
-            鍵生成()
-            time.sleep(2)
-            画面クリア()
-
-        elif 入力 == "1":
+        if 入力 == "1":
             パスワード追加()
-            time.sleep(2)
+            続行のための入力待ち()
             画面クリア()
             
         elif 入力 == "2":
             一覧表示()
-            time.sleep(2)
+            続行のための入力待ち()
             画面クリア()
 
         elif 入力 == "3":
             復号化()
-            time.sleep(2)
+            続行のための入力待ち()
             画面クリア()
 
         elif 入力 == "4":
             エクスポート()
-            time.sleep(2)
+            続行のための入力待ち()
             画面クリア()
 
         elif 入力 == "5":
             削除()
-            time.sleep(2)
+            続行のための入力待ち()
             画面クリア()
 
         elif 入力 == "6":
             検索()
-            time.sleep(2)
+            続行のための入力待ち()
             画面クリア()
 
         elif 入力.lower() == "s":
@@ -125,7 +125,7 @@ S. [プロジェクトにスターを付ける]    0. [鍵の生成（必須）]
 
         else:
             print("その選択肢は存在しません。コードを確認するには https://github.com/KirobotDev/PyVault を参照するか、変更を提案するには https://github.com/KirobotDev/PyVault/issues をご覧ください。")
-            time.sleep(2)
+            続行のための入力待ち()
 
 if __name__ == "__main__":
     メイン()

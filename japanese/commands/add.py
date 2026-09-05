@@ -25,18 +25,27 @@ SOFTWARE.
 
 from cryptography.fernet import Fernet
 from system_info import 画面クリア
-import os 
-ファイルパス = "key.txt"
-def パスワード追加() -> str:
-    if os.path.exists(ファイルパス) :
-        with open("key.txt" , 'r') as ファイル : 
-            内容 = ファイル.read() 
-            鍵 = 内容.strip()
+import os
+import sys
+import sqlite3
+from dpapi_utils import unprotect, protect
 
-    else :
+ファイルパス = "key.txt"
+
+def パスワード追加() -> str:
+    if os.path.exists(ファイルパス):
+        with open("key.txt", "r") as ファイル:
+            内容 = ファイル.read()
+            鍵 = 内容.strip()
+        if sys.platform == "win32":
+            鍵 = unprotect(鍵)
+
+    else:
         鍵 = input("鍵を入力してください、お願いします… : ")
-        with open("key.txt" , 'w') as ファイル : 
-            ファイル.write(鍵) 
+        if sys.platform == "win32":
+            鍵 = protect(鍵)
+        with open("key.txt", "w") as ファイル:
+            ファイル.write(鍵)
     画面クリア()
     サイト名 = input("ウェブサイトの名前を入力してください（例：github） : ")
     画面クリア()
@@ -52,11 +61,27 @@ def パスワード追加() -> str:
         print(f"暗号化されたパスワード : {暗号文}")
 
         os.makedirs("./secret", exist_ok=True)
-        with open(f"./secret/{サイト名}.txt", "a", encoding="utf-8") as ファイル:
-            ファイル.write(f"{暗号文.decode()}\n")
+        conn = sqlite3.connect("./secret/passwords.db")
+        cursor = conn.cursor()
+
+        cursor.execute("""
+            CREATE TABLE IF NOT EXISTS passwords (
+                id INTEGER PRIMARY KEY AUTOINCREMENT,
+                website TEXT NOT NULL,
+                password TEXT NOT NULL
+            )
+        """)
+
+        cursor.execute(
+            "INSERT INTO passwords (website, password) VALUES (?, ?)",
+            (サイト名, 暗号文.decode())
+        )
+
+        conn.commit()
+        conn.close()
 
         return パスワード
-    
+
     except Exception as 例外:
         print(f"エラー {例外}")
         return ""
