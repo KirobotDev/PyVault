@@ -51,6 +51,7 @@ def パスワード追加() -> str:
         暗号文 = 暗号器.encrypt(パスワード.encode())
         print(f"暗号化されたパスワード : {暗号文}")
 
+        os.makedirs("./secret", exist_ok=True)
         with open(f"./secret/{サイト名}.txt", "a", encoding="utf-8") as ファイル:
             ファイル.write(f"{暗号文.decode()}\n")
 
