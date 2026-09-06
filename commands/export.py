@@ -24,9 +24,14 @@ SOFTWARE.
 """
 from system_info import sys
 import shutil
+import os
 
-def export() -> zip:
-    shutil.make_archive("export", "zip", "./secret")
+def export() -> str | None:
+    if os.path.exists("./secret") :
+        return shutil.make_archive("export", "zip", "./secret")
+    else:
+        print("secret/ folder is not found. Nothing to export.")
+        return None
 
 if __name__ == "__main__":
     export()

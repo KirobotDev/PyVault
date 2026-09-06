@@ -76,8 +76,8 @@ var I18N = {
 
     /* ---------- cli demo ---------- */
     "cli.demo": {
-        "fr": "S. [Stars Project]      0. [Generate Key (Obliged)]     Q. [Leave]\n\n        1. [Add Password]   4. [Export (Zipfiles)]\n        2. [List Pswd]      5. [Delete Passwd]\n        3. [Decrypt Pswd]   6. [Search Website]\n\n        Choices : <span class=\"blink\">▌</span>",
-        "ja": "S. [プロジェクトにスターを付ける]    0. [鍵の生成（必須）]     Q. [終了]\n\n        1. [パスワード追加]    4. [エクスポート（Zip）]\n        2. [一覧表示]          5. [パスワード削除]\n        3. [パスワード復号]    6. [ウェブサイト検索]\n\n        選択 : <span class=\"blink\">▌</span>"
+        "fr": "S. [Stars Project]       Q. [Leave]\n\n        1. [Add Password]   4. [Export (Zipfiles)]\n        2. [List Pswd]      5. [Delete Passwd]\n        3. [Decrypt Pswd]   6. [Search Website]\n\n        Choices : <span class=\"blink\">▌</span>",
+        "ja": "S. [プロジェクトにスターを付ける]     Q. [終了]\n\n        1. [パスワード追加]    4. [エクスポート（Zip）]\n        2. [一覧表示]          5. [パスワード削除]\n        3. [パスワード復号]    6. [ウェブサイト検索]\n\n        選択 : <span class=\"blink\">▌</span>"
     },
 
     /* ---------- why ---------- */
@@ -127,7 +127,7 @@ var I18N = {
     "r.features.avail": { "fr": "Currently available", "ja": "現在利用可能" },
     "r.feats.1": { "fr": "🔑 Generate Fernet encryption keys", "ja": "🔑 Fernet 暗号化キーの生成" },
     "r.feats.2": { "fr": "🔐 Encrypt and store passwords using Fernet", "ja": "🔐 Fernet を使ったパスワードの暗号化と保存" },
-    "r.feats.3": { "fr": "💾 Store each password in a dedicated file per website", "ja": "💾 ウェブサイトごとに専用ファイルへパスワードを保存" },
+    "r.feats.3": { "fr": "💾 Encrypt passwords with Fernet and store them in a <strong>SQLite database</strong> (<code>secret/passwords.db</code>)", "ja": "💾 Fernet で暗号化し、<strong>SQLite データベース</strong>（<code>secret/passwords.db</code>）に保存" },
     "r.feats.4": { "fr": "🔓 Decrypt and retrieve stored passwords", "ja": "🔓 保存済みパスワードの復号化と取得" },
     "r.feats.5": { "fr": "📋 List all saved entries", "ja": "📋 保存済みエントリの一覧表示" },
     "r.feats.6": { "fr": "🔎 Search stored passwords", "ja": "🔎 保存済みパスワードの検索" },
@@ -140,8 +140,8 @@ var I18N = {
     "r.feats.13": { "fr": "🔐 Interactive browser terminal reproducing the CLI", "ja": "🔐 CLI を再現するブラウザ内インタラクティブターミナル" },
     "r.feats.14": { "fr": "🔒 Fernet re-implemented in JavaScript (Web Crypto API)", "ja": "🔒 JavaScript で再実装された Fernet（Web Crypto API）" },
     "r.feats.15": { "fr": "🌍 Bilingual FR / JA website (i18n)", "ja": "🌍 フランス語／日本語のバイリンガルサイト（i18n）" },
+    "r.feats.16": { "fr": "🛡️ On Windows, protect the key on-disk with DPAPI instead of storing it in plain text", "ja": "🛡️ Windows では、鍵を平文で保存せず DPAPI で保護" },
     "r.features.planned": { "fr": "Planned", "ja": "予定" },
-    "r.planned.1": { "fr": "🗄️ SQLite database", "ja": "🗄️ SQLite データベース" },
     "r.planned.2": { "fr": "🔑 Master password", "ja": "🔑 マスターパスワード" },
     "r.planned.3": { "fr": "🔒 Vault locking", "ja": "🔒 ボールトのロック" },
     "r.planned.4": { "fr": "🌐 Local API", "ja": "🌐 ローカル API" },
@@ -181,8 +181,8 @@ var I18N = {
 
     "r.structure": { "fr": "📁 Current Project Structure", "ja": "📁 現在のプロジェクト構成" },
     "r.structure.pre": {
-        "fr": "PyVault/\n\n│\n├── commands/             ← CLI commands\n│   ├── add.py\n│   ├── decrypt.py\n│   ├── delete.py\n│   ├── export.py\n│   ├── generate_key.py\n│   ├── list.py\n│   └── search.py\n│\n├── docs/                 ← static website (GitHub Pages)\n│   ├── index.html        ← single-page site (FR / JA)\n│   └── static/js/\n│       ├── fernet.js     ← Fernet in JS (Web Crypto)\n│       ├── tool.js       ← interactive browser terminal\n│       ├── main.js       ← page routing & mermaid\n│       └── i18n.js       ← FR / JA translations\n│\n├── secret/               ← stores encrypted password files\n│\n├── tests/                ← unit tests\n│\n├── images/\n│   └── benchmark.png     ← encryption/decryption benchmark\n│\n├── notebooks/\n│   └── benchmark.ipynb   ← Jupyter benchmark\n│\n├── .github/workflows/    ← GitHub Pages deploy (static.yml)\n│\n├── idea/\n│   └── idea.md           ← ideas file\n│\n├── main.py\n├── system_info.py\n├── key.txt\n├── SECURITY.md\n├── .gitignore\n├── LICENSE\n└── README.md",
-        "ja": "PyVault/\n\n│\n├── commands/             ← CLI コマンド\n│   ├── add.py\n│   ├── decrypt.py\n│   ├── delete.py\n│   ├── export.py\n│   ├── generate_key.py\n│   ├── list.py\n│   └── search.py\n│\n├── docs/                 ← 静的ウェブサイト（GitHub Pages）\n│   ├── index.html        ← シングルページサイト（FR / JA）\n│   └── static/js/\n│       ├── fernet.js     ← JavaScript 版 Fernet（Web Crypto）\n│       ├── tool.js       ← ブラウザ内インタラクティブターミナル\n│       ├── main.js       ← ページルーティング＆mermaid\n│       └── i18n.js       ← FR / JA 翻訳\n│\n├── secret/               ← 暗号化されたパスワードファイルの保存先\n│\n├── tests/                ← 単体テスト\n│\n├── images/\n│   └── benchmark.png     ← 暗号化／復号化ベンチマーク\n│\n├── notebooks/\n│   └── benchmark.ipynb   ← Jupyter ベンチマーク\n│\n├── .github/workflows/    ← GitHub Pages デプロイ（static.yml）\n│\n├── idea/\n│   └── idea.md           ← アイデアファイル\n│\n├── main.py\n├── system_info.py\n├── key.txt\n├── SECURITY.md\n├── .gitignore\n├── LICENSE\n└── README.md"
+        "fr": "PyVault/\n\n│\n├── commands/             ← CLI commands\n│   ├── add.py\n│   ├── decrypt.py\n│   ├── delete.py\n│   ├── export.py\n│   ├── generate_key.py\n│   ├── list.py\n│   └── search.py\n│\n├── docs/                 ← static website (GitHub Pages)\n│   ├── index.html        ← single-page site (FR / JA)\n│   └── static/js/\n│       ├── fernet.js     ← Fernet in JS (Web Crypto)\n│       ├── tool.js       ← interactive browser terminal\n│       ├── main.js       ← page routing & mermaid\n│       └── i18n.js       ← FR / JA translations\n│\n├── secret/               ← password storage\n│   └── passwords.db      ← SQLite database\n│\n├── tests/                ← unit tests\n│   ├── benchmark.ipynb   ← Jupyter benchmark\n│   └── test_system_info.py\n│\n├── images/\n│   └── new_benchmark.png ← encryption/decryption benchmark\n│\n├── .github/workflows/    ← GitHub Pages deploy (static.yml)\n│\n├── idea/\n│   └── idea.md           ← ideas file\n│\n├── dpapi_utils.py        ← DPAPI protect / unprotect (Windows)\n├── main.py\n├── system_info.py\n├── key.txt               ← protected Fernet key\n├── SECURITY.md\n├── .gitignore\n├── LICENSE\n└── README.md",
+        "ja": "PyVault/\n\n│\n├── commands/             ← CLI コマンド\n│   ├── add.py\n│   ├── decrypt.py\n│   ├── delete.py\n│   ├── export.py\n│   ├── generate_key.py\n│   ├── list.py\n│   └── search.py\n│\n├── docs/                 ← 静的ウェブサイト（GitHub Pages）\n│   ├── index.html        ← シングルページサイト（FR / JA）\n│   └── static/js/\n│       ├── fernet.js     ← JavaScript 版 Fernet（Web Crypto）\n│       ├── tool.js       ← ブラウザ内インタラクティブターミナル\n│       ├── main.js       ← ページルーティング＆mermaid\n│       └── i18n.js       ← FR / JA 翻訳\n│\n├── secret/               ← パスワードの保存先\n│   └── passwords.db      ← SQLite データベース\n│\n├── tests/                ← 単体テスト\n│   ├── benchmark.ipynb   ← Jupyter ベンチマーク\n│   └── test_system_info.py\n│\n├── images/\n│   └── new_benchmark.png ← 暗号化／復号化ベンチマーク\n│\n├── .github/workflows/    ← GitHub Pages デプロイ（static.yml）\n│\n├── idea/\n│   └── idea.md           ← アイデアファイル\n│\n├── dpapi_utils.py        ← DPAPI 保護／保護解除（Windows）\n├── main.py\n├── system_info.py\n├── key.txt               ← 保護された Fernet 鍵\n├── SECURITY.md\n├── .gitignore\n├── LICENSE\n└── README.md"
     },
 
     "r.encryption": { "fr": "🔐 Current Encryption System", "ja": "🔐 現在の暗号化システム" },
@@ -202,16 +202,16 @@ var I18N = {
         "ja": "暗号器 = Fernet(鍵.encode())\n\n暗号文 = 暗号器.encrypt(パスワード.encode())"
     },
     "r.encryption.then": {
-        "fr": "The encrypted password is then stored in a dedicated file inside the <code>secret/</code> folder, one file per website:",
-        "ja": "暗号化されたパスワードは、<code>secret/</code> フォルダ内のウェブサイトごとの専用ファイルに保存されます。"
+        "fr": "The encrypted password is then inserted into the <code>passwords</code> table of the SQLite database:",
+        "ja": "暗号化されたパスワードは、SQLite データベースの <code>passwords</code> テーブルに挿入されます。"
     },
     "r.encryption.example": {
-        "fr": "Example content of <code>secret/github.txt</code>:",
-        "ja": "<code>secret/github.txt</code> の内容例："
+        "fr": "Example of the SQLite database used for storage:",
+        "ja": "保存に使用される SQLite データベースの例："
     },
     "r.encryption.notdirect": {
-        "fr": "The password itself is <strong>not stored directly</strong> in the file.",
-        "ja": "パスワード自体はファイルに<strong>直接保存されません</strong>。"
+        "fr": "The password itself is <strong>not stored in plain text</strong>.",
+        "ja": "パスワード自体は<strong>平文では保存されません</strong>。"
     },
     "r.encryption.js": {
         "fr": "The browser-side terminal re-implements the same Fernet scheme in JavaScript (<code>docs/static/js/fernet.js</code>) using the <strong>Web Crypto API</strong> (AES-CBC + HMAC-SHA256). Because it follows the Fernet token format, tokens created in the browser are compatible with the Python CLI and the other way around.",
@@ -265,35 +265,35 @@ var I18N = {
     "r.usage.1": { "fr": "Start PyVault:", "ja": "PyVault を起動します。" },
     "r.usage.2": { "fr": "You will see:", "ja": "次の画面が表示されます。" },
     "r.usage.menu": {
-        "fr": "S. [Stars Project]      0. [Generate Key (Obliged)] Q. [Leave]\n\n        1. [Add Password]   4. [Export (Zipfiles)]\n        2. [List Pswd]      5. [Delete Passwd]\n        3. [Decrypt Pswd]   6. [Search Website]\n\n        Choices :",
-        "ja": "S. [プロジェクトにスターを付ける] 0. [鍵の生成（必須）] Q. [終了]\n\n        1. [パスワード追加]    4. [エクスポート（Zip）]\n        2. [一覧表示]          5. [パスワード削除]\n        3. [パスワード復号]    6. [ウェブサイト検索]\n\n        選択 :"
+        "fr": "S. [Stars Project] Q. [Leave]\n\n        1. [Add Password]   4. [Export (Zipfiles)]\n        2. [List Pswd]      5. [Delete Passwd]\n        3. [Decrypt Pswd]   6. [Search Website]\n\n        Choices :",
+        "ja": "S. [プロジェクトにスターを付ける] Q. [終了]\n\n        1. [パスワード追加]    4. [エクスポート（Zip）]\n        2. [一覧表示]          5. [パスワード削除]\n        3. [パスワード復号]    6. [ウェブサイト検索]\n\n        選択 :"
     },
     "r.usage.genkey": { "fr": "Generate a key", "ja": "鍵を生成する" },
     "r.usage.choose": { "fr": "Choose:", "ja": "次のように入力して選択します。" },
     "r.usage.genkey.1": {
-        "fr": "PyVault will generate a Fernet key and save it to:",
-        "ja": "PyVault が Fernet キーを生成し、次の場所に保存します。"
+        "fr": "On startup, PyVault automatically creates a Fernet key (if <code>key.txt</code> doesn't exist yet) and saves it to:",
+        "ja": "起動時に、PyVault は Fernet キーを自動生成（<code>key.txt</code> がまだない場合）し、次の場所に保存します。"
     },
     "r.usage.add": { "fr": "Add a password", "ja": "パスワードを追加する" },
     "r.usage.add.1": { "fr": "PyVault will ask for:", "ja": "PyVault は次の入力を求めます。" },
     "r.usage.add.prompts": {
-        "fr": "Enter your key please thanks... :\n\nEnter name your website Example (github) :\n\nEnter your password :",
-        "ja": "鍵を入力してください、お願いします… :\n\nウェブサイトの名前を入力してください（例：github） :\n\nパスワードを入力してください :"
+        "fr": "Enter the name of your website (e.g. github):\n\nEnter your password:",
+        "ja": "ウェブサイトの名前を入力してください（例：github）:\n\nパスワードを入力してください:"
     },
     "r.usage.add.2": {
-        "fr": "The password will be encrypted and stored in:",
-        "ja": "パスワードは暗号化されて、次の場所に保存されます。"
+        "fr": "The password will be encrypted and stored in the SQLite database:",
+        "ja": "パスワードは暗号化され、次の SQLite データベースに保存されます。"
     },
     "r.usage.list": { "fr": "List saved entries", "ja": "保存済みエントリを一覧表示する" },
     "r.usage.list.1": {
-        "fr": "PyVault will display all files stored in the <code>secret/</code> folder, one per website.",
-        "ja": "PyVault は <code>secret/</code> フォルダに保存されているウェブサイトごとの全ファイルを表示します。"
+        "fr": "PyVault will display every website stored in the SQLite database (<code>secret/passwords.db</code>).",
+        "ja": "PyVault は SQLite データベース（<code>secret/passwords.db</code>）に保存されているすべてのウェブサイトを表示します。"
     },
     "r.usage.decrypt": { "fr": "Decrypt a password", "ja": "パスワードを復号する" },
     "r.usage.decrypt.1": { "fr": "PyVault will ask for:", "ja": "PyVault は次の入力を求めます。" },
     "r.usage.decrypt.prompts": {
-        "fr": "Enter your key :\nEnter the file name example (github.txt) :",
-        "ja": "鍵を入力してください :\nファイル名を入力してください（例：github.txt） :"
+        "fr": "Enter the name of the website:",
+        "ja": "ウェブサイトの名前を入力してください:"
     },
     "r.usage.decrypt.2": { "fr": "It will then display:", "ja": "すると次のように表示されます。" },
     "r.usage.decrypt.out": {
@@ -340,7 +340,7 @@ var I18N = {
     "r.rm.p1t1": { "fr": "Generate Fernet key", "ja": "Fernet キーの生成" },
     "r.rm.p1t2": { "fr": "Save key locally", "ja": "キーをローカルに保存" },
     "r.rm.p1t3": { "fr": "Encrypt passwords", "ja": "パスワードの暗号化" },
-    "r.rm.p1t4": { "fr": "Save encrypted passwords (one file per website in <code>secret/</code>)", "ja": "暗号化されたパスワードの保存（<code>secret/</code> 内のウェブサイトごとのファイル）" },
+    "r.rm.p1t4": { "fr": "Store encrypted passwords in the database (<code>secret/passwords.db</code>)", "ja": "暗号化されたパスワードをデータベース（<code>secret/passwords.db</code>）に保存" },
     "r.rm.p1t5": { "fr": "Store website information", "ja": "ウェブサイト情報の保存" },
     "r.rm.p1t6": { "fr": "Basic CLI", "ja": "基本 CLI" },
     "r.rm.p1t7": { "fr": "Decrypt passwords", "ja": "パスワードの復号化" },
@@ -378,6 +378,8 @@ var I18N = {
     "r.rm.p2js": { "fr": "Fernet re-implemented in JavaScript (Web Crypto)", "ja": "JavaScript で再実装された Fernet（Web Crypto）" },
     "r.rm.p2i18n": { "fr": "Bilingual FR / JA website (i18n)", "ja": "フランス語／日本語のバイリンガルサイト（i18n）" },
     "r.rm.p3secpol": { "fr": "Security policy (<code>SECURITY.md</code>)", "ja": "セキュリティポリシー（<code>SECURITY.md</code>）" },
+    "r.rm.p3dpapi": { "fr": "DPAPI key protection on Windows", "ja": "Windows での DPAPI キー保護" },
+    "r.rm.p4migrate": { "fr": "Migrate <code>search</code> and <code>delete</code> to the database", "ja": "検索と削除をデータベースへ移行" },
     "r.rm.p7pages": { "fr": "GitHub Pages deployment (CI/CD)", "ja": "GitHub Pages デプロイ（CI/CD）" },
 
     "r.security": { "fr": "🔒 Security", "ja": "🔒 セキュリティ" },
@@ -522,15 +524,16 @@ var I18N = {
     },
     "idea.state.wait": { "fr": "en attente", "ja": "保留中" },
     "idea.state.think": { "fr": "à réfléchir", "ja": "検討中" },
+    "idea.state.done": { "fr": "fait ✓", "ja": "完了 ✓" },
     "idea.a1.t": { "fr": "Charger la clé automatiquement", "ja": "鍵を自動的に読み込む" },
     "idea.a1.d": {
-        "fr": "Aujourd'hui il faut taper la clé à chaque commande. Ce serait mieux que le programme retrouve tout seul <code>key.txt</code> au démarrage.",
-        "ja": "現在はコマンドごとに鍵を入力する必要があります。起動時にプログラムが <code>key.txt</code> を自動的に見つけてくれれば理想的です。"
+        "fr": "✔️ Terminé : au démarrage, PyVault charge <code>key.txt</code> tout seul (et le crée s'il n'existe pas). Tu n'as plus jamais à taper la clé à la main.",
+        "ja": "✔️ 完了：起動時に PyVault が <code>key.txt</code> を自動的に読み込みます（ない場合は作成）。鍵を手で入力する必要はもうありません。"
     },
     "idea.a2.t": { "fr": "Une vraie structure de données", "ja": "本格的なデータ構造" },
     "idea.a2.d": {
-        "fr": "Les fichiers par site, ça marche, mais ça ne tient pas la route longtemps. Il faut penser à un format plus propre avec des métadonnées.",
-        "ja": "サイトごとのファイルは機能しますが、長続きしません。メタデータを持つよりきれいな形式を考える必要があります。"
+        "fr": "✔️ Terminé : les fichiers par site ont laissé la place à une base SQLite (<code>secret/passwords.db</code>), avec des entrées identifiées et dédupliquées.",
+        "ja": "✔️ 完了：サイトごとのファイルは SQLite データベース（<code>secret/passwords.db</code>）に置き換えられ、識別・重複排除されたエントリが保存されます。"
     },
     "idea.a3.t": { "fr": "Le mot de passe maître", "ja": "マスターパスワード" },
     "idea.a3.d": {
@@ -554,8 +557,8 @@ var I18N = {
     },
     "idea.a7.t": { "fr": "Passer à SQLite", "ja": "SQLite への移行" },
     "idea.a7.d": {
-        "fr": "Une vraie base pour remplacer le système de fichiers : modèles, champs chiffrés, validation et migrations.",
-        "ja": "ファイルシステムを置き換える本格的なデータベース：モデル、暗号化フィールド、検証、マイグレーション。"
+        "fr": "✔️ Terminé : la base <code>secret/passwords.db</code> a remplacé le système de fichiers. Ajout, liste, déchiffrement, recherche et suppression passent tous par SQLite. Il reste les migrations.",
+        "ja": "✔️ 完了：ファイルシステムは <code>secret/passwords.db</code> に置き換わりました。追加・一覧・復号・検索・削除はすべて SQLite 経由です。残るはマイグレーション。"
     },
     "idea.a8.t": { "fr": "Une petite API locale", "ja": "小さなローカル API" },
     "idea.a8.d": {
@@ -577,8 +580,8 @@ var I18N = {
         "fr": "Le vrai fichier d'idées du dépôt ne contient pour l'instant que trois lignes. Je les garde ici telles quelles :",
         "ja": "リポジトリの実際のアイデアファイルには、今のところ 3 行しかありません。そのままここに載せています。"
     },
-    "ideas.board.li.1": { "fr": "Ajouter une version japonaise du code dans un dossier <code>japanese</code>.", "ja": "コードの日本語版を <code>japanese</code> フォルダに追加する。" },
-    "ideas.board.li.2": { "fr": "Ajouter le support de macOS.", "ja": "macOS をサポートする。" },
+    "ideas.board.li.1": { "fr": "<del>Ajouter une version japonaise du code dans un dossier <code>japanese</code>.</del> — fait ✓", "ja": "<del>コードの日本語版を <code>japanese</code> フォルダに追加する。</del> — 完了 ✓" },
+    "ideas.board.li.2": { "fr": "<del>Ajouter le support de macOS.</del> — fait ✓", "ja": "<del>macOS をサポートする。</del> — 完了 ✓" },
     "ideas.board.li.3": { "fr": "Créer son propre algorithme de chiffrement.", "ja": "独自の暗号化アルゴリズムを作成する。" },
     "ideas.cta.title": { "fr": "Une idée qui traîne ?", "ja": "アイデアはありますか？" },
     "ideas.cta.text": {

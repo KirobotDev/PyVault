@@ -1,0 +1,38 @@
+[build-system]
+requires = ["setuptools>=77"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "pyvault"
+version = "0.2.0-dev"
+description = "A local password and secrets manager written in Python."
+readme = "README.md"
+requires-python = ">=3.11"
+license = "MIT"
+authors = [
+    { name = "xql" },
+]
+keywords = ["password-manager", "security", "fernet", "cryptography", "cli"]
+classifiers = [
+    "Development Status :: 3 - Alpha",
+    "Environment :: Console",
+    "Intended Audience :: Developers",
+    "Operating System :: OS Independent",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
+    "Topic :: Security :: Cryptography",
+]
+dependencies = [
+    "cryptography",
+]
+
+[project.scripts]
+pyvault = "main:main"
+
+[tool.setuptools]
+py-modules = ["main", "system_info", "dpapi_utils"]
+
+[tool.setuptools.packages.find]
+include = ["commands*", "tests*", "japanese*"]

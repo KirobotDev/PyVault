@@ -139,7 +139,7 @@
                     </article>
                     <article class="card">
                         <h3 data-i18n="card.2.title">🔐 Ajouter un mot de passe</h3>
-                        <p data-i18n="card.2.text">Le mot de passe est chiffré puis rangé dans son propre fichier, par exemple <code>secret/github.txt</code>.</p>
+                        <p data-i18n="card.2.text">Le mot de passe est chiffré puis rangé dans la base SQLite (<code>secret/passwords.db</code>), associé à son site.</p>
                     </article>
                     <article class="card">
                         <h3 data-i18n="card.3.title">🔓 Déchiffrer</h3>
@@ -164,7 +164,7 @@
                         <span></span><span></span><span></span>
                         <code>python main.py</code>
                     </div>
-                    <pre class="cli-demo-body" data-i18n="cli.demo">S. [Stars Project]      0. [Generate Key (Obliged)]     Q. [Leave]
+                    <pre class="cli-demo-body" data-i18n="cli.demo">S. [Stars Project]       Q. [Leave]
 
         1. [Add Password]   4. [Export (Zipfiles)]
         2. [List Pswd]      5. [Delete Passwd]
@@ -226,7 +226,7 @@
                     <ul>
                         <li data-i18n="r.feats.1">🔑 Generate Fernet encryption keys</li>
                         <li data-i18n="r.feats.2">🔐 Encrypt and store passwords using Fernet</li>
-                        <li data-i18n="r.feats.3">💾 Store each password in a dedicated file per website</li>
+                        <li data-i18n="r.feats.3">💾 Encrypt passwords with Fernet and store them in a <strong>SQLite database</strong> (<code>secret/passwords.db</code>)</li>
                         <li data-i18n="r.feats.4">🔓 Decrypt and retrieve stored passwords</li>
                         <li data-i18n="r.feats.5">📋 List all saved entries</li>
                         <li data-i18n="r.feats.6">🔎 Search stored passwords</li>
@@ -239,11 +239,11 @@
                         <li data-i18n="r.feats.13">🔐 Interactive browser terminal reproducing the CLI</li>
                         <li data-i18n="r.feats.14">🔒 Fernet re-implemented in JavaScript (Web Crypto API)</li>
                         <li data-i18n="r.feats.15">🌍 Bilingual FR / JA website (i18n)</li>
+                        <li data-i18n="r.feats.16">🛡️ On Windows, protect the key on-disk with DPAPI instead of storing it in plain text</li>
                     </ul>
 
                     <h4 data-i18n="r.features.planned">Planned</h4>
                     <ul>
-                        <li data-i18n="r.planned.1">🗄️ SQLite database</li>
                         <li data-i18n="r.planned.2">🔑 Master password</li>
                         <li data-i18n="r.planned.3">🔒 Vault locking</li>
                         <li data-i18n="r.planned.4">🌐 Local API</li>
@@ -286,6 +286,8 @@ flowchart TD
 
     CLI["🖥️ CLI<br/>CURRENT"]
 
+    WebTool["🖥️ Web Tool (docs/)<br/>CURRENT"]
+
     GenerateKey["🔑 Generate Key<br/>CURRENT"]
 
     AddPassword["🔐 Add Password<br/>CURRENT"]
@@ -296,9 +298,13 @@ flowchart TD
 
     Fernet["🔒 Fernet Encryption<br/>CURRENT"]
 
-    KeyFile["📄 key.txt<br/>CURRENT"]
+    JsFernet["🔒 Fernet in JS (fernet.js)<br/>CURRENT"]
 
-    SecretFolder["📁 secret/<br/>CURRENT"]
+    KeyFile["📄 key.txt (DPAPI on Windows)<br/>CURRENT"]
+
+    Database["🗄️ SQLite (secret/passwords.db)<br/>CURRENT"]
+
+    DPAPI["🛡️ DPAPI Key Protection (win32)<br/>CURRENT"]
 
     Search["🔎 Search Passwords<br/>CURRENT"]
 
@@ -310,11 +316,11 @@ flowchart TD
 
     Benchmark["📊 Benchmark<br/>CURRENT"]
 
+    I18n["🌍 FR / JA i18n<br/>CURRENT"]
+
     MasterPassword["🔑 Master Password<br/>PLANNED"]
 
     Vault["🔐 Vault System<br/>PLANNED"]
-
-    SQLite["🗄️ SQLite Database<br/>PLANNED"]
 
     API["🌐 Local API<br/>PLANNED"]
 
@@ -325,6 +331,7 @@ flowchart TD
     User --> PyVault
 
     PyVault --> CLI
+    PyVault --> WebTool
 
     CLI --> GenerateKey
     CLI --> AddPassword
@@ -333,22 +340,28 @@ flowchart TD
 
     GenerateKey --> Fernet
     GenerateKey --> KeyFile
+    GenerateKey --> DPAPI
 
     AddPassword --> Fernet
-    Fernet --> SecretFolder
+    Fernet --> Database
 
-    DecryptPassword --> SecretFolder
-    ListPasswords --> SecretFolder
+    DecryptPassword --> Database
+    ListPasswords --> Database
 
     CLI --> Search
     CLI --> Delete
     CLI --> Export
 
-    Search -.-> SQLite
-    Delete -.-> SQLite
+    WebTool --> GenerateKey
+    WebTool --> AddPassword
+    WebTool --> ListPasswords
+    WebTool --> DecryptPassword
+
+    WebTool --> JsFernet
+    JsFernet --> I18n
 
     MasterPassword -.-> Vault
-    Vault -.-> SQLite
+    Vault -.-> Database
 
     API -.-> FastAPI
     FastAPI -.-> Vault
@@ -367,6 +380,8 @@ flowchart TD
 
     CLI["🖥️ CLI<br/>現在"]
 
+    WebTool["🖥️ ウェブツール（docs/）<br/>現在"]
+
     GenerateKey["🔑 鍵生成<br/>現在"]
 
     AddPassword["🔐 パスワード追加<br/>現在"]
@@ -377,9 +392,13 @@ flowchart TD
 
     Fernet["🔒 Fernet 暗号化<br/>現在"]
 
-    KeyFile["📄 key.txt<br/>現在"]
+    JsFernet["🔒 JavaScript 版 Fernet（fernet.js）<br/>現在"]
 
-    SecretFolder["📁 secret/<br/>現在"]
+    KeyFile["📄 key.txt（Windows では DPAPI）<br/>現在"]
+
+    Database["🗄️ SQLite（secret/passwords.db）<br/>現在"]
+
+    DPAPI["🛡️ DPAPI キー保護（win32）<br/>現在"]
 
     Search["🔎 パスワード検索<br/>現在"]
 
@@ -391,11 +410,11 @@ flowchart TD
 
     Benchmark["📊 ベンチマーク<br/>現在"]
 
+    I18n["🌍 FR / JA i18n<br/>現在"]
+
     MasterPassword["🔑 マスターパスワード<br/>予定"]
 
     Vault["🔐 ボールトシステム<br/>予定"]
-
-    SQLite["🗄️ SQLite データベース<br/>予定"]
 
     API["🌐 ローカル API<br/>予定"]
 
@@ -406,6 +425,7 @@ flowchart TD
     User --> PyVault
 
     PyVault --> CLI
+    PyVault --> WebTool
 
     CLI --> GenerateKey
     CLI --> AddPassword
@@ -414,22 +434,28 @@ flowchart TD
 
     GenerateKey --> Fernet
     GenerateKey --> KeyFile
+    GenerateKey --> DPAPI
 
     AddPassword --> Fernet
-    Fernet --> SecretFolder
+    Fernet --> Database
 
-    DecryptPassword --> SecretFolder
-    ListPasswords --> SecretFolder
+    DecryptPassword --> Database
+    ListPasswords --> Database
 
     CLI --> Search
     CLI --> Delete
     CLI --> Export
 
-    Search -.-> SQLite
-    Delete -.-> SQLite
+    WebTool --> GenerateKey
+    WebTool --> AddPassword
+    WebTool --> ListPasswords
+    WebTool --> DecryptPassword
+
+    WebTool --> JsFernet
+    JsFernet --> I18n
 
     MasterPassword -.-> Vault
-    Vault -.-> SQLite
+    Vault -.-> Database
 
     API -.-> FastAPI
     FastAPI -.-> Vault
@@ -457,19 +483,28 @@ flowchart TD
 │   ├── list.py
 │   └── search.py
 │
-├── secret/               ← stores encrypted password files
+├── docs/                 ← static website (GitHub Pages)
+│   └── static/js/
+│       ├── fernet.js
+│       ├── tool.js
+│       ├── main.js
+│       └── i18n.js
 │
-├── tests/                ← unit tests
+├── secret/
+│   └── passwords.db      ← SQLite database
+│
+├── tests/
+│   ├── benchmark.ipynb   ← Jupyter benchmark
+│   └── test_system_info.py
 │
 ├── images/
-│   └── benchmark.png     ← encryption/decryption benchmark
+│   └── new_benchmark.png ← encryption/decryption benchmark
 │
-├── notebooks/
-│   └── benchmark.ipynb   ← Jupyter benchmark
-│
+├── dpapi_utils.py
 ├── main.py
 ├── system_info.py
-├── key.txt
+├── key.txt               ← protected Fernet key
+├── SECURITY.md
 ├── .gitignore
 ├── LICENSE
 └── README.md
@@ -498,19 +533,17 @@ flowchart TD
 encrypted = fernet.encrypt(passwd.encode())
                     </code></pre>
 
-                    <p data-i18n="r.encryption.then">The encrypted password is then stored in a dedicated file inside the <code>secret/</code> folder, one file per website:</p>
+                    <p data-i18n="r.encryption.then">The encrypted password is then inserted into the <code>passwords</code> table of the SQLite database:</p>
 
-<pre><code>secret/
-
-└── github.txt
+<pre><code>secret/passwords.db
                     </code></pre>
 
-                    <p data-i18n="r.encryption.example">Example content of <code>secret/github.txt</code>:</p>
+                    <p data-i18n="r.encryption.example">Example of the SQLite database used for storage:</p>
 
-<pre><code>gAAAAAB...
+<pre><code>passwords (id, website, password)
                     </code></pre>
 
-                    <p data-i18n="r.encryption.notdirect">The password itself is <strong>not stored directly</strong> in the file.</p>
+                    <p data-i18n="r.encryption.notdirect">The password itself is <strong>not stored in plain text</strong>.</p>
 
                     <p data-i18n="r.encryption.js">The browser-side terminal re-implements the same Fernet scheme in JavaScript (<code>docs/static/js/fernet.js</code>) using the <strong>Web Crypto API</strong> (AES-CBC + HMAC-SHA256). Because it follows the Fernet token format, tokens created in the browser are compatible with the Python CLI and the other way around.</p>
 
@@ -527,7 +560,7 @@ encrypted = fernet.encrypt(passwd.encode())
                     <p data-i18n="r.benchmark.3">The results are visualized in the following graph:</p>
 
                     <figure>
-                        <img src="../images/benchmark.png" alt="Graphique du benchmark de chiffrement et déchiffrement PyVault">
+                        <img src="../images/new_benchmark.png" alt="Graphique du benchmark de chiffrement et déchiffrement PyVault">
                         <figcaption data-i18n="r.benchmark.fig">PyVault Encryption / Decryption Benchmark</figcaption>
                     </figure>
 
@@ -535,7 +568,7 @@ encrypted = fernet.encrypt(passwd.encode())
 
                     <p data-i18n="r.benchmark.5">The benchmark notebook is located at:</p>
 
-                    <pre><code>notebooks/benchmark.ipynb
+                    <pre><code>tests/benchmark.ipynb
                     </code></pre>
 
                     <p data-i18n="r.benchmark.6">It can be used to experiment with PyVault's encryption system and compare future implementations.</p>
@@ -597,7 +630,7 @@ source .venv/bin/activate
 
                     <p data-i18n="r.usage.2">You will see:</p>
 
-<pre><code data-i18n="r.usage.menu">S. [Stars Project]      0. [Generate Key (Obliged)] Q. [Leave]
+<pre><code data-i18n="r.usage.menu">S. [Stars Project]       Q. [Leave]
 
         1. [Add Password]   4. [Export (Zipfiles)]
         2. [List Pswd]      5. [Delete Passwd]
@@ -608,12 +641,7 @@ source .venv/bin/activate
 
                     <h4 data-i18n="r.usage.genkey">Generate a key</h4>
 
-                    <p data-i18n="r.usage.choose">Choose:</p>
-
-<pre><code>0
-                    </code></pre>
-
-                    <p data-i18n="r.usage.genkey.1">PyVault will generate a Fernet key and save it to:</p>
+                    <p data-i18n="r.usage.genkey.1">On startup, PyVault automatically creates a Fernet key (if <code>key.txt</code> doesn't exist yet) and saves it to:</p>
 
 <pre><code>key.txt
                     </code></pre>
@@ -622,16 +650,14 @@ source .venv/bin/activate
 
                     <p data-i18n="r.usage.add.1">PyVault will ask for:</p>
 
-<pre><code data-i18n="r.usage.add.prompts">Enter your key please thanks... :
+<pre><code data-i18n="r.usage.add.prompts">Enter the name of your website (e.g. github):
 
-Enter name your website Example (github) :
-
-Enter your password :
+Enter your password:
                     </code></pre>
 
-                    <p data-i18n="r.usage.add.2">The password will be encrypted and stored in:</p>
+                    <p data-i18n="r.usage.add.2">The password will be encrypted and stored in the SQLite database:</p>
 
-<pre><code>secret/&lt;website&gt;.txt
+<pre><code>secret/passwords.db
                     </code></pre>
 
                     <h4 data-i18n="r.usage.list">List saved entries</h4>
@@ -641,14 +667,13 @@ Enter your password :
 <pre><code>2
                     </code></pre>
 
-                    <p data-i18n="r.usage.list.1">PyVault will display all files stored in the <code>secret/</code> folder, one per website.</p>
+                    <p data-i18n="r.usage.list.1">PyVault will display every website stored in the SQLite database (<code>secret/passwords.db</code>).</p>
 
                     <h4 data-i18n="r.usage.decrypt">Decrypt a password</h4>
 
                     <p data-i18n="r.usage.decrypt.1">PyVault will ask for:</p>
 
-<pre><code data-i18n="r.usage.decrypt.prompts">Enter your key :
-Enter the file name example (github.txt) :
+<pre><code data-i18n="r.usage.decrypt.prompts">Enter the name of the website:
                     </code></pre>
 
                     <p data-i18n="r.usage.decrypt.2">It will then display:</p>
@@ -703,7 +728,7 @@ help / clear
 
                     <p data-i18n="r.benchrun.4">Then open:</p>
 
-<pre><code>notebooks/benchmark.ipynb
+<pre><code>tests/benchmark.ipynb
                     </code></pre>
 
                     <p data-i18n="r.benchrun.5">The benchmark measures:</p>
@@ -726,7 +751,7 @@ help / clear
                         <li><input type="checkbox" checked disabled> <span data-i18n="r.rm.p1t1">Generate Fernet key</span></li>
                         <li><input type="checkbox" checked disabled> <span data-i18n="r.rm.p1t2">Save key locally</span></li>
                         <li><input type="checkbox" checked disabled> <span data-i18n="r.rm.p1t3">Encrypt passwords</span></li>
-                        <li><input type="checkbox" checked disabled> <span data-i18n="r.rm.p1t4">Save encrypted passwords (one file per website in <code>secret/</code>)</span></li>
+                        <li><input type="checkbox" checked disabled> <span data-i18n="r.rm.p1t4">Store encrypted passwords in the database (<code>secret/passwords.db</code>)</span></li>
                         <li><input type="checkbox" checked disabled> <span data-i18n="r.rm.p1t5">Store website information</span></li>
                         <li><input type="checkbox" checked disabled> <span data-i18n="r.rm.p1t6">Basic CLI</span></li>
                         <li><input type="checkbox" checked disabled> <span data-i18n="r.rm.p1t7">Decrypt passwords</span></li>
@@ -742,13 +767,14 @@ help / clear
                         <li><input type="checkbox" checked disabled> <span data-i18n="r.rm.p2w">Web tool in the browser (<code>docs/</code>)</span></li>
                         <li><input type="checkbox" checked disabled> <span data-i18n="r.rm.p2js">Fernet re-implemented in JavaScript (Web Crypto)</span></li>
                         <li><input type="checkbox" checked disabled> <span data-i18n="r.rm.p2i18n">Bilingual FR / JA website (i18n)</span></li>
-                        <li><input type="checkbox" disabled> <span data-i18n="r.rm.p2t4">Load existing key automatically</span></li>
-                        <li><input type="checkbox" disabled> <span data-i18n="r.rm.p2t5">Better data structure</span></li>
+                        <li><input type="checkbox" checked disabled> <span data-i18n="r.rm.p2t4">Load existing key automatically</span></li>
+                        <li><input type="checkbox" checked disabled> <span data-i18n="r.rm.p2t5">Better data structure</span></li>
                     </ul>
 
                     <h4 data-i18n="r.roadmap.p3">Phase 3 — Security</h4>
 
                     <ul class="task">
+                        <li><input type="checkbox" checked disabled> <span data-i18n="r.rm.p3dpapi">DPAPI key protection on Windows</span></li>
                         <li><input type="checkbox" disabled> <span data-i18n="r.rm.p3t1">Master password</span></li>
                         <li><input type="checkbox" disabled> <span data-i18n="r.rm.p3t2">Better key management</span></li>
                         <li><input type="checkbox" disabled> <span data-i18n="r.rm.p3t3">Vault locking</span></li>
@@ -761,10 +787,11 @@ help / clear
                     <h4 data-i18n="r.roadmap.p4">Phase 4 — Database</h4>
 
                     <ul class="task">
-                        <li><input type="checkbox" disabled> <span data-i18n="r.rm.p4t1">SQLite</span></li>
-                        <li><input type="checkbox" disabled> <span data-i18n="r.rm.p4t2">Database models</span></li>
-                        <li><input type="checkbox" disabled> <span data-i18n="r.rm.p4t3">Encrypted database fields</span></li>
-                        <li><input type="checkbox" disabled> <span data-i18n="r.rm.p4t4">Data validation</span></li>
+                        <li><input type="checkbox" checked disabled> <span data-i18n="r.rm.p4t1">SQLite</span></li>
+                        <li><input type="checkbox" checked disabled> <span data-i18n="r.rm.p4t2">Database models</span></li>
+                        <li><input type="checkbox" checked disabled> <span data-i18n="r.rm.p4t3">Encrypted database fields</span></li>
+                        <li><input type="checkbox" checked disabled> <span data-i18n="r.rm.p4t4">Data validation</span></li>
+                        <li><input type="checkbox" checked disabled> <span data-i18n="r.rm.p4migrate">Migrate <code>search</code> and <code>delete</code> to the database</span></li>
                         <li><input type="checkbox" disabled> <span data-i18n="r.rm.p4t5">Database migrations</span></li>
                     </ul>
 
@@ -789,7 +816,7 @@ help / clear
                     <h4 data-i18n="r.roadmap.p7">Phase 7 — Open Source</h4>
 
                     <ul class="task">
-                        <li><input type="checkbox" disabled> <span data-i18n="r.rm.p7t1">Complete documentation</span></li>
+                        <li><input type="checkbox" checked disabled> <span data-i18n="r.rm.p7t1">Complete documentation</span></li>
                         <li><input type="checkbox" checked disabled> <span data-i18n="r.rm.p7t2">Automated tests</span></li>
                         <li><input type="checkbox" checked disabled> <span data-i18n="r.rm.p7pages">GitHub Pages deployment (CI/CD)</span></li>
                         <li><input type="checkbox" disabled> <span data-i18n="r.rm.p7t4">Security review</span></li>
@@ -956,15 +983,15 @@ Final application
                 <div class="idea-columns">
 
                     <article class="idea">
-                        <div class="idea-top"><span class="pill">Phase 2</span><span class="idea-state" data-i18n="idea.state.wait">en attente</span></div>
+                        <div class="idea-top"><span class="pill">Phase 2</span><span class="idea-state" data-i18n="idea.state.done">fait ✓</span></div>
                         <h3 data-i18n="idea.a1.t">Charger la clé automatiquement</h3>
-                        <p data-i18n="idea.a1.d">Aujourd'hui il faut taper la clé à chaque commande. Ce serait mieux que le programme retrouve tout seul <code>key.txt</code> au démarrage.</p>
+                        <p data-i18n="idea.a1.d">✔️ Terminé : au démarrage, PyVault charge <code>key.txt</code> tout seul (et le crée s'il n'existe pas). Tu n'as plus jamais à taper la clé à la main.</p>
                     </article>
 
                     <article class="idea">
-                        <div class="idea-top"><span class="pill">Phase 2</span><span class="idea-state" data-i18n="idea.state.wait">en attente</span></div>
+                        <div class="idea-top"><span class="pill">Phase 2</span><span class="idea-state" data-i18n="idea.state.done">fait ✓</span></div>
                         <h3 data-i18n="idea.a2.t">Une vraie structure de données</h3>
-                        <p data-i18n="idea.a2.d">Les fichiers par site, ça marche, mais ça ne tient pas la route longtemps. Il faut penser à un format plus propre avec des métadonnées.</p>
+                        <p data-i18n="idea.a2.d">✔️ Terminé : les fichiers par site ont laissé la place à une base SQLite (<code>secret/passwords.db</code>), avec des entrées identifiées et dédupliquées.</p>
                     </article>
 
                     <article class="idea">
@@ -992,9 +1019,9 @@ Final application
                     </article>
 
                     <article class="idea">
-                        <div class="idea-top"><span class="pill">Phase 4</span><span class="idea-state" data-i18n="idea.state.wait">en attente</span></div>
+                        <div class="idea-top"><span class="pill">Phase 4</span><span class="idea-state" data-i18n="idea.state.done">fait ✓</span></div>
                         <h3 data-i18n="idea.a7.t">Passer à SQLite</h3>
-                        <p data-i18n="idea.a7.d">Une vraie base pour remplacer le système de fichiers : modèles, champs chiffrés, validation et migrations.</p>
+                        <p data-i18n="idea.a7.d">✔️ Terminé : la base <code>secret/passwords.db</code> a remplacé le système de fichiers. Ajout, liste, déchiffrement, recherche et suppression passent tous par SQLite. Il reste les migrations.</p>
                     </article>
 
                     <article class="idea">
@@ -1023,8 +1050,8 @@ Final application
                     <p class="idea-board-note" data-i18n="ideas.board.note">Le vrai fichier d'idées du dépôt ne contient pour l'instant que trois lignes. Je les garde ici telles quelles :</p>
 
                     <ul>
-                        <li data-i18n="ideas.board.li.1">Ajouter une version japonaise du code dans un dossier <code>japanese</code>.</li>
-                        <li data-i18n="ideas.board.li.2">Ajouter le support de macOS.</li>
+                        <li data-i18n="ideas.board.li.1"><del>Ajouter une version japonaise du code dans un dossier <code>japanese</code>.</del> — fait ✓</li>
+                        <li data-i18n="ideas.board.li.2"><del>Ajouter le support de macOS.</del> — fait ✓</li>
                         <li data-i18n="ideas.board.li.3">Créer son propre algorithme de chiffrement.</li>
                     </ul>
                 </div>
