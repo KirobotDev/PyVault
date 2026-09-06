@@ -220,6 +220,7 @@ PyVault/
 ├── main.py
 ├── system_info.py
 ├── key.txt               ← protected Fernet key
+├── pyproject.toml        ← packaging metadata (CLI entry point `pyvault`)
 ├── SECURITY.md
 ├── .gitignore
 ├── LICENSE
@@ -319,6 +320,14 @@ Install dependencies:
 ```bash
 pip install -r requirements.txt
 ```
+
+Or install the project itself (editable) with:
+
+```bash
+pip install -e .
+```
+
+This installs the `pyvault` CLI command and wires up `cryptography` from the metadata declared in [`pyproject.toml`](pyproject.toml).
 
 ---
 

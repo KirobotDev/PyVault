@@ -35,24 +35,30 @@ from system_info import sys
 """
 
 
-def decrypt() -> str | int | bool:
+def decrypt() -> list[str]:
     sys()
     key = "Hli06nYKVJ2jVTIfgOko9RCgpRv6h1KsJpQGKlUJ_14="
     cipher = Fernet(key)
     sys()
     name = "test_unitary.txt"
     sys()
+    results = []
     try:
-        with open(f"./test_unitary/{name}", "rb") as file:
-            content = file.read()
-
-        decrypt_passwd = cipher.decrypt(content)
-        print(f"Your Password is [ {decrypt_passwd.decode()} ]")
+        with open(f"./test_unitary/{name}", "r", encoding="utf-8") as file:
+            for line in file:
+                token = line.strip()
+                if not token:
+                    continue
+                try:
+                    decrypt_passwd = cipher.decrypt(token.encode())
+                    results.append(decrypt_passwd.decode())
+                except Exception as e:
+                    print(f"Error {e}")
         sys()
-        return decrypt_passwd.decode()
-    except Exception as e:
-        print(f"Error {e}")
-        return ""
+        return results
+    except FileNotFoundError:
+        print(f"File not found: ./test_unitary/{name}")
+        return []
 
 if __name__ == "__main__":
     decrypt()

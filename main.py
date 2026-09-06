@@ -23,7 +23,6 @@ SOFTWARE.
 
 """
 
-import time
 import webbrowser
 from cryptography.fernet import Fernet
 

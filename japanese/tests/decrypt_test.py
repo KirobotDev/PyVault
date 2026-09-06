@@ -35,24 +35,30 @@ from system_info import 画面クリア
 """
 
 
-def 復号化() -> str | int | bool:
+def 復号化() -> list[str]:
     画面クリア()
     鍵 = "Hli06nYKVJ2jVTIfgOko9RCgpRv6h1KsJpQGKlUJ_14="
     暗号器 = Fernet(鍵)
     画面クリア()
     ファイル名 = "test_unitary.txt"
     画面クリア()
+    結果 = []
     try:
-        with open(f"./test_unitary/{ファイル名}", "rb") as ファイル:
-            内容 = ファイル.read()
-
-        復号パスワード = 暗号器.decrypt(内容)
-        print(f"あなたのパスワードは [ {復号パスワード.decode()} ] です")
+        with open(f"./test_unitary/{ファイル名}", "r", encoding="utf-8") as ファイル:
+            for 行 in ファイル:
+                トークン = 行.strip()
+                if not トークン:
+                    continue
+                try:
+                    復号パスワード = 暗号器.decrypt(トークン.encode())
+                    結果.append(復号パスワード.decode())
+                except Exception as 例外:
+                    print(f"エラー {例外}")
         画面クリア()
-        return 復号パスワード.decode()
-    except Exception as 例外:
-        print(f"エラー {例外}")
-        return ""
+        return 結果
+    except FileNotFoundError:
+        print(f"ファイルが見つかりません: ./test_unitary/{ファイル名}")
+        return []
 
 if __name__ == "__main__":
     復号化()
