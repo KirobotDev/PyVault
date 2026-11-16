@@ -66,17 +66,17 @@ def main() -> str | int:
 
     while True:
         cli = input("""
-        ▄▄▄▄▄▄     ▄▄▄                 ▄▄     
-       █▀██▀▀▀█▄  █▀██  ██▀▀           ██ █▄ 
+        ▄▄▄▄▄▄     ▄▄▄                 ▄▄
+       █▀██▀▀▀█▄  █▀██  ██▀▀           ██ █▄
          ██▄▄▄█▀    ██  ██             ██▄██▄
-         ██▀▀▀██ ██ ██  ██ ▄▀▀█▄ ██ ██ ██ ██ 
-       ▄ ██   ██▄██ ██▄ ██ ▄█▀██ ██ ██ ██ ██ 
-       ▀██▀  ▄▄▀██▀  ▀███▀▄▀█▄██▄▀██▀█▄██▄██ 
-                ██                           
-                ▀▀▀           
+         ██▀▀▀██ ██ ██  ██ ▄▀▀█▄ ██ ██ ██ ██
+       ▄ ██   ██▄██ ██▄ ██ ▄█▀██ ██ ██ ██ ██
+       ▀██▀  ▄▄▀██▀  ▀███▀▄▀█▄██▄▀██▀█▄██▄██
+                ██
+                ▀▀▀
 
 S. [Stars Project]                              Q. [Leave]
-        
+
         1. [Add Password]       4. [Export (Zipfiles)]
         2. [List Password]      5. [Delete Password]
         3. [Decrypt Password]   6. [Search Website]
@@ -85,46 +85,47 @@ S. [Stars Project]                              Q. [Leave]
         sys()
 
 
-        if cli == "1":
-            add_passwd()
-            enter_for_ecape()
-            sys()
-            
-        elif cli == "2":
-            list()
-            enter_for_ecape()
-            sys()
+        match cli:
+            case "1":
+                add_passwd()
+                enter_for_ecape()
+                sys()
 
-        elif cli == "3":
-            decrypt()
-            enter_for_ecape()
-            sys()
+            case "2":
+                list()
+                enter_for_ecape()
+                sys()
 
-        elif cli == "4":
-            export()
-            enter_for_ecape()
-            sys()
+            case "3":
+                decrypt()
+                enter_for_ecape()
+                sys()
 
-        elif cli == "5":
-            delete()
-            enter_for_ecape()
-            sys()
+            case "4":
+                export()
+                enter_for_ecape()
+                sys()
 
-        elif cli == "6":
-            search()
-            enter_for_ecape()
-            sys()
+            case "5":
+                delete()
+                enter_for_ecape()
+                sys()
 
-        elif cli.lower() == "s":
-            webbrowser.open_new_tab("https://github.com/KirobotDev/PyVault")
-            sys()
+            case "6":
+                search()
+                enter_for_ecape()
+                sys()
 
-        elif cli.lower() == "q":
-            break
+            case "s" | "S":
+                webbrowser.open_new_tab("https://github.com/KirobotDev/PyVault")
+                sys()
 
-        else:
-            print("Invalid choice. Check the code on https://github.com/KirobotDev/PyVault, or suggest a change at https://github.com/KirobotDev/PyVault/issues.")
-            enter_for_ecape()
+            case "q" | "Q":
+                break
+
+            case _:
+                print("Invalid choice. Check the code on https://github.com/KirobotDev/PyVault, or suggest a change at https://github.com/KirobotDev/PyVault/issues.")
+                enter_for_ecape()
 
 if __name__ == "__main__":
     main()
